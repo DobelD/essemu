@@ -1,13 +1,12 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../../data/categories.dart';
+import '../../../provider/endpoint.dart';
 
 class MenuService {
-  SupabaseClient client = Supabase.instance.client;
+  Endpoint endpoint = Endpoint();
+
   Future<List<Menu>> getDataById(int id) async {
     try {
-      final response =
-          await client.from('menu').select('category_id').eq('category_id', id);
+      final response = await endpoint.getMenuById(id);
       final List<Menu> menu = [];
       for (var data in response) {
         final ctg = Menu.fromJson(data);
@@ -21,7 +20,7 @@ class MenuService {
 
   Future<List<Menu>> getData() async {
     try {
-      final response = await client.from('menu').select('*');
+      final response = await endpoint.getMenu();
       final List<Menu> menu = [];
       for (var data in response) {
         final ctg = Menu.fromJson(data);

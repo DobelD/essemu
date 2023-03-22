@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/utils/initialize/supabase_initialize.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
-    url: 'https://yccxlnodtgrnbcfdjqcg.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljY3hsbm9kdGdybmJjZmRqcWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzczMDg1MTgsImV4cCI6MTk5Mjg4NDUxOH0.-NHr0UdUhoSZPOhXfEO6uYiUmsWpuYCXpYQrdzZppbs',
+    url: Initial.url,
+    anonKey: Initial.key,
   );
   WidgetsFlutterBinding.ensureInitialized();
   runApp(

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../components/connection/no_internet.dart';
 import '../../../components/spacer/sliver_spacer.dart';
-import '../../../data/categories.dart';
 import '../controllers/home_controller.dart';
 import 'section/category.dart';
-import 'section/footer.dart';
 import 'section/heading.dart';
 import 'section/location.dart';
 import 'section/menu.dart';
@@ -18,34 +17,28 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
-
     return GetBuilder<HomeController>(builder: (c) {
-      List<Categories> _category = c.category;
-      List<Menu> _menu = c.menu;
       return Scaffold(
           body: RefreshIndicator(
-        onRefresh: () async {
-          controller.getCategory();
-        },
-        child: CustomScrollView(
-          slivers: [
-            SliverSpacerV(hight: 40),
-            HeadingSection(isLoading: c.loading),
-            SliverSpacerV(hight: 18),
-            LocationSection(isLoading: c.loading),
-            SliverSpacerV(hight: 18),
-            SearchSection(isLoading: c.loading),
-            SliverSpacerP(),
-            CategorySection(
-              isLoading: c.loading,
-              category: _category,
-              c: c,
-            ),
-            MenuSection(isLoading: c.loading, menu: _menu),
-            FooterSection()
-          ],
-        ),
-      ));
+              onRefresh: () async {
+                controller.getCategory();
+              },
+              child: c.isOnline
+                  ? CustomScrollView(
+                      slivers: [
+                        SliverSpacerV(hight: 40),
+                        HeadingSection(),
+                        SliverSpacerV(hight: 18),
+                        LocationSection(),
+                        SliverSpacerV(hight: 18),
+                        SearchSection(),
+                        SliverSpacerP(),
+                        CategorySection(),
+                        MenuSection(),
+                        // FooterSection()
+                      ],
+                    )
+                  : Offline()));
     });
   }
 }

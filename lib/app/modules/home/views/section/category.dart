@@ -1,11 +1,11 @@
 import 'package:essemu/app/components/label_action/label_action.dart';
+import 'package:essemu/app/utils/label/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 import '../../../../components/bottom_sheet/bottom_sheet.dart';
-import '../../../../data/categories.dart';
 import '../../../../themes/colors/colors.dart';
 import '../../../../themes/typograpy/typo.dart';
 import '../../controllers/home_controller.dart';
@@ -13,42 +13,30 @@ import '../widget/item_category.dart';
 import '../widget/shimmer/category.dart';
 
 class CategorySection extends StatelessWidget {
-  const CategorySection(
-      {super.key, this.isLoading = true, this.category, this.c});
-  final bool isLoading;
-  final List<Categories>? category;
-  final HomeController? c;
+  const CategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-        pinned: true,
-        delegate:
-            MyHeaderDelegate(isLoading: isLoading, category: category, c: c));
+    return SliverPersistentHeader(pinned: true, delegate: MyHeaderDelegate());
   }
 }
 
 class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
-  const MyHeaderDelegate({this.isLoading = true, this.category, this.c});
-
-  final bool isLoading;
-  final List<Categories>? category;
-  final HomeController? c;
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return GetBuilder<HomeController>(builder: (ctx) {
+    return GetBuilder<HomeController>(builder: (c) {
       return Container(
         color: kMainBackground,
-        child: ctx.loading
+        child: c.loading
             ? CategoryLoading()
             : Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: LabelAction(
-                        label: shrinkOffset > 22 ? '' : 'Category',
-                        labelAction: shrinkOffset > 22 ? '' : 'See All',
+                        label: shrinkOffset > 22 ? '' : S.categoryLabel,
+                        labelAction: shrinkOffset > 22 ? '' : S.seeAll,
                         onTap: () async {
                           showSlidingBottomSheet(
                             context,
@@ -65,10 +53,10 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 builder: (context, state) {
                                   return BSheet(
                                       isLabel: true,
-                                      label: 'All Category',
+                                      label: S.allCategory,
                                       child: ItemCategory(
-                                          isLoading: isLoading,
-                                          category: category));
+                                          isLoading: c.loading,
+                                          category: c.category));
                                 },
                               );
                             },
@@ -87,7 +75,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                               height: 36.h,
                               child: InkWell(
                                 onTap: () {
-                                  c?.selectedCategory(99, 0);
+                                  c.selectedCategory(99, 0);
                                 },
                                 child: Container(
                                   padding:
@@ -95,12 +83,12 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                   height: 36.w,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.r),
-                                      color: c?.selected == 99
+                                      color: c.selected == 99
                                           ? kMainDark
                                           : kSofterGrey),
                                   child: Center(
                                       child: Text(
-                                    "All",
+                                    S.all,
                                     style: AppTextTheme.current.bodyTextWhite,
                                   )),
                                 ),
@@ -114,10 +102,10 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
                               itemBuilder: (_, index) {
-                                final data = category?[index];
+                                final data = c.category[index];
                                 return InkWell(
                                   onTap: () {
-                                    c?.selectedCategory(index, data!.id!);
+                                    c.selectedCategory(index, data.id!);
                                   },
                                   child: Container(
                                     padding:
@@ -126,12 +114,12 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
-                                        color: c?.selected == index
+                                        color: c.selected == index
                                             ? kMainDark
                                             : kSofterGrey),
                                     child: Center(
                                         child: Text(
-                                      "${data?.name ?? '-'}",
+                                      "${data.name ?? '-'}",
                                       style: AppTextTheme.current.bodyTextWhite,
                                     )),
                                   ),
@@ -139,7 +127,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                               },
                               separatorBuilder: (__, i) =>
                                   SizedBox(width: 12.w),
-                              itemCount: category!.length),
+                              itemCount: c.category.length),
                         ),
                       ],
                     ),

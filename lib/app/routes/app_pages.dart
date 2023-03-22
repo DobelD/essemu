@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_menu/bindings/add_menu_binding.dart';
+import '../modules/add_menu/views/add_menu_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
@@ -8,8 +10,6 @@ import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/homes/bindings/homes_binding.dart';
-import '../modules/homes/views/homes_view.dart';
 import '../modules/main_admin/bindings/main_admin_binding.dart';
 import '../modules/main_admin/views/main_admin_view.dart';
 import '../modules/main_pages/bindings/main_pages_binding.dart';
@@ -82,9 +82,9 @@ class AppPages {
       binding: MenuBinding(),
     ),
     GetPage(
-      name: _Paths.HOMES,
-      page: () => const HomesView(),
-      binding: HomesBinding(),
+      name: _Paths.ADD_MENU,
+      page: () => const AddMenuView(),
+      binding: AddMenuBinding(),
     ),
   ];
 }

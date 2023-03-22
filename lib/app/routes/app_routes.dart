@@ -14,6 +14,7 @@ abstract class Routes {
   static const MAIN_ADMIN = _Paths.MAIN_ADMIN;
   static const MENU = _Paths.MENU;
   static const HOMES = _Paths.HOMES;
+  static const ADD_MENU = _Paths.ADD_MENU;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const MAIN_ADMIN = '/main-admin';
   static const MENU = '/menu';
   static const HOMES = '/homes';
+  static const ADD_MENU = '/add-menu';
 }

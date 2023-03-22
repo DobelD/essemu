@@ -12,27 +12,22 @@ class MenuLoading extends StatelessWidget {
       children: [
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppShimmer(child: AppContentShimmer(hight: 18, width: 80)),
-                AppShimmer(child: AppContentShimmer(hight: 18, width: 46)),
-              ],
-            )),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: AppShimmer(
+                    child: AppContentShimmer(hight: 18, width: 80)))),
         SizedBox(height: 16.h),
         SizedBox(
-          height: 260.h,
-          child: ListView.separated(
-              padding: EdgeInsets.only(left: 16.w),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemBuilder: (_, index) {
-                return AppShimmer(
-                    child: AppContentShimmer(hight: 260, width: 170));
-              },
-              separatorBuilder: (__, i) => SizedBox(width: 12.w),
-              itemCount: 3),
+          child: Wrap(
+            direction: Axis.horizontal,
+            children: List.generate(
+                4,
+                (index) => Padding(
+                      padding: EdgeInsets.all(6.w),
+                      child: AppShimmer(
+                          child: AppContentShimmer(hight: 200, width: 158)),
+                    )),
+          ),
         )
       ],
     );

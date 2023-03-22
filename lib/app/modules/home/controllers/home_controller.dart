@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:essemu/app/modules/home/services/category_service.dart';
 import 'package:essemu/app/modules/home/services/menu_service.dart';
 import 'package:get/get.dart';
@@ -5,6 +8,8 @@ import 'package:get/get.dart';
 import '../../../data/categories.dart';
 
 class HomeController extends GetxController {
+  StreamSubscription<ConnectivityResult>? subscription;
+  bool isOnline = false;
   bool loading = true;
   List<Categories> _category = [];
   List<Menu> _menu = [];
@@ -65,11 +70,27 @@ class HomeController extends GetxController {
     });
   }
 
+  checkConnection() {
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      isOnline = (result != ConnectivityResult.none);
+      update();
+    });
+  }
+
   @override
   void onInit() {
     getCategory();
     getMenu(idSelected);
     stopLoading();
     super.onInit();
+    checkConnection();
+  }
+
+  @override
+  void onClose() {
+    subscription?.cancel();
+    super.onClose();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:essemu/app/provider/endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,6 +14,7 @@ class AuthController extends GetxController {
   bool isLoading = false;
 
   SupabaseClient client = Supabase.instance.client;
+  Endpoint endpoint = Endpoint();
 
   void signIn() async {
     isLoading = true;
@@ -21,18 +23,8 @@ class AuthController extends GetxController {
       final response = await client.auth
           .signInWithPassword(email: emailC.text, password: passC.text);
       if (response.user != null) {
-        final emm = await client
-            .from('users')
-            .select('*')
-            .eq('email', emailC.text)
-            .single();
-        final role = await client
-            .from('role')
-            .select('name')
-            .eq('id', emm['role_id'])
-            .single();
-        // final idUser = await client.from('users').select('id');
-
+        final emm = await endpoint.setEmail(emailC.text);
+        final role = await endpoint.getRole(emm);
         if (role['name'] == 'owner') {
           session.saveSession('9', response.user?.id, emailC.text);
           isLoading = false;
@@ -70,9 +62,9 @@ class AuthController extends GetxController {
             style: AppTextTheme.current.bodyText)));
   }
 
-  Future<String> getUserRole(String userId) async {
-    final response =
-        await client.from('role').select().eq('user_id', userId).single();
-    return response['role'];
-  }
+  // Future<String> getUserRole(String userId) async {
+  //   final response =
+  //       await client.from('role').select().eq('user_id', userId).single();
+  //   return response['role'];
+  // }
 }

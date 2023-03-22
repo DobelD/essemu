@@ -1,27 +1,29 @@
 import 'package:essemu/app/components/textfield/text_field_label.dart';
+import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../widget/shimmer/search.dart';
 
 class SearchSection extends StatelessWidget {
-  const SearchSection({super.key, this.isLoading = true});
-
-  final bool isLoading;
+  const SearchSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
         child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: isLoading
-          ? SearchLoading()
-          : SizedBox(
-              child: AppTextFieldLabel.textSearch(
-              controller: TextEditingController(),
-              hintText: 'Search',
-              borderColors: false,
-            )),
+      child: GetBuilder<HomeController>(builder: (c) {
+        return c.loading
+            ? SearchLoading()
+            : SizedBox(
+                child: AppTextFieldLabel.textSearch(
+                controller: TextEditingController(),
+                hintText: 'Search',
+                borderColors: false,
+              ));
+      }),
     ));
   }
 }

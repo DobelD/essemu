@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const kMainDark = Color(0xFF10316B);
-const kMain = Color(0xFF0B409C);
+const kMainDark = Color.fromARGB(255, 0, 0, 0);
+const kMain = Color(0xFF232323);
 const kSoftMain = Color.fromARGB(255, 181, 207, 252);
 const kMainBackground = Color(0xFFF5F7F8);
 const kAppBarShadow = Color.fromARGB(255, 85, 111, 154);
