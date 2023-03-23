@@ -21,6 +21,7 @@ class AddMenuController extends GetxController {
   Endpoint endpoint = Endpoint();
 
   // Variabel
+  bool isLoading = false;
   List<Categories> _category = [];
   List<Categories> get category => _category;
   Categories? selectCategory;
@@ -73,22 +74,28 @@ class AddMenuController extends GetxController {
   }
 
   addMenu() async {
+    isLoading = true;
+    update();
     if (namaC.text.isNotEmpty &&
         deskC.text.isNotEmpty &&
         hargaC.text.isNotEmpty &&
         selectCtg!.isNotEmpty &&
         menu!.path.isNotEmpty) {
       await endpoint.addMenu(menuPayload());
-      await endpoint.addImagesMenu('name', 'path');
+      await endpoint.addImagesMenu('menu/${namaC.text}.jpg', menu!.path);
       namaC.clear();
       deskC.clear();
       hargaC.clear();
       selectCtg = null;
       menu!.delete();
       update();
-      AppSnackbars.success(massage: 'Berhasil menambahkan menu');
+      isLoading = false;
+      update();
+      Get.showSnackbar(appSnackBarSuccess('Berhasil menambahkan menu'));
     } else {
-      AppSnackbars.failed(massage: 'Gagal menambahkan menu');
+      isLoading = false;
+      update();
+      print('Gagal');
     }
   }
 
@@ -97,10 +104,10 @@ class AddMenuController extends GetxController {
   Map<String, dynamic> menuPayload() {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['name'] = namaC.text;
-    temp['description'] = namaC.text;
-    temp['price'] = namaC.text;
-    temp['image_url'] = namaC.text;
-    temp['category_id'] = namaC.text;
+    temp['description'] = deskC.text;
+    temp['price'] = hargaC.text;
+    temp['image_url'] = menu!.path;
+    temp['category_id'] = categoryId;
     temp['restaurant_id'] = 1;
     return temp;
   }

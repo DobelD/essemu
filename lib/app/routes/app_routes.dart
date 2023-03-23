@@ -15,6 +15,11 @@ abstract class Routes {
   static const MENU = _Paths.MENU;
   static const HOMES = _Paths.HOMES;
   static const ADD_MENU = _Paths.ADD_MENU;
+  static const ADD_CATEGORY = _Paths.ADD_CATEGORY;
+  static const ONGKIR = _Paths.ONGKIR;
+  static const SETTING = _Paths.SETTING;
+  static const ABOUT = _Paths.ABOUT;
+  static const DASHBOARD = _Paths.DASHBOARD;
 }
 
 abstract class _Paths {
@@ -31,4 +36,9 @@ abstract class _Paths {
   static const MENU = '/menu';
   static const HOMES = '/homes';
   static const ADD_MENU = '/add-menu';
+  static const ADD_CATEGORY = '/add-category';
+  static const ONGKIR = '/ongkir';
+  static const SETTING = '/setting';
+  static const ABOUT = '/about';
+  static const DASHBOARD = '/dashboard';
 }

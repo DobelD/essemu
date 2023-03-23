@@ -1,4 +1,4 @@
-import 'package:essemu/app/components/button/app_button_secondary.dart';
+import 'package:essemu/app/components/button/app_button_primary.dart';
 import 'package:essemu/app/modules/profile/controllers/profile_controller.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class LogoutSection extends StatelessWidget {
     return SliverToBoxAdapter(
         child: Padding(
             padding: DefaultPadding.side,
-            child: AppButtonSecondary(
+            child: AppButtonPrimary(
                 label: 'Logout', onPressed: () => controller.logout())));
   }
 }

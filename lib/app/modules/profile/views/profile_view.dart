@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../components/spacer/sliver_spacer.dart';
 import '../controllers/profile_controller.dart';
 import 'section/appbar.dart';
+import 'section/form.dart';
 import 'section/header.dart';
 import 'section/logout.dart';
 
@@ -24,6 +25,7 @@ class ProfileView extends GetView<ProfileController> {
                 AppBars(),
                 SliverSpacerV(hight: 16),
                 HeaderSection(),
+                FormSection(),
                 LogoutSection()
               ],
             )),
