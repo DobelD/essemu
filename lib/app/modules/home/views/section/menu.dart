@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/label_action/label_action.dart';
+import '../../../../themes/decoration/app_radius.dart';
 import '../widget/shimmer/menu.dart';
 
 class MenuSection extends StatelessWidget {
@@ -14,6 +15,7 @@ class MenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(HomeController());
     return SliverToBoxAdapter(child: GetBuilder<HomeController>(builder: (c) {
       return c.loading
           ? MenuLoading()
@@ -32,23 +34,32 @@ class MenuSection extends StatelessWidget {
                     SizedBox(height: 16.h),
                     c.menu.isNotEmpty
                         ? SizedBox(
-                            child: Wrap(
-                                direction: Axis.horizontal,
-                                children: List.generate(c.menu.length, (index) {
-                                  // final data = menu?[index];
-                                  return Padding(
-                                    padding: EdgeInsets.all(6.w),
-                                    child: Container(
-                                      height: 200.w,
-                                      width: 158.w,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8.r),
-                                          color: kWhite),
-                                    ),
-                                  );
-                                })))
+                            child: GridView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: c.menu.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 0.79,
+                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 12),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                height: 200,
+                                width: 158,
+                                decoration: BoxDecoration(
+                                    color: kWhite,
+                                    borderRadius: AppRadius.all,
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            '${c.images[index]}'))),
+                              );
+                            },
+                          ))
                         : NoMenu(),
+                    SizedBox(height: 16.h),
                   ],
                 );
     }));

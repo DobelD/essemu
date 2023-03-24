@@ -163,13 +163,11 @@ class _AppTextFieldLabelState extends State<AppTextFieldLabel> {
 
   OutlineInputBorder get _borderStyle => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.w),
-        borderSide: BorderSide(
-            color: widget.borderColors == true ? kMain : kWhite, width: 1.w),
+        borderSide: BorderSide(color: kSofterGrey, width: 1.w),
       );
   OutlineInputBorder get _borderStyleFocused => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.w),
-        borderSide:
-            BorderSide(color: widget.enabled ? kMain : kWhite, width: 1.2.w),
+        borderSide: BorderSide(color: kSofterGrey, width: 1.2.w),
       );
 
   int get _minLines => widget.minLines ?? 1;

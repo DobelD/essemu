@@ -59,7 +59,7 @@ class AddMenuView extends GetView<AddMenuController> {
                     onPressed: () => controller.addMenu(),
                     child: Text(
                       'Tambah Menu',
-                      style: AppTextTheme.current.bodyText,
+                      style: AppTextTheme.current.bodyTextWhite,
                     )),
               ),
             ],

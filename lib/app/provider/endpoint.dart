@@ -39,6 +39,11 @@ class Endpoint {
     return menu;
   }
 
+  getMenuImage() async {
+    final imageMenu = await client.storage.from('orderfood').list();
+    return imageMenu;
+  }
+
   getFavoriteMenu() async {}
   addMenu(dynamic value) async {
     final add = await client.from('menu').insert(value);
@@ -47,6 +52,23 @@ class Endpoint {
 
   addImagesMenu(String name, String path) async {
     final image = await client.storage.from('orderfood').upload(
+        '$name', File(path),
+        fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
+    return image;
+  }
+
+  storage() async {
+    final storages = await client.storage.from('orderfood');
+    return storages;
+  }
+
+  addCategory(dynamic value) async {
+    final add = await client.from('categories').insert(value);
+    return add;
+  }
+
+  addImageCategory(String name, String path) async {
+    final image = await client.storage.from('category').upload(
         '$name', File(path),
         fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
     return image;

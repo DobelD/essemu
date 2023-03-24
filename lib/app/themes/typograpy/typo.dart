@@ -298,6 +298,16 @@ class AppTextTheme {
       fontSize: 14.sp,
       height: 19.6 / 14,
       letterSpacing: 14.sp * 0.01);
+  TextStyle get bodyTextRed => GoogleFonts.poppins(
+      textStyle: Theme.of(_localContext)
+          .textTheme
+          .bodyLarge!
+          .copyWith(leadingDistribution: TextLeadingDistribution.even),
+      fontWeight: FontWeight.bold,
+      color: kRed,
+      fontSize: 14.sp,
+      height: 19.6 / 14,
+      letterSpacing: 14.sp * 0.01);
 
   TextStyle get dashboardLabel => GoogleFonts.poppins(
       textStyle: Theme.of(_localContext)

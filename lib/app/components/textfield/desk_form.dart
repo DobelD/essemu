@@ -21,7 +21,7 @@ class DeskForm extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(text: title, style: AppTextTheme.current.bodyText),
-              TextSpan(text: '*', style: AppTextTheme.current.bodyText),
+              TextSpan(text: '*', style: AppTextTheme.current.bodyTextRed),
             ],
           ),
         ),
@@ -38,7 +38,7 @@ class DeskForm extends StatelessWidget {
             decoration: InputDecoration(
                 filled: true,
                 hintText: 'Isi ${hint} menu',
-                hintStyle: AppTextTheme.current.bodyText,
+                hintStyle: AppTextTheme.current.hintText,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
                 border: OutlineInputBorder(

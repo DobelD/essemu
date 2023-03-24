@@ -1,3 +1,4 @@
+import 'package:essemu/app/components/loading_action/loading_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,32 +17,38 @@ class AddCategoryView extends GetView<AddCategoryController> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AddCategoryController());
-    return Scaffold(
-        body: ListView(
-      padding: DefaultPadding.all,
-      children: [
-        FormTxt(
-          controller: controller.nama,
-          title: 'Kategori',
-          hint: 'Nama Kategori',
-        ),
-        SizedBox(height: 12.h),
-        ImagePick(),
-        SizedBox(height: 16.h),
-        SizedBox(
-          height: 54.h,
-          width: Get.width,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: kMain,
-                  shape: RoundedRectangleBorder(borderRadius: AppRadius.icon)),
-              onPressed: () => controller.addCategory(),
-              child: Text(
-                'Tambah Menu',
-                style: AppTextTheme.current.bodyText,
-              )),
-        ),
-      ],
-    ));
+    return GetBuilder<AddCategoryController>(builder: (c) {
+      return AppLoading(
+        isLoading: c.isLoading,
+        child: Scaffold(
+            body: ListView(
+          padding: DefaultPadding.all,
+          children: [
+            FormTxt(
+              controller: controller.nama,
+              title: 'Kategori',
+              hint: 'nama kategori',
+            ),
+            SizedBox(height: 12.h),
+            ImagePick(),
+            SizedBox(height: 16.h),
+            SizedBox(
+              height: 54.h,
+              width: Get.width,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: kMain,
+                      shape:
+                          RoundedRectangleBorder(borderRadius: AppRadius.icon)),
+                  onPressed: () => controller.addCategory(),
+                  child: Text(
+                    'Tambah Menu',
+                    style: AppTextTheme.current.bodyTextWhite,
+                  )),
+            ),
+          ],
+        )),
+      );
+    });
   }
 }

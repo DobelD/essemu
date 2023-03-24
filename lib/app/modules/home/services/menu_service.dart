@@ -1,3 +1,5 @@
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../../../data/categories.dart';
 import '../../../provider/endpoint.dart';
 
@@ -30,5 +32,17 @@ class MenuService {
     } catch (e) {
       throw "$e";
     }
+  }
+
+  SupabaseClient client = Supabase.instance.client;
+
+  Future<List<String>> getImages() async {
+    final storage = client.storage.from('orderfood');
+    final id = storage.url;
+    final response = await storage.list();
+    final urls =
+        response.map((file) => storage.getPublicUrl(file.name)).toList();
+    print(urls);
+    return urls;
   }
 }

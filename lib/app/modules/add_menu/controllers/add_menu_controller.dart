@@ -73,6 +73,18 @@ class AddMenuController extends GetxController {
     update();
   }
 
+  Future getImageGalery() async {
+    final sharedPref = await SharedPreferences.getInstance();
+    final ImagePicker picker1 = ImagePicker();
+    final imagePicked1 =
+        await picker1.pickImage(source: ImageSource.gallery, imageQuality: 30);
+
+    imagesMenu = imagePicked1!.path;
+    await sharedPref.setString('menu_url', imagesMenu);
+    menu = File(imagePicked1.path);
+    update();
+  }
+
   addMenu() async {
     isLoading = true;
     update();
@@ -82,7 +94,7 @@ class AddMenuController extends GetxController {
         selectCtg!.isNotEmpty &&
         menu!.path.isNotEmpty) {
       await endpoint.addMenu(menuPayload());
-      await endpoint.addImagesMenu('menu/${namaC.text}.jpg', menu!.path);
+      await endpoint.addImagesMenu('${namaC.text}.jpg', menu!.path);
       namaC.clear();
       deskC.clear();
       hargaC.clear();
@@ -109,6 +121,7 @@ class AddMenuController extends GetxController {
     temp['image_url'] = menu!.path;
     temp['category_id'] = categoryId;
     temp['restaurant_id'] = 1;
+    temp['favorit'] = false;
     return temp;
   }
 

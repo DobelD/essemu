@@ -18,6 +18,8 @@ class HomeController extends GetxController {
   int selected = 99;
   int idSelected = 0;
   bool isLoadMenu = false;
+  List<String> _images = [];
+  List<String> get images => _images;
 
   void selectedCategory(int index, int id) {
     selected = index;
@@ -38,6 +40,11 @@ class HomeController extends GetxController {
     update();
   }
 
+  setImage(List<String> img) {
+    _images = img;
+    update();
+  }
+
   getCategory() async {
     final api = CategoryService();
     final ctg = await api.getData();
@@ -53,6 +60,12 @@ class HomeController extends GetxController {
       final mn = await api.getDataById(id);
       setMenu(mn);
     }
+  }
+
+  getImage() async {
+    final api = MenuService();
+    final img = await api.getImages();
+    setImage(img);
   }
 
   stopLoading() async {
@@ -83,6 +96,7 @@ class HomeController extends GetxController {
   void onInit() {
     getCategory();
     getMenu(idSelected);
+    getImage();
     stopLoading();
     super.onInit();
     checkConnection();
