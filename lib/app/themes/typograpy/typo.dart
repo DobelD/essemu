@@ -277,6 +277,16 @@ class AppTextTheme {
       fontSize: 12.sp,
       height: 19.6 / 14,
       letterSpacing: 14.sp * 0.01);
+  TextStyle get highlightsBodyHint => GoogleFonts.poppins(
+      textStyle: Theme.of(_localContext)
+          .textTheme
+          .bodyMedium!
+          .copyWith(leadingDistribution: TextLeadingDistribution.even),
+      fontWeight: FontWeight.normal,
+      color: kSoftGrey,
+      fontSize: 12.sp,
+      height: 19.6 / 14,
+      letterSpacing: 14.sp * 0.01);
 
   TextStyle get bodyText => GoogleFonts.poppins(
       textStyle: Theme.of(_localContext)

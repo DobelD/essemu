@@ -15,6 +15,20 @@ class SessionManager {
     return idUser;
   }
 
+  String? email;
+  Future getEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    return email;
+  }
+
+  String? id;
+  Future getId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    return id;
+  }
+
   Future clearSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();

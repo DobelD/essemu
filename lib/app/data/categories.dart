@@ -80,6 +80,8 @@ class Menu {
   int? price;
   String? imageUrl;
   bool? favorit;
+  MenuCategory? categories;
+  Restaurant? restaurant;
 
   Menu(
       {this.id,
@@ -87,7 +89,9 @@ class Menu {
       this.description,
       this.price,
       this.imageUrl,
-      this.favorit});
+      this.favorit,
+      this.categories,
+      this.restaurant});
 
   Menu.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -96,6 +100,12 @@ class Menu {
     price = json['price'];
     imageUrl = json['image_url'];
     favorit = json['favorit'];
+    categories = json['categories'] != null
+        ? new MenuCategory.fromJson(json['categories'])
+        : null;
+    restaurant = json['restaurant'] != null
+        ? new Restaurant.fromJson(json['restaurant'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -106,6 +116,47 @@ class Menu {
     data['price'] = this.price;
     data['image_url'] = this.imageUrl;
     data['favorit'] = this.favorit;
+    if (this.categories != null) {
+      data['categories'] = this.categories!.toJson();
+    }
+    if (this.restaurant != null) {
+      data['restaurant'] = this.restaurant!.toJson();
+    }
+    return data;
+  }
+}
+
+class MenuCategory {
+  int? id;
+  String? name;
+
+  MenuCategory({this.id, this.name});
+
+  MenuCategory.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
+class Restaurant {
+  String? coordinate;
+
+  Restaurant({this.coordinate});
+
+  Restaurant.fromJson(Map<String, dynamic> json) {
+    coordinate = json['coordinate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['coordinate'] = this.coordinate;
     return data;
   }
 }

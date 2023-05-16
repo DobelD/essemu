@@ -1,12 +1,14 @@
 import 'package:essemu/app/components/no_data/no_data_menu.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
-import 'package:essemu/app/utils/label/label.dart';
+import 'package:essemu/app/themes/decoration/app_padding.dart';
+import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 
-import '../../../../components/label_action/label_action.dart';
 import '../../../../themes/decoration/app_radius.dart';
 import '../widget/shimmer/menu.dart';
 
@@ -15,6 +17,7 @@ class MenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(HomeController());
     return SliverToBoxAdapter(child: GetBuilder<HomeController>(builder: (c) {
       return c.loading
@@ -23,15 +26,6 @@ class MenuSection extends StatelessWidget {
               ? MenuLoading()
               : Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: LabelAction(
-                        label: S.menuLabel,
-                        isactiveAction: false,
-                        onTap: () {},
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
                     c.menu.isNotEmpty
                         ? SizedBox(
                             child: GridView.builder(
@@ -47,14 +41,122 @@ class MenuSection extends StatelessWidget {
                                     mainAxisSpacing: 12),
                             itemBuilder: (context, index) {
                               return Container(
-                                height: 200,
-                                width: 158,
+                                height: 200.w,
+                                width: 158.w,
                                 decoration: BoxDecoration(
-                                    color: kWhite,
-                                    borderRadius: AppRadius.all,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            '${c.images[index]}'))),
+                                  color: kWhite,
+                                  borderRadius: AppRadius.all,
+                                  border: Border.all(
+                                      color: kDividerItemSectionDashboard),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 116.w,
+                                      width: 158.w,
+                                      padding: MiddlePadding.all,
+                                      decoration: BoxDecoration(
+                                          color: kSofterGrey,
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "${c.menu[index].imageUrl}")),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(8),
+                                              topRight: Radius.circular(8))),
+                                      child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                                minWidth: 20.w, maxWidth: 60.w),
+                                            child: Container(
+                                              height: 18.w,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 6,
+                                                      vertical: 2),
+                                              decoration: BoxDecoration(
+                                                  color: kSuccess3,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.r),
+                                                  border: Border.all(
+                                                      color: kSuccess1)),
+                                              child: Center(
+                                                child: Text(
+                                                    '${c.menu[index].categories?.name}',
+                                                    style: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: kSuccess1,
+                                                      fontSize: 10.sp,
+                                                    )),
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                    SizedBox(
+                                        child: Padding(
+                                      padding: MiddlePadding.all,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${c.roundedDistance} Km',
+                                                style: AppTextTheme
+                                                    .current.highlightsBodyHint,
+                                              ),
+                                              Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 4.w),
+                                                  child: Container(
+                                                    height: 3.w,
+                                                    width: 3.w,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: kSoftGrey),
+                                                  )),
+                                              Text(
+                                                '10 Min',
+                                                style: AppTextTheme
+                                                    .current.highlightsBodyHint,
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 4.w),
+                                          Text(
+                                            '${c.menu[index].name}',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: AppTextTheme.current.title3,
+                                          ),
+                                          SizedBox(height: 4.w),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Rp. ${c.menu[index].price}',
+                                                style:
+                                                    AppTextTheme.current.title5,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: Icon(
+                                                  IconlyBold.heart,
+                                                  size: 20,
+                                                  color: kSoftGrey,
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ))
+                                  ],
+                                ),
                               );
                             },
                           ))

@@ -14,10 +14,11 @@ class HeadingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-        child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: GetBuilder<HomeController>(builder: (c) {
+    return SliverAppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: kWhite,
+      pinned: true,
+      title: GetBuilder<HomeController>(builder: (c) {
         return c.loading
             ? HeadingLoading()
             : Row(
@@ -31,7 +32,7 @@ class HeadingSection extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                'Hello Ali!',
+                                'Hello ${c.user.name ?? ''}',
                                 style: AppTextTheme.current.title2,
                               ),
                               SizedBox(
@@ -49,10 +50,10 @@ class HeadingSection extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Icon(IconlyLight.buy, color: kBlack)
                 ],
               );
       }),
-    ));
+      actions: [Icon(IconlyLight.buy, color: kBlack)],
+    );
   }
 }

@@ -10,13 +10,6 @@ class MenuLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: AppShimmer(
-                    child: AppContentShimmer(hight: 18, width: 80)))),
-        SizedBox(height: 16.h),
         SizedBox(
           child: Wrap(
             direction: Axis.horizontal,

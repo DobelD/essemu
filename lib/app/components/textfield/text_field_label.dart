@@ -9,21 +9,22 @@ import '../link_text/link_text.dart';
 enum LabelPosition { top, left, none }
 
 class AppTextFieldLabel extends StatefulWidget {
-  const AppTextFieldLabel(
-      {Key? key,
-      required this.controller,
-      this.labelText,
-      this.labelPosition = LabelPosition.top,
-      this.hintText,
-      this.linkText,
-      this.linkOnPressed,
-      this.enabled = true,
-      this.keyboardType,
-      this.fillColors = kWhite,
-      this.borderColors = true,
-      this.isTypeSearch = false,
-      this.isTypeAuth = false})
-      : minLines = 1,
+  const AppTextFieldLabel({
+    Key? key,
+    required this.controller,
+    this.labelText,
+    this.labelPosition = LabelPosition.top,
+    this.hintText,
+    this.linkText,
+    this.linkOnPressed,
+    this.enabled = true,
+    this.keyboardType,
+    this.fillColors = kWhite,
+    this.borderColors = true,
+    this.isTypeSearch = false,
+    this.isTypeAuth = false,
+    this.onChange,
+  })  : minLines = 1,
         maxLines = 1,
         isTypePassword = false,
         assert(labelPosition == LabelPosition.left
@@ -47,6 +48,7 @@ class AppTextFieldLabel extends StatefulWidget {
     this.keyboardType,
     this.isTypeAuth = false,
     this.isTypeSearch = true,
+    this.onChange,
   })  : minLines = 1,
         maxLines = 1,
         isTypePassword = false,
@@ -71,6 +73,7 @@ class AppTextFieldLabel extends StatefulWidget {
     this.keyboardType,
     this.isTypeAuth = true,
     this.isTypeSearch = false,
+    this.onChange,
   })  : minLines = 1,
         maxLines = 1,
         isTypePassword = true,
@@ -94,6 +97,7 @@ class AppTextFieldLabel extends StatefulWidget {
     this.keyboardType,
     this.isTypeAuth = true,
     this.isTypeSearch = false,
+    this.onChange,
   })  : minLines = 1,
         maxLines = 1,
         isTypePassword = false,
@@ -119,6 +123,7 @@ class AppTextFieldLabel extends StatefulWidget {
     this.borderColors = true,
     this.isTypeAuth = false,
     this.isTypeSearch = false,
+    this.onChange,
     this.keyboardType = TextInputType.multiline,
   })  : isTypePassword = false,
         assert((maxLines ?? 1) >= (minLines ?? 1)),
@@ -144,6 +149,7 @@ class AppTextFieldLabel extends StatefulWidget {
   final bool borderColors;
   final bool isTypeAuth;
   final bool isTypeSearch;
+  final ValueChanged<String>? onChange;
 
   @override
   State<AppTextFieldLabel> createState() => _AppTextFieldLabelState();
@@ -218,6 +224,7 @@ class _AppTextFieldLabelState extends State<AppTextFieldLabel> {
             minLines: _minLines,
             keyboardType: widget.keyboardType,
             obscureText: isObscureText,
+            onChanged: widget.onChange,
             decoration: InputDecoration(
               isDense: true,
               filled: true,

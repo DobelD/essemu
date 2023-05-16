@@ -18,7 +18,7 @@ class AppTheme {
         ),
         colorScheme: ColorScheme(
           brightness: Brightness.light,
-          primary: kMain,
+          primary: kWhite,
           onPrimary: kMain,
           secondary: kBlack,
           onSecondary: kBlack,

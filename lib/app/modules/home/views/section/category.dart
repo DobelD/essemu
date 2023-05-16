@@ -64,48 +64,20 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                         }),
                   ),
                   SizedBox(height: 16.h),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 16.w),
-                          child: SizedBox(
-                              height: 36.h,
-                              child: InkWell(
-                                onTap: () {
-                                  c.selectedCategory(99, 0);
-                                },
-                                child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 16.w),
-                                  height: 36.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.r),
-                                      color: c.selected == 99
-                                          ? kMainDark
-                                          : kSofterGrey),
-                                  child: Center(
-                                      child: Text(
-                                    S.all,
-                                    style: AppTextTheme.current.bodyTextWhite,
-                                  )),
-                                ),
-                              )),
-                        ),
-                        SizedBox(
-                          height: 36.h,
-                          child: ListView.separated(
-                              padding: EdgeInsets.only(right: 16.w, left: 12.w),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              itemBuilder: (_, index) {
-                                final data = c.category[index];
-                                return InkWell(
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: SizedBox(
+                                height: 36.h,
+                                child: InkWell(
                                   onTap: () {
-                                    c.selectedCategory(index, data.id!);
+                                    c.selectedCategory(99, 0);
                                   },
                                   child: Container(
                                     padding:
@@ -114,22 +86,56 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(8.r),
-                                        color: c.selected == index
+                                        color: c.selected == 99
                                             ? kMainDark
                                             : kSofterGrey),
                                     child: Center(
                                         child: Text(
-                                      "${data.name ?? '-'}",
+                                      S.all,
                                       style: AppTextTheme.current.bodyTextWhite,
                                     )),
                                   ),
-                                );
-                              },
-                              separatorBuilder: (__, i) =>
-                                  SizedBox(width: 12.w),
-                              itemCount: c.category.length),
-                        ),
-                      ],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 36.h,
+                            child: ListView.separated(
+                                padding:
+                                    EdgeInsets.only(right: 16.w, left: 12.w),
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                physics: ScrollPhysics(),
+                                itemBuilder: (_, index) {
+                                  final data = c.category[index];
+                                  return InkWell(
+                                    onTap: () {
+                                      c.selectedCategory(index, data.id!);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w),
+                                      height: 36.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.r),
+                                          color: c.selected == index
+                                              ? kMainDark
+                                              : kSofterGrey),
+                                      child: Center(
+                                          child: Text(
+                                        "${data.name ?? '-'}",
+                                        style:
+                                            AppTextTheme.current.bodyTextWhite,
+                                      )),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (__, i) =>
+                                    SizedBox(width: 12.w),
+                                itemCount: c.category.length),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],

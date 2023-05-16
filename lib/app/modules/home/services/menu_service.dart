@@ -13,6 +13,7 @@ class MenuService {
       for (var data in response) {
         final ctg = Menu.fromJson(data);
         menu.add(ctg);
+        print(data);
       }
       return menu;
     } catch (e) {
@@ -38,7 +39,7 @@ class MenuService {
 
   Future<List<String>> getImages() async {
     final storage = client.storage.from('orderfood');
-    final id = storage.url;
+    // final id = storage.url;
     final response = await storage.list();
     final urls =
         response.map((file) => storage.getPublicUrl(file.name)).toList();

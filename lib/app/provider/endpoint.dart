@@ -28,14 +28,22 @@ class Endpoint {
     return category;
   }
 
+  getUsers(String email) async {
+    final users =
+        await client.from('users').select('*').eq('email', email).single();
+    return users;
+  }
+
   getMenu() async {
-    final menu = await client.from('menu').select('*');
+    final menu = await client.from('menu').select('*, categories!inner(name)');
     return menu;
   }
 
   getMenuById(int id) async {
-    final menu =
-        await client.from('menu').select('category_id').eq('category_id', id);
+    final menu = await client
+        .from('menu')
+        .select('*, categories!inner(name), restaurant!inner(coordinate)')
+        .eq('category_id', id);
     return menu;
   }
 

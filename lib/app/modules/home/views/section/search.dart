@@ -19,9 +19,10 @@ class SearchSection extends StatelessWidget {
             ? SearchLoading()
             : SizedBox(
                 child: AppTextFieldLabel.textSearch(
-                controller: TextEditingController(),
+                controller: c.searchC,
                 hintText: 'Search',
                 borderColors: false,
+                onChange: (value) => c.searchMenu(value),
               ));
       }),
     ));

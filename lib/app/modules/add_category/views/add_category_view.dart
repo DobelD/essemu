@@ -42,7 +42,7 @@ class AddCategoryView extends GetView<AddCategoryController> {
                           RoundedRectangleBorder(borderRadius: AppRadius.icon)),
                   onPressed: () => controller.addCategory(),
                   child: Text(
-                    'Tambah Menu',
+                    'Tambah Kategori',
                     style: AppTextTheme.current.bodyTextWhite,
                   )),
             ),

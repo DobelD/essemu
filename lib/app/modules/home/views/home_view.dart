@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:essemu/app/modules/home/views/section/search.dart';
 import 'package:flutter/material.dart';
 
@@ -16,17 +18,31 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(HomeController());
     return GetBuilder<HomeController>(builder: (c) {
       return Scaffold(
           body: RefreshIndicator(
-              onRefresh: () async {
-                controller.getCategory();
+              onRefresh: () {
+                return Future<void>.delayed(1.seconds, () async {
+                  await c.getCategory();
+                  c.getMenu(c.idSelected);
+                  await c.getImage();
+                  await c.stopLoading();
+                  await c.checkConnection();
+                  await c.checkLocationPermission().then((val) async {
+                    if (val == true) {
+                      await c.getKordinat();
+                    } else {
+                      c.requestPermission();
+                      await c.getKordinat();
+                    }
+                  });
+                });
               },
               child: c.isOnline
                   ? CustomScrollView(
                       slivers: [
-                        SliverSpacerV(hight: 40),
                         HeadingSection(),
                         SliverSpacerV(hight: 18),
                         LocationSection(),

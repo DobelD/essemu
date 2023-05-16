@@ -38,7 +38,7 @@ class LocationSection extends StatelessWidget {
                   children: [
                     Icon(IconlyBold.location, color: kMain),
                     SizedBox(width: 12.w),
-                    SizedBox(
+                    Expanded(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +49,8 @@ class LocationSection extends StatelessWidget {
                         ),
                         // SizedBox(height: 8.h),
                         Text(
-                          'Jl. Jendral sudirman no 87',
+                          '${c.alamat}',
+                          overflow: TextOverflow.ellipsis,
                           style: AppTextTheme.current.bodyText,
                         ),
                       ],
