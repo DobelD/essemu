@@ -35,7 +35,9 @@ class Endpoint {
   }
 
   getMenu() async {
-    final menu = await client.from('menu').select('*, categories!inner(name)');
+    final menu = await client
+        .from('menu')
+        .select('*, categories!inner(name), restaurant!inner(coordinate)');
     return menu;
   }
 

@@ -17,6 +17,7 @@ class HeadingSection extends StatelessWidget {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       backgroundColor: kWhite,
+      surfaceTintColor: kWhite,
       pinned: true,
       title: GetBuilder<HomeController>(builder: (c) {
         return c.loading
@@ -53,7 +54,9 @@ class HeadingSection extends StatelessWidget {
                 ],
               );
       }),
-      actions: [Icon(IconlyLight.buy, color: kBlack)],
+      actions: [
+        IconButton(onPressed: () {}, icon: Icon(IconlyLight.buy, color: kBlack))
+      ],
     );
   }
 }

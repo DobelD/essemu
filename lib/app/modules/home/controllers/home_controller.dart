@@ -37,12 +37,12 @@ class HomeController extends GetxController {
   String kecamatan = '';
   String kota = '';
   String? restaurantCordinate;
-  String? lat;
-  String? long;
+  double? lat;
+  double? long;
   double? currentLat;
   double? currentLong;
-  double? distance;
-  double? roundedDistance;
+  double distance = 0.0;
+  double roundedDistance = 0.0;
 
   void selectedCategory(int index, int id) {
     selected = index;
@@ -53,13 +53,6 @@ class HomeController extends GetxController {
     stopLoad();
   }
 
-  setDistance() {
-    distance = calculateDistance(double.parse(lat ?? ''),
-            double.parse(long ?? ''), currentLat ?? 0.0, currentLong ?? 0.0) /
-        1000;
-    roundedDistance = double.parse(distance?.toStringAsFixed(1) ?? '');
-  }
-
   setCategory(List<Categories> ctg) {
     _category = ctg;
     update();
@@ -68,14 +61,9 @@ class HomeController extends GetxController {
   setMenu(List<Menu> mn) {
     _menu = mn;
     _searchMenu = mn;
-    restaurantCordinate = _menu[0].restaurant?.coordinate ?? '';
-    List<String> separatedData = restaurantCordinate!.split(", ");
-    lat = separatedData[0];
-    long = separatedData[1];
-    distance = calculateDistance(double.parse(lat ?? ''),
-            double.parse(long ?? ''), currentLat ?? 0.0, currentLong ?? 0.0) /
-        1000;
-    roundedDistance = double.parse(distance?.toStringAsFixed(1) ?? '');
+
+    print(lat);
+    print(long);
     update();
   }
 
@@ -107,6 +95,7 @@ class HomeController extends GetxController {
       final mn = await api.getDataById(id);
       setMenu(mn);
     }
+    setDistance(currentLat!, currentLong!);
   }
 
   getImage() async {
@@ -123,7 +112,7 @@ class HomeController extends GetxController {
   }
 
   stopLoading() async {
-    await Future.delayed(4.seconds, () {
+    await Future.delayed(3.seconds, () {
       loading = false;
       update();
     });
@@ -166,6 +155,7 @@ class HomeController extends GetxController {
         desiredAccuracy: LocationAccuracy.low);
     currentLat = position.latitude;
     currentLong = position.longitude;
+    setDistance(position.latitude, position.longitude);
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     for (final placeMark in placemarks) {
@@ -182,12 +172,25 @@ class HomeController extends GetxController {
     update();
   }
 
-  getAllData() {
-    getCategory();
-    getMenu(idSelected);
-    getImage();
-    getUsers();
-    stopLoading();
+  setDistance(double currentLat, double currentLong) async {
+    restaurantCordinate = await menu.first.restaurant!.coordinate;
+    List<String> separatedData = restaurantCordinate?.split(", ") ?? [""];
+    if (separatedData.length >= 2) {
+      lat = double.tryParse(separatedData[0]);
+      long = double.tryParse(separatedData[1]);
+
+      if (lat != null && long != null) {
+        distance = calculateDistance(
+                lat ?? 0.0, long ?? 0.0, currentLat, currentLong) /
+            1000;
+        roundedDistance = double.parse(distance.toStringAsFixed(1));
+        update();
+      } else {
+        // Handle the case when any of the values are null or invalid
+      }
+    } else {
+      // Handle the case when separatedData doesn't have enough elements
+    }
   }
 
   @override

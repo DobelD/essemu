@@ -101,29 +101,10 @@ class MenuSection extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '${c.roundedDistance} Km',
-                                                style: AppTextTheme
-                                                    .current.highlightsBodyHint,
-                                              ),
-                                              Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 4.w),
-                                                  child: Container(
-                                                    height: 3.w,
-                                                    width: 3.w,
-                                                    decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: kSoftGrey),
-                                                  )),
-                                              Text(
-                                                '10 Min',
-                                                style: AppTextTheme
-                                                    .current.highlightsBodyHint,
-                                              )
-                                            ],
+                                          Text(
+                                            '${c.roundedDistance} Km',
+                                            style: AppTextTheme
+                                                .current.highlightsBodyHint,
                                           ),
                                           SizedBox(height: 4.w),
                                           Text(

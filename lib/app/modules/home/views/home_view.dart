@@ -24,20 +24,21 @@ class HomeView extends GetView<HomeController> {
       return Scaffold(
           body: RefreshIndicator(
               onRefresh: () {
-                return Future<void>.delayed(1.seconds, () async {
-                  await c.getCategory();
+                return Future<void>.delayed(2.seconds, () {
+                  c.loading = true;
+                  c.getCategory();
                   c.getMenu(c.idSelected);
-                  await c.getImage();
-                  await c.stopLoading();
-                  await c.checkConnection();
-                  await c.checkLocationPermission().then((val) async {
-                    if (val == true) {
-                      await c.getKordinat();
-                    } else {
-                      c.requestPermission();
-                      await c.getKordinat();
-                    }
-                  });
+                  c.getImage();
+                  c.stopLoading();
+                  c.checkConnection();
+                  // await c.checkLocationPermission().then((val) async {
+                  //   if (val == true) {
+                  //     await c.getKordinat();
+                  //   } else {
+                  //     c.requestPermission();
+                  //     await c.getKordinat();
+                  //   }
+                  // });
                 });
               },
               child: c.isOnline
