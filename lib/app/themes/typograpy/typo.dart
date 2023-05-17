@@ -115,6 +115,16 @@ class AppTextTheme {
       fontSize: 16.sp,
       height: 1,
       letterSpacing: 16 * 0.01);
+  TextStyle get appBarTitleDark => GoogleFonts.poppins(
+      textStyle: Theme.of(_localContext)
+          .textTheme
+          .titleSmall!
+          .copyWith(leadingDistribution: TextLeadingDistribution.even),
+      fontWeight: FontWeight.bold,
+      color: kBlack,
+      fontSize: 16.sp,
+      height: 1,
+      letterSpacing: 16 * 0.01);
 
   TextStyle get buttonText => GoogleFonts.poppins(
       textStyle: Theme.of(_localContext)

@@ -12,12 +12,18 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../data/bool_favorite.dart';
 import '../../../data/categories.dart';
+import '../services/favorite_service.dart';
 import '../services/haversine_service.dart';
 
 class HomeController extends GetxController {
   StreamSubscription<ConnectivityResult>? subscription;
   TextEditingController searchC = TextEditingController();
+  String publicUrlImages =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/orderfood/';
+  String pubicUrlCategory =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/category/';
   bool isOnline = false;
   bool loading = true;
   List<Categories> _category = [];
@@ -29,8 +35,11 @@ class HomeController extends GetxController {
   int selected = 99;
   int idSelected = 0;
   bool isLoadMenu = false;
+  bool matchMenu = false;
   List<String> _images = [];
   List<String> get images => _images;
+  List<FavoriteBool> isFavorite = [];
+  int idUser = 0;
   User user = User();
   String alamat = '';
   String jalan = '';
@@ -61,7 +70,6 @@ class HomeController extends GetxController {
   setMenu(List<Menu> mn) {
     _menu = mn;
     _searchMenu = mn;
-
     print(lat);
     print(long);
     update();
@@ -87,6 +95,7 @@ class HomeController extends GetxController {
   }
 
   getMenu(int id) async {
+    getFavorite(idUser);
     final api = MenuService();
     if (id == 0) {
       final mn = await api.getData();
@@ -96,6 +105,12 @@ class HomeController extends GetxController {
       setMenu(mn);
     }
     setDistance(currentLat!, currentLong!);
+  }
+
+  getFavorite(int id) async {
+    final service = FavoriteService();
+    isFavorite = await service.getData(id);
+    update();
   }
 
   getImage() async {
@@ -178,7 +193,6 @@ class HomeController extends GetxController {
     if (separatedData.length >= 2) {
       lat = double.tryParse(separatedData[0]);
       long = double.tryParse(separatedData[1]);
-
       if (lat != null && long != null) {
         distance = calculateDistance(
                 lat ?? 0.0, long ?? 0.0, currentLat, currentLong) /
@@ -193,6 +207,27 @@ class HomeController extends GetxController {
     }
   }
 
+  void getUserId() async {
+    final user = await session.getUser();
+    idUser = user!.id!;
+    getFavorite(user.id!);
+    update();
+  }
+
+  void addFavorite(int user, int menu) async {
+    FavoriteService().addFavorite(user, menu);
+    update();
+  }
+
+  // bool isMatch(int id) {
+  //   bool match = isFavorite.any((favorite) => favorite.menuId == id);
+  //   if (match) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
   @override
   void onInit() {
     checkLocationPermission().then((val) async {
@@ -203,6 +238,7 @@ class HomeController extends GetxController {
         await getKordinat();
       }
     });
+    getUserId();
     getCategory();
     getMenu(idSelected);
     getImage();

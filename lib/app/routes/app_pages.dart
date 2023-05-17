@@ -10,6 +10,8 @@ import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/detail_menu/bindings/detail_menu_binding.dart';
+import '../modules/detail_menu/views/detail_menu_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/history/bindings/history_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_MENU,
+      page: () => const DetailMenuView(),
+      binding: DetailMenuBinding(),
     ),
   ];
 }

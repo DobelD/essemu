@@ -18,7 +18,7 @@ class MenuLoading extends StatelessWidget {
                 (index) => Padding(
                       padding: EdgeInsets.all(6.w),
                       child: AppShimmer(
-                          child: AppContentShimmer(hight: 200, width: 158)),
+                          child: AppContentShimmer(hight: 180, width: 158)),
                     )),
           ),
         )

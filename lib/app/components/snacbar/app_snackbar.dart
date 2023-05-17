@@ -34,7 +34,7 @@ GetSnackBar appSnackBarSuccess(String massage) {
       snackPosition: SnackPosition.TOP,
       duration: Duration(seconds: 2),
       margin: EdgeInsets.all(16),
-      backgroundColor: kSoftMain.withOpacity(0.8),
+      backgroundColor: kSuccess1,
       borderRadius: 8,
       mainButton: Icon(
         Icons.close,

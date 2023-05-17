@@ -11,6 +11,11 @@ class Endpoint {
     return emailSet;
   }
 
+  setId(String id) async {
+    final idSet = await client.from('users').select('*').eq('id', id).single();
+    return idSet;
+  }
+
   getRole(dynamic user) async {
     final role = await client
         .from('role')
@@ -49,15 +54,46 @@ class Endpoint {
     return menu;
   }
 
+  deleteFavorite(int menuId, int userId) async {
+    final del = await client
+        .from('favorite')
+        .delete()
+        .match({'menu_id': menuId, 'user_id': userId});
+    return del;
+  }
+
   getMenuImage() async {
     final imageMenu = await client.storage.from('orderfood').list();
     return imageMenu;
   }
 
-  getFavoriteMenu() async {}
-  addMenu(dynamic value) async {
-    final add = await client.from('menu').insert(value);
-    return add;
+  getFavoriteMenu(int id) async {
+    try {
+      final favorite =
+          client.from('favorite').stream(primaryKey: ['id']).eq('user_id', id);
+      return favorite;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getFavoriteBool(int id) async {
+    final fav = await client.from('favorite').select('*').eq('user_id', id);
+    return fav;
+  }
+
+  addFavorite(dynamic payload) async {
+    final fav = await client.from('favorite').insert(payload);
+    return fav;
+  }
+
+  addMenu(Map<String, dynamic> value) async {
+    try {
+      final add = await client.from('menu').insert([value]);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   addImagesMenu(String name, String path) async {

@@ -1,5 +1,8 @@
+import 'package:essemu/app/modules/home/controllers/home_controller.dart';
+import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../components/shimmer/shimmer.dart';
 import '../../../../data/categories.dart';
@@ -13,6 +16,7 @@ class ItemCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = Get.put(HomeController());
     return Material(
       child: SizedBox(
           child: Wrap(
@@ -27,9 +31,22 @@ class ItemCategory extends StatelessWidget {
                           height: 110.w,
                           width: 158.w,
                           decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: kDividerItemSectionDashboard),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      '${c.pubicUrlCategory}/${data?.name}.jpg'),
+                                  fit: BoxFit.cover,
+                                  colorFilter: ColorFilter.mode(
+                                      kBlack.withOpacity(0.5),
+                                      BlendMode.multiply)),
                               borderRadius: BorderRadius.circular(8.r),
-                              color: kMainDark),
-                          child: Text('${data?.name ?? '-'}'),
+                              color: kBlack),
+                          child: Center(
+                              child: Text(
+                            '${data?.name ?? '-'}',
+                            style: AppTextTheme.current.bodyTextWhite,
+                          )),
                         ),
                       );
               }))),

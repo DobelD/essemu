@@ -57,7 +57,8 @@ class AddMenuController extends GetxController {
 
   changeId(String sctg) {
     List<String> parts = sctg.split(': ');
-    categoryId = int.parse(parts[1].substring(0, 1));
+    List<String> idPart = parts[1].split(',');
+    categoryId = int.parse(idPart[0]);
     print(categoryId);
   }
 
@@ -99,8 +100,7 @@ class AddMenuController extends GetxController {
       deskC.clear();
       hargaC.clear();
       selectCtg = null;
-      menu!.delete();
-      update();
+      menu?.delete();
       isLoading = false;
       update();
       Get.showSnackbar(appSnackBarSuccess('Berhasil menambahkan menu'));

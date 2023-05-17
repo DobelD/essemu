@@ -20,6 +20,7 @@ abstract class Routes {
   static const SETTING = _Paths.SETTING;
   static const ABOUT = _Paths.ABOUT;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const DETAIL_MENU = _Paths.DETAIL_MENU;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const SETTING = '/setting';
   static const ABOUT = '/about';
   static const DASHBOARD = '/dashboard';
+  static const DETAIL_MENU = '/detail-menu';
 }

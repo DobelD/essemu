@@ -22,10 +22,17 @@ class HomeView extends GetView<HomeController> {
     final controller = Get.put(HomeController());
     return GetBuilder<HomeController>(builder: (c) {
       return Scaffold(
+          // floatingActionButton: FloatingActionButton(
+          //   child: const Icon(Icons.add),
+          //   onPressed: () {
+          //     c.getFavorite(c.idUser);
+          //   },
+          // ),
           body: RefreshIndicator(
               onRefresh: () {
                 return Future<void>.delayed(2.seconds, () {
                   c.loading = true;
+                  c.getFavorite(c.idUser);
                   c.getCategory();
                   c.getMenu(c.idSelected);
                   c.getImage();
