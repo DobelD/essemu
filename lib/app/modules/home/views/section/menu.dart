@@ -47,7 +47,10 @@ class MenuSection extends StatelessWidget {
                                   (favorite) => favorite.menuId == menu.id);
                               return GestureDetector(
                                 onTap: () => Get.toNamed(Routes.DETAIL_MENU,
-                                    arguments: menu),
+                                    arguments: {
+                                      "data": menu,
+                                      "favorite": isMatch
+                                    }),
                                 child: Container(
                                   height: 200.w,
                                   width: 158.w,
@@ -150,7 +153,9 @@ class MenuSection extends StatelessWidget {
                                                     c.getFavorite(c.idUser);
                                                   },
                                                   child: Icon(
-                                                    IconlyBold.heart,
+                                                    isMatch
+                                                        ? IconlyBold.heart
+                                                        : IconlyLight.heart,
                                                     size: 20,
                                                     color: isMatch
                                                         ? kRed

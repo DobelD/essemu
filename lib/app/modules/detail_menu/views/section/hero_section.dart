@@ -16,10 +16,13 @@ class HeroSection extends StatelessWidget {
         child: Hero(
       tag: 1,
       child: Container(
-        height: 270.w,
+        height: 300.w,
         width: Get.width,
         decoration: BoxDecoration(
             color: kBlack,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(6.w),
+                bottomRight: Radius.circular(6.w)),
             image: DecorationImage(
                 image: NetworkImage('${c.publicUrlImages}/${data?.name}.jpg'),
                 fit: BoxFit.cover,

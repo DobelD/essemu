@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/colors/colors.dart';
 import '../../../../themes/typograpy/typo.dart';
 import '../widget/shimmer/heading.dart';
@@ -55,7 +56,9 @@ class HeadingSection extends StatelessWidget {
               );
       }),
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(IconlyLight.buy, color: kBlack))
+        IconButton(
+            onPressed: () => Get.toNamed(Routes.CART),
+            icon: Icon(IconlyLight.buy, color: kBlack))
       ],
     );
   }
