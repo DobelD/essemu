@@ -82,6 +82,22 @@ class Endpoint {
     return fav;
   }
 
+  getItemById(int id) async {
+    final item = await client
+        .from('order_item')
+        .stream(primaryKey: ['id']).eq('order_id', id);
+    return item;
+  }
+
+  getMenuByUserId(int id) async {
+    final menu = await client
+        .from('order_item')
+        .select('*, categories!inner(name), restaurant!inner(coordinate)')
+        .eq('id', id)
+        .single();
+    return menu;
+  }
+
   addFavorite(dynamic payload) async {
     final fav = await client.from('favorite').insert(payload);
     return fav;

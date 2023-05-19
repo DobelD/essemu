@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../home/views/home_view.dart';
 
 class MainPagesController extends GetxController {
-  var indexTab = 0;
+  var indexTab = Get.arguments ?? 0;
   void changeIndexTab(int index) {
     indexTab = index;
     update();
@@ -22,6 +22,7 @@ class MainPagesController extends GetxController {
 
   @override
   void onInit() {
+    print(indexTab);
     super.onInit();
   }
 

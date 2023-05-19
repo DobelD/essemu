@@ -12,6 +12,7 @@ import 'section/category.dart';
 import 'section/heading.dart';
 import 'section/location.dart';
 import 'section/menu.dart';
+import 'widget/floating_order.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -22,12 +23,7 @@ class HomeView extends GetView<HomeController> {
     final controller = Get.put(HomeController());
     return GetBuilder<HomeController>(builder: (c) {
       return Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   child: const Icon(Icons.add),
-        //   onPressed: () {
-        //     c.getFavorite(c.idUser);
-        //   },
-        // ),
+        floatingActionButton: c.onOrder ? FloatingOrder() : null,
         body: RefreshIndicator(
             onRefresh: () {
               return Future<void>.delayed(2.seconds, () {

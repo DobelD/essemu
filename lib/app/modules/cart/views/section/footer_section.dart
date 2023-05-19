@@ -1,5 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:essemu/app/components/button/app_button_primary.dart';
+import 'package:essemu/app/modules/home/controllers/home_controller.dart';
+import 'package:essemu/app/routes/app_pages.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../components/dialog/app_dialog.dart';
+
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ctrlHome = Get.put(HomeController());
     return Container(
         height: 200.w,
         width: Get.width,
@@ -82,7 +87,13 @@ class FooterSection extends StatelessWidget {
                 width: Get.width,
                 child: AppButtonPrimary(
                   label: 'Checkout',
-                  onPressed: () {},
+                  onPressed: () => Get.dialog(AppDialog(
+                    onPressed: () {
+                      Get.back();
+                      ctrlHome.onOrderCreate();
+                      Get.toNamed(Routes.MAIN_PAGES);
+                    },
+                  )),
                 ))
           ],
         ));

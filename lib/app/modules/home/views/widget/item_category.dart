@@ -34,8 +34,8 @@ class ItemCategory extends StatelessWidget {
                               border: Border.all(
                                   color: kDividerItemSectionDashboard),
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      '${c.pubicUrlCategory}/${data?.name}.jpg'),
+                                  // '${c.pubicUrlCategory}/${data?.name}.jpg'
+                                  image: NetworkImage(''),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
                                       kBlack.withOpacity(0.5),

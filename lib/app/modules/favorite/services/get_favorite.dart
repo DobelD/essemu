@@ -14,7 +14,6 @@ class FavoriteService {
       final favoriteList = <Favorite>[];
       for (final data in snap) {
         final menuId = data['menu_id'];
-
         final menuData = await menuClient
             .select('*, categories!inner(name), restaurant!inner(coordinate)')
             .eq('id', menuId)

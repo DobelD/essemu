@@ -11,6 +11,7 @@ class FavoriteView extends GetView<FavoriteController> {
   const FavoriteView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(FavoriteController());
     return Scaffold(
         // floatingActionButton: FloatingActionButton(

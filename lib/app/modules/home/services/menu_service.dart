@@ -13,7 +13,6 @@ class MenuService {
       for (var data in response) {
         final ctg = Menu.fromJson(data);
         menu.add(ctg);
-        print(data);
       }
       return menu;
     } catch (e) {
@@ -28,7 +27,6 @@ class MenuService {
       for (var data in response) {
         final ctg = Menu.fromJson(data);
         menu.add(ctg);
-        print(data);
       }
       return menu;
     } catch (e) {

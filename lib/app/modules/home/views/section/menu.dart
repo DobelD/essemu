@@ -69,8 +69,8 @@ class MenuSection extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             color: kSofterGrey,
                                             image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "${c.publicUrlImages}/${menu.name}.jpg"),
+                                                // "${c.publicUrlImages}/${menu.name}.jpg"
+                                                image: NetworkImage(''),
                                                 fit: BoxFit.cover),
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(8),

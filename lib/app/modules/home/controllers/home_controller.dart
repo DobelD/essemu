@@ -14,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../data/bool_favorite.dart';
 import '../../../data/categories.dart';
+import '../../../data/item_order.dart' as i;
 import '../services/favorite_service.dart';
 import '../services/haversine_service.dart';
 
@@ -30,12 +31,15 @@ class HomeController extends GetxController {
   // ignore: unused_field
   List<Menu> _menu = [];
   List<Menu> _searchMenu = [];
+  List<i.ItemOrder> _items = [];
+  List<i.ItemOrder> get items => _items;
   List<Categories> get category => _category;
   List<Menu> get menu => _searchMenu;
   int selected = 99;
   int idSelected = 0;
   bool isLoadMenu = false;
   bool matchMenu = false;
+  bool onOrder = false;
   List<String> _images = [];
   List<String> get images => _images;
   List<FavoriteBool> isFavorite = [];
@@ -216,6 +220,16 @@ class HomeController extends GetxController {
 
   void addFavorite(int user, int menu) async {
     FavoriteService().addFavorite(user, menu);
+    update();
+  }
+
+  onOrderCreate() {
+    onOrder = true;
+    update();
+  }
+
+  onOrderDone() {
+    onOrder = false;
     update();
   }
 
