@@ -1,26 +1,27 @@
 class Order {
-  int? id;
-  int? userId;
-  String? orderDate;
-  String? totalPrice;
-  String? status;
-  int? restaurantId;
+  final int id;
+  final int userId;
+  final String orderDate;
+  final String totalPrice;
+  final String status;
+  final int restaurantId;
 
   Order(
-      {this.id,
-      this.userId,
-      this.orderDate,
-      this.totalPrice,
-      this.status,
-      this.restaurantId});
+      {required this.id,
+      required this.userId,
+      required this.orderDate,
+      required this.totalPrice,
+      required this.status,
+      required this.restaurantId});
 
-  Order.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    orderDate = json['order_date'];
-    totalPrice = json['total_price'];
-    status = json['status'];
-    restaurantId = json['restaurant_id'];
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+        id: json['id'],
+        userId: json['user_id'],
+        orderDate: json['order_date'],
+        totalPrice: json['total_price'],
+        status: json['status'],
+        restaurantId: json['restaurant_id']);
   }
 
   Map<String, dynamic> toJson() {

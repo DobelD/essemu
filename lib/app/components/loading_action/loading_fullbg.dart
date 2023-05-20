@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class AppLoading extends StatelessWidget {
-  const AppLoading({
+class AppLoadingFull extends StatelessWidget {
+  const AppLoadingFull({
     Key? key,
     required this.isLoading,
     this.child,
@@ -23,7 +23,7 @@ class AppLoading extends StatelessWidget {
         if (isLoading)
           Positioned.fill(
             child: Container(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white,
               child: Center(
                 child: SizedBox(
                     height: 70.w,

@@ -7,9 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
-
-import '../../../../provider/endpoint.dart';
 
 class BodySection extends StatelessWidget {
   const BodySection({super.key, this.data, required this.fav});
@@ -27,55 +24,27 @@ class BodySection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: Get.width * 0.7,
-                    child: Text(
-                      '${data?.name}',
-                      maxLines: 2,
-                      overflow: TextOverflow.clip,
-                      style: GoogleFonts.inter(
-                          fontSize: 16.sp, fontWeight: FontWeight.w500),
-                    ),
+                  Text(
+                    'Detail',
+                    style: GoogleFonts.inter(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      print(ctrlHome.idUser);
-                      Endpoint endpoint = Endpoint();
-                      fav
-                          ? await endpoint.deleteFavorite(
-                              data?.id ?? 0, ctrlHome.idUser)
-                          : c.addFavorite(ctrlHome.idUser, data?.id ?? 0);
-                      c.getFavorite(ctrlHome.idUser);
-                    },
-                    child: Container(
-                      height: 42.w,
-                      width: 42.w,
-                      decoration:
-                          BoxDecoration(shape: BoxShape.circle, color: kWhite),
-                      child: Center(
-                          child: Icon(
-                              fav ? IconlyBold.heart : IconlyLight.heart,
-                              color: fav ? kRed : kSoftGrey)),
-                    ),
-                  )
+                  Spacer(),
+                  Icon(
+                    Icons.timer_outlined,
+                    color: kBlack,
+                    size: 16,
+                  ),
+                  SizedBox(width: 6.w),
+                  Text(
+                    '15 min',
+                    style: GoogleFonts.inter(
+                        fontSize: 14.sp, fontWeight: FontWeight.w400),
+                  ),
                 ],
               ),
-              Text(
-                '${ctrlHome.roundedDistance} Km from you',
-                style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: kGrey1),
-              ),
-              SizedBox(height: 22.w),
-              Text(
-                'Detail',
-                style: GoogleFonts.inter(
-                    fontSize: 16.sp, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(height: 6.w),
+              SizedBox(height: 12.w),
               SizedBox(
                 width: Get.width * 0.9,
                 child: Text(

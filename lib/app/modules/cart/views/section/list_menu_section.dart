@@ -8,112 +8,133 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../home/controllers/home_controller.dart';
+
 class ListMenuSection extends StatelessWidget {
   const ListMenuSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // CartService service = CartService();
+
+    final ctrlHome = Get.put(HomeController());
     return GetBuilder<CartController>(builder: (c) {
       return SliverPadding(
           padding: DefaultPadding.all,
           sliver: SliverList(
-              delegate:
-                  SliverChildBuilderDelegate(childCount: 2, (context, index) {
+              delegate: SliverChildBuilderDelegate(
+                  childCount: c.cartOrder.length, (context, index) {
+            final data = c.cartOrder[index];
             return Padding(
                 padding: DefaultPadding.down,
                 child: Row(
                   children: [
-                    Container(
-                      height: 102.w,
-                      width: 102.w,
-                      decoration: BoxDecoration(
-                          color: kSoftGrey, borderRadius: AppRadius.all),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        height: 102.w,
+                        width: 102.w,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(image: NetworkImage('')),
+                            color: kSoftGrey,
+                            borderRadius: AppRadius.all),
+                      ),
                     ),
                     SizedBox(width: 8.w),
-                    SizedBox(
-                        height: 98.w,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Nama Menu',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                SizedBox(height: 8.w),
-                                Text(
-                                  'Rp. ',
-                                  style: AppTextTheme.current.hintText,
-                                ),
-                              ],
-                            )),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                    child: Row(
-                                  children: [
-                                    GestureDetector(
-                                      // onTap: () => c.decrementCounter(data!.price!),
-                                      child: Container(
-                                          height: 22.w,
-                                          width: 22.w,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(color: kMain)),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: kMain,
-                                              size: 12,
-                                            ),
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: MiddlePadding.side,
-                                      child: Text(
-                                        '${c.counter}',
-                                        style: GoogleFonts.inter(
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.w500),
+                    Expanded(
+                      flex: 7,
+                      child: SizedBox(
+                          height: 98.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${data.menu.name}',
+                                    style: GoogleFonts.inter(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(height: 8.w),
+                                  Text(
+                                    'Rp. ${data.menu.price! * data.qty}',
+                                    style: AppTextTheme.current.hintText,
+                                  ),
+                                ],
+                              )),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                      child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => c.counterItemDecrement(
+                                            ctrlHome.idUser,
+                                            data.menu.id ?? 0,
+                                            data.qty),
+                                        child: Container(
+                                            height: 22.w,
+                                            width: 22.w,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border:
+                                                    Border.all(color: kMain)),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: kMain,
+                                                size: 12,
+                                              ),
+                                            )),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      // onTap: () => c.incrementCounter(data!.price!),
-                                      child: Container(
-                                          height: 22.w,
-                                          width: 22.w,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(color: kMain)),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.add,
-                                              color: kMain,
-                                              size: 12,
-                                            ),
-                                          )),
-                                    )
-                                  ],
-                                )),
-                                SizedBox(width: 100.w),
-                                GestureDetector(
-                                    onTap: () {},
-                                    child: Icon(
-                                      Icons.close,
-                                      color: kSoftGrey,
-                                      size: 24,
-                                    ))
-                              ],
-                            )
-                          ],
-                        ))
+                                      Padding(
+                                        padding: MiddlePadding.side,
+                                        child: Text(
+                                          '${data.qty}',
+                                          style: AppTextTheme.current.bodyText,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () => c.counterItemIncerement(
+                                            ctrlHome.idUser,
+                                            data.menu.id ?? 0,
+                                            data.qty),
+                                        child: Container(
+                                            height: 22.w,
+                                            width: 22.w,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border:
+                                                    Border.all(color: kMain)),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.add,
+                                                color: kMain,
+                                                size: 12,
+                                              ),
+                                            )),
+                                      )
+                                    ],
+                                  )),
+                                  GestureDetector(
+                                      onTap: () => c.deleteData(
+                                          ctrlHome.idUser, data.menuId),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: kSoftGrey,
+                                        size: 20,
+                                      )),
+                                ],
+                              )
+                            ],
+                          )),
+                    )
                   ],
                 ));
           })));

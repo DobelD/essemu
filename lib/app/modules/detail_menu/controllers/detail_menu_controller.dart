@@ -1,15 +1,24 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../data/bool_favorite.dart';
 import '../../../data/categories.dart';
+import '../../../provider/endpoint.dart';
+import '../../../themes/colors/colors.dart';
+import '../../../themes/decoration/app_padding.dart';
+import '../../../themes/typograpy/typo.dart';
 import '../../home/services/favorite_service.dart';
 
 class DetailMenuController extends GetxController {
   Menu _menu = Get.arguments['data'];
   List<FavoriteBool> isFavorite = [];
+  int idUser = Get.arguments['id_user'];
 
   int counter = 1;
   int price = 0;
+
+  Endpoint endpoint = Endpoint();
 
   void incrementCounter(int value) {
     counter++;
@@ -34,6 +43,27 @@ class DetailMenuController extends GetxController {
     final service = FavoriteService();
     isFavorite = await service.getData(id);
     update();
+  }
+
+  addCart(int menuId) async {
+    await endpoint.addToCart(menuPayload(menuId));
+    Get.showSnackbar(GetSnackBar(
+      borderRadius: 8.r,
+      backgroundColor: kSuccess1,
+      duration: 2.seconds,
+      margin: DefaultPadding.all,
+      snackPosition: SnackPosition.TOP,
+      messageText: Text('Success add item to cart',
+          style: AppTextTheme.current.bodyTextWhite),
+    ));
+  }
+
+  Map<String, dynamic> menuPayload(int menuId) {
+    Map<String, dynamic> temp = <String, dynamic>{};
+    temp['user_id'] = idUser;
+    temp['menu_id'] = menuId;
+    temp['qty'] = counter;
+    return temp;
   }
 
   @override

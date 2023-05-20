@@ -131,8 +131,18 @@ class AppTextTheme {
           .textTheme
           .labelLarge!
           .copyWith(leadingDistribution: TextLeadingDistribution.even),
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w500,
       color: kBlack,
+      fontSize: 16.sp,
+      height: 22 / 16,
+      letterSpacing: 16.sp * 0.01);
+  TextStyle get buttonTextDark => GoogleFonts.poppins(
+      textStyle: Theme.of(_localContext)
+          .textTheme
+          .labelLarge!
+          .copyWith(leadingDistribution: TextLeadingDistribution.even),
+      fontWeight: FontWeight.w500,
+      color: kWhite,
       fontSize: 16.sp,
       height: 22 / 16,
       letterSpacing: 16.sp * 0.01);

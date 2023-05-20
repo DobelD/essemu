@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../routes/app_pages.dart';
 import '../../../../themes/colors/colors.dart';
 import '../../../../themes/typograpy/typo.dart';
+import '../../../cart/services/cart_service.dart';
 import '../widget/shimmer/heading.dart';
 
 class HeadingSection extends StatelessWidget {
@@ -15,6 +15,8 @@ class HeadingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartService service = CartService();
+    final controller = Get.put(HomeController());
     return SliverAppBar(
       automaticallyImplyLeading: false,
       backgroundColor: kWhite,
@@ -57,8 +59,12 @@ class HeadingSection extends StatelessWidget {
       }),
       actions: [
         IconButton(
-            onPressed: () => Get.toNamed(Routes.CART),
-            icon: Icon(IconlyLight.buy, color: kBlack))
+          onPressed: () => Get.toNamed(Routes.CART),
+          icon: Icon(
+            IconlyLight.buy,
+            color: kBlack,
+          ),
+        )
       ],
     );
   }

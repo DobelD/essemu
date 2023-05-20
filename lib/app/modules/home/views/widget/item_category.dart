@@ -2,11 +2,13 @@ import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/shimmer/shimmer.dart';
 import '../../../../data/categories.dart';
 import '../../../../themes/colors/colors.dart';
+import '../../../../utils/assets/svg/svg_assets.dart';
 
 class ItemCategory extends StatelessWidget {
   const ItemCategory({super.key, this.isLoading = true, this.category});
@@ -17,6 +19,20 @@ class ItemCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(HomeController());
+    List<String> imageAssets = [
+      SgAssets.classicCoffe,
+      SgAssets.frappe,
+      SgAssets.freshDrink,
+      SgAssets.mainCourse,
+      SgAssets.manualBrew,
+      SgAssets.nonCoffee,
+      SgAssets.pasta,
+      SgAssets.riceBowl,
+      SgAssets.signature,
+      SgAssets.snack,
+      SgAssets.soup,
+      SgAssets.western
+    ];
     return Material(
       child: SizedBox(
           child: Wrap(
@@ -33,20 +49,27 @@ class ItemCategory extends StatelessWidget {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: kDividerItemSectionDashboard),
-                              image: DecorationImage(
-                                  // '${c.pubicUrlCategory}/${data?.name}.jpg'
-                                  image: NetworkImage(''),
-                                  fit: BoxFit.cover,
-                                  colorFilter: ColorFilter.mode(
-                                      kBlack.withOpacity(0.5),
-                                      BlendMode.multiply)),
                               borderRadius: BorderRadius.circular(8.r),
-                              color: kBlack),
-                          child: Center(
-                              child: Text(
-                            '${data?.name ?? '-'}',
-                            style: AppTextTheme.current.bodyTextWhite,
-                          )),
+                              color: kPrimary4),
+                          child: SizedBox(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 12.w),
+                              child: Column(
+                                children: [
+                                  SvgPicture.asset(
+                                    imageAssets[index],
+                                    height: 55.w,
+                                    width: 70.w,
+                                  ),
+                                  SizedBox(height: 10.w),
+                                  Text(
+                                    '${data?.name}',
+                                    style: AppTextTheme.current.bodyText,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       );
               }))),

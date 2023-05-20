@@ -218,6 +218,11 @@ class HomeController extends GetxController {
     update();
   }
 
+  getIdUser() async {
+    final user = await session.getUser();
+    idUser = user!.id!;
+  }
+
   void addFavorite(int user, int menu) async {
     FavoriteService().addFavorite(user, menu);
     update();
@@ -252,6 +257,7 @@ class HomeController extends GetxController {
         await getKordinat();
       }
     });
+    getIdUser();
     getUserId();
     getCategory();
     getMenu(idSelected);

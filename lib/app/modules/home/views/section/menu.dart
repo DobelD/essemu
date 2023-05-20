@@ -49,7 +49,8 @@ class MenuSection extends StatelessWidget {
                                 onTap: () => Get.toNamed(Routes.DETAIL_MENU,
                                     arguments: {
                                       "data": menu,
-                                      "favorite": isMatch
+                                      "favorite": isMatch,
+                                      "id_user": c.idUser
                                     }),
                                 child: Container(
                                   height: 200.w,

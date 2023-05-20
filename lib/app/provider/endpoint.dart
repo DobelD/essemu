@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../data/cart_order.dart';
+
 class Endpoint {
   SupabaseClient client = Supabase.instance.client;
 
@@ -103,6 +105,15 @@ class Endpoint {
     return fav;
   }
 
+  addToCart(Map<String, dynamic> value) async {
+    try {
+      final add = await client.from('cart').insert([value]);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   addMenu(Map<String, dynamic> value) async {
     try {
       final add = await client.from('menu').insert([value]);
@@ -134,5 +145,44 @@ class Endpoint {
         '$name', File(path),
         fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
     return image;
+  }
+
+  Future<List<CartOrder>> getCart(int id) async {
+    final menuClient = client.from('menu');
+    final cartFuture =
+        client.from('cart').stream(primaryKey: ['id']).eq('user_id', id);
+    await for (final snap in cartFuture) {
+      final cartList = <CartOrder>[];
+      for (final data in snap) {
+        final menuId = data['menu_id'];
+        final menuData = await menuClient
+            .select('*, categories!inner(name), restaurant!inner(coordinate)')
+            .eq('id', menuId)
+            .single();
+        final menu = Menu.fromJson(menuData);
+        final cart = CartOrder.fromJson(data, menu: menu);
+        cartList.add(cart);
+      }
+      return cartList;
+    }
+    throw 'Gagal';
+  }
+
+  deleteItemCart(int userId, int menuId) async {
+    final item = await client
+        .from('cart')
+        .delete()
+        .eq('user_id', userId)
+        .eq('menu_id', menuId);
+    return item;
+  }
+
+  updateItemCart(int userId, int menuId, int count) async {
+    final item = await client
+        .from('cart')
+        .update({'qty': count})
+        .eq('user_id', userId)
+        .eq('menu_id', menuId);
+    return item;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../button/app_button_style.dart';
@@ -12,6 +13,7 @@ class AppButtonPrimary extends StatelessWidget with AppButtonStyleMixin {
     this.iconData,
     this.isLoading,
     this.isSuccess,
+    this.invert = false,
     this.sizeType = AppButtonSize.normal,
   }) : super(key: key);
 
@@ -21,12 +23,15 @@ class AppButtonPrimary extends StatelessWidget with AppButtonStyleMixin {
   final IconData? iconData;
   final bool? isLoading;
   final bool? isSuccess;
+  final bool invert;
   final AppButtonSize sizeType;
 
   ButtonStyle get buttonStyle => ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
           if (states.contains(MaterialState.disabled)) {
             return kSoftGrey;
+          } else if (invert == true) {
+            return kWhite;
           } else {
             return kMain;
           }
@@ -62,7 +67,10 @@ class AppButtonPrimary extends StatelessWidget with AppButtonStyleMixin {
         ? ElevatedButton(
             style: buttonStyle,
             onPressed: isEnabled ? onPressed : null,
-            child: Text(label),
+            child: Text(label,
+                style: invert == true
+                    ? AppTextTheme.current.buttonText
+                    : AppTextTheme.current.buttonTextDark),
           )
         : ElevatedButton.icon(
             style: buttonStyle,

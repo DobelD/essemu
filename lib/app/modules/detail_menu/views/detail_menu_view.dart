@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../data/categories.dart';
 import '../controllers/detail_menu_controller.dart';
+import 'section/appbar_section.dart';
 import 'section/body_section.dart';
 import 'section/footer_section.dart';
 
@@ -19,6 +20,10 @@ class DetailMenuView extends GetView<DetailMenuController> {
       backgroundColor: kMainBackground,
       body: CustomScrollView(
         slivers: [
+          AppBarSection(
+            data: menu,
+            fav: favorite,
+          ),
           HeroSection(data: menu),
           BodySection(data: menu, fav: favorite)
         ],

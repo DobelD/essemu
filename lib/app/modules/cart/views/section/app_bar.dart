@@ -12,6 +12,8 @@ class AppBarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: kWhite,
+      surfaceTintColor: kWhite,
+      pinned: true,
       title: Text('My Cart', style: AppTextTheme.current.appBarTitleDark),
       centerTitle: true,
       leading: Padding(
