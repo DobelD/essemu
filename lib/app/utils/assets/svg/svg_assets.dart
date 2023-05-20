@@ -11,4 +11,5 @@ class SgAssets {
   static const String snack = 'assets/svg/snack.svg';
   static const String soup = 'assets/svg/soup.svg';
   static const String western = 'assets/svg/western.svg';
+  static const String fire = 'assets/svg/fire.svg';
 }

@@ -25,6 +25,13 @@ class ListMenuSection extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                   childCount: c.cartOrder.length, (context, index) {
             final data = c.cartOrder[index];
+            final price = data.menu.price! * data.qty;
+            int subTotal = 0;
+            for (var item in c.cartOrder) {
+              subTotal += item.menu.price! * item.qty;
+            }
+            print("RR: ${subTotal}");
+
             return Padding(
                 padding: DefaultPadding.down,
                 child: Row(
@@ -61,7 +68,7 @@ class ListMenuSection extends StatelessWidget {
                                   ),
                                   SizedBox(height: 8.w),
                                   Text(
-                                    'Rp. ${data.menu.price! * data.qty}',
+                                    'Rp. ${price}',
                                     style: AppTextTheme.current.hintText,
                                   ),
                                 ],
@@ -94,7 +101,7 @@ class ListMenuSection extends StatelessWidget {
                                             )),
                                       ),
                                       Padding(
-                                        padding: MiddlePadding.side,
+                                        padding: DefaultPadding.side,
                                         child: Text(
                                           '${data.qty}',
                                           style: AppTextTheme.current.bodyText,

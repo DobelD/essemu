@@ -1,7 +1,9 @@
 import 'package:essemu/app/components/label_action/label_action.dart';
+import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:essemu/app/utils/label/label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
@@ -88,12 +90,29 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                             BorderRadius.circular(8.r),
                                         color: c.selected == 99
                                             ? kMainDark
-                                            : kSofterGrey),
-                                    child: Center(
-                                        child: Text(
-                                      S.all,
-                                      style: AppTextTheme.current.bodyTextWhite,
-                                    )),
+                                            : kWhite),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 16.w,
+                                          width: 16.w,
+                                          child:
+                                              SvgPicture.asset(SgAssets.fire),
+                                        ),
+                                        SizedBox(width: 6.w),
+                                        Text(
+                                          S.all,
+                                          style: c.selected == 99
+                                              ? AppTextTheme
+                                                  .current.bodyTextWhite
+                                              : AppTextTheme.current.bodyText,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 )),
                           ),
@@ -120,13 +139,29 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                               BorderRadius.circular(8.r),
                                           color: c.selected == index
                                               ? kMainDark
-                                              : kSofterGrey),
-                                      child: Center(
-                                          child: Text(
-                                        "${data.name ?? '-'}",
-                                        style:
-                                            AppTextTheme.current.bodyTextWhite,
-                                      )),
+                                              : kWhite),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 16.w,
+                                            width: 16.w,
+                                            child: SvgPicture.network(
+                                                '${c.pubicUrlCategory}${data.imageUrl}'),
+                                          ),
+                                          SizedBox(width: 6.w),
+                                          Text(
+                                            "${data.name ?? '-'}",
+                                            style: c.selected == index
+                                                ? AppTextTheme
+                                                    .current.bodyTextWhite
+                                                : AppTextTheme.current.bodyText,
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },

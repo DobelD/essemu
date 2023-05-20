@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/session/session_manager.dart';
+import '../../../provider/endpoint.dart';
 import '../services/cart_service.dart';
 import '../services/update_count_service.dart';
 
@@ -20,11 +20,13 @@ class CartController extends GetxController {
   int countCart = 1;
   int idUser = 0;
   bool addNew = false;
-  int subTotal = 0;
+  // int subTotal = 0;
   bool isLoading = false;
+  int subTotal = 0;
 
   List<CartOrder> _cartOrder = [];
   List<CartOrder> get cartOrder => _cartOrder;
+  Endpoint endpoint = Endpoint();
 
   setData(List<CartOrder> data) {
     _cartOrder = data;
@@ -75,44 +77,41 @@ class CartController extends GetxController {
     }
   }
 
-  void incrementCounter(int count, int value, int menuId) {
-    UpdateItemCart updateItem = UpdateItemCart();
-    count++;
-    price += value;
-    updateItem.incrementItem(ctrlHome.idUser, menuId, count);
-    print(price);
-    update();
+  checkout(int id, List<int> menuIds, int totalPrice, int restId) async {
+    // List<Map<String, dynamic>> payloads = [];
+    // for (int menuId in menuIds) {
+    //   payloads.add(checkoutPayload(id, menuId));
+    // }
+    final response =
+        await endpoint.createOrder(orderPayload(id, totalPrice, restId));
+    final orderId = response[0]['id'];
+    print(orderId);
+    // await endpoint.checkout(payloads);
+    // await endpoint.deleteCart(id);
+    // Get.back();
+    // ctrlHome.onOrderCreate();
+    // Get.toNamed(Routes.MAIN_PAGES);
   }
 
-  void decrementCounter(int count, int value, int menuId) {
-    UpdateItemCart updateItem = UpdateItemCart();
-    if (count > 1) {
-      count--;
-      price -= value;
-      updateItem.incrementItem(ctrlHome.idUser, menuId, count);
-      print(price);
-      update();
-    }
+  Map<String, dynamic> orderPayload(int id, int price, int restId) {
+    Map<String, dynamic> temp = <String, dynamic>{};
+    temp['user_id'] = id;
+    temp['total_price'] = price;
+    temp['status'] = 'proses';
+    temp['restaurant_id'] = restId;
+    return temp;
   }
 
-  getIdUser() async {
-    final user = await session.getUser();
-    idUser = user!.id!;
-  }
-
-  addNewWidget() {
-    addNew = true;
-    update();
-  }
-
-  removeAdd() {
-    addNew = false;
-    update();
+  Map<String, dynamic> checkoutPayload(int id, int menuId) {
+    Map<String, dynamic> temp = <String, dynamic>{};
+    temp['order_id'] = id;
+    temp['menu_id'] = menuId;
+    temp['quantity'] = counter;
+    return temp;
   }
 
   @override
   void onInit() {
-    getIdUser();
     getData(ctrlHome.idUser);
     super.onInit();
   }

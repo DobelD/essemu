@@ -45,8 +45,8 @@ class DetailMenuController extends GetxController {
     update();
   }
 
-  addCart(int menuId) async {
-    await endpoint.addToCart(menuPayload(menuId));
+  addCart(int menuId, int countPrice) async {
+    await endpoint.addToCart(menuPayload(menuId, countPrice));
     Get.showSnackbar(GetSnackBar(
       borderRadius: 8.r,
       backgroundColor: kSuccess1,
@@ -58,11 +58,13 @@ class DetailMenuController extends GetxController {
     ));
   }
 
-  Map<String, dynamic> menuPayload(int menuId) {
+  Map<String, dynamic> menuPayload(int menuId, int countPrice) {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['user_id'] = idUser;
     temp['menu_id'] = menuId;
     temp['qty'] = counter;
+    temp['count_price'] = countPrice;
+
     return temp;
   }
 

@@ -149,14 +149,18 @@ class Endpoint {
 
   Future<List<CartOrder>> getCart(int id) async {
     final menuClient = client.from('menu');
-    final cartFuture =
-        client.from('cart').stream(primaryKey: ['id']).eq('user_id', id);
+    final cartFuture = client
+        .from('cart')
+        .stream(primaryKey: ['id'])
+        .eq('user_id', id)
+        .order('id', ascending: true);
     await for (final snap in cartFuture) {
       final cartList = <CartOrder>[];
       for (final data in snap) {
         final menuId = data['menu_id'];
         final menuData = await menuClient
-            .select('*, categories!inner(name), restaurant!inner(coordinate)')
+            .select(
+                '*, categories!inner(name), restaurant!inner(id,coordinate,delivery_fee)')
             .eq('id', menuId)
             .single();
         final menu = Menu.fromJson(menuData);
@@ -183,6 +187,35 @@ class Endpoint {
         .update({'qty': count})
         .eq('user_id', userId)
         .eq('menu_id', menuId);
+    return item;
+  }
+
+  getRestaurant() async {
+    final rest = await client.from('restaurant').select('id,delivery_fee');
+    return rest;
+  }
+
+  createOrder(Map<String, dynamic> value) async {
+    try {
+      final add = await client.from('order').insert([value]);
+      print(add['public']);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  checkout(List<Map<String, dynamic>> value) async {
+    try {
+      final add = await client.from('order_item').insert([value]);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  deleteCart(int userId) async {
+    final item = await client.from('cart').delete().eq('user_id', userId);
     return item;
   }
 }

@@ -94,7 +94,7 @@ class FooterSection extends StatelessWidget {
                 width: Get.width,
                 child: AppButtonPrimary(
                     label: 'Add To Cart',
-                    onPressed: () => c.addCart(data!.id!)))
+                    onPressed: () => c.addCart(data!.id!, c.price)))
           ],
         ),
       );

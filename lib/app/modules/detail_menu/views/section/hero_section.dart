@@ -5,6 +5,7 @@ import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:essemu/app/themes/decoration/app_radius.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,9 +41,11 @@ class HeroSection extends StatelessWidget {
                 width: 26.w,
                 padding: EdgeInsets.all(4.w),
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: kSecondary4,
-                    image: DecorationImage(image: NetworkImage(''))),
+                  shape: BoxShape.circle,
+                  color: kSecondary4,
+                ),
+                child: SvgPicture.network(
+                    '${c.pubicUrlCategory}${data?.imageUrl}'),
               ),
               SizedBox(width: 12.w),
               Text(

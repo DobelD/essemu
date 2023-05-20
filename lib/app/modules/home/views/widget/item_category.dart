@@ -56,8 +56,8 @@ class ItemCategory extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 12.w),
                               child: Column(
                                 children: [
-                                  SvgPicture.asset(
-                                    imageAssets[index],
+                                  SvgPicture.network(
+                                    '${c.pubicUrlCategory}${data?.imageUrl}',
                                     height: 55.w,
                                     width: 70.w,
                                   ),

@@ -3,6 +3,7 @@ class CartOrder {
   final int userId;
   final int menuId;
   final int qty;
+  final int countPrice;
   final Menu menu; // Menambahkan properti menu
 
   CartOrder({
@@ -10,6 +11,7 @@ class CartOrder {
     required this.userId,
     required this.menuId,
     required this.qty,
+    required this.countPrice,
     required this.menu,
   });
 
@@ -19,6 +21,7 @@ class CartOrder {
       userId: json['user_id'],
       menuId: json['menu_id'],
       qty: json['qty'],
+      countPrice: json['count_price'],
       menu: menu ??
           Menu.fromJson(
               json), // Menggunakan objek menu yang diteruskan jika ada
@@ -31,6 +34,7 @@ class CartOrder {
       'user_id': userId,
       'menu_id': menuId,
       'qty': qty,
+      'count_price': countPrice,
       'menu': menu.toJson(), // Menambahkan properti menu dalam JSON
     };
   }
@@ -109,17 +113,23 @@ class MenuCategory {
 }
 
 class Restaurant {
+  int? id;
+  int? deliveryFee;
   String? coordinate;
 
-  Restaurant({this.coordinate});
+  Restaurant({this.id, this.coordinate, this.deliveryFee});
 
   Restaurant.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     coordinate = json['coordinate'];
+    deliveryFee = json['delivery_fee'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['coordinate'] = this.coordinate;
+    data['delivery_fee'] = this.deliveryFee;
     return data;
   }
 }
