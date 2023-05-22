@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FooterSection extends StatelessWidget {
-  const FooterSection({super.key});
+  const FooterSection({super.key, required this.id});
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class FooterSection extends StatelessWidget {
         padding: DefaultPadding.all,
         child: AppButtonPrimary(
           label: 'Terima Pesanan',
-          onPressed: () => controller.onOrderSuccess(),
+          onPressed: () => controller.onOrderSuccess(id),
         ));
   }
 }

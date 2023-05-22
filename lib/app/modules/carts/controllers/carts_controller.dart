@@ -136,6 +136,7 @@ class CartsController extends GetxController {
       int id, int price, int restId, int deliveryFee) {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['user_id'] = id;
+    temp['order_date'] = DateTime.now().millisecondsSinceEpoch;
     temp['total_price'] = price;
     temp['status'] = 'proses';
     temp['restaurant_id'] = restId;

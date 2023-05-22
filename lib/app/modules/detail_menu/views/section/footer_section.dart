@@ -11,8 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../data/categories.dart';
 
 class FooterSection extends StatelessWidget {
-  const FooterSection({super.key, this.data});
+  const FooterSection({super.key, this.data, required this.user});
   final Menu? data;
+  final int user;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,7 @@ class FooterSection extends StatelessWidget {
                 width: Get.width,
                 child: AppButtonPrimary(
                     label: 'Add To Cart',
-                    onPressed: () => c.addCart(data!.id!, c.price)))
+                    onPressed: () => c.addCart(user, data!.id!, c.price)))
           ],
         ),
       );

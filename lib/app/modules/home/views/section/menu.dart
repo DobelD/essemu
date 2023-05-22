@@ -13,6 +13,7 @@ import 'package:iconly/iconly.dart';
 import '../../../../provider/endpoint.dart';
 import '../../../../themes/decoration/app_radius.dart';
 import '../widget/shimmer/menu.dart';
+import '../../../../utils/extension/currency_formatter.dart';
 
 class MenuSection extends StatelessWidget {
   const MenuSection({super.key});
@@ -136,7 +137,7 @@ class MenuSection extends StatelessWidget {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Rp. ${menu.price}',
+                                                  '${menu.price!.toCurrencyFormat()}',
                                                   style: AppTextTheme
                                                       .current.title5,
                                                 ),

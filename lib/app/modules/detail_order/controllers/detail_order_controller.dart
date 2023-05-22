@@ -1,3 +1,4 @@
+import 'package:essemu/app/modules/history/controllers/history_controller.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/provider/endpoint.dart';
 import 'package:essemu/app/routes/app_pages.dart';
@@ -13,13 +14,16 @@ import '../service/item_order_service.dart';
 
 class DetailOrderController extends GetxController {
   final ctrlHome = Get.put(HomeController());
+  final ctrlHist = Get.put(HistoryController());
   Endpoint endpoint = Endpoint();
   int idOrder = 0;
   int totalPrice = 0;
 
+  // ignore: unused_field
   List<Order> _order = [];
   List<ItemOrder> _itemOrder = [];
   List<ItemOrder> get itemOrder => _itemOrder;
+  // ignore: unused_field
   List<History> _history = [];
   List<int> menu = [];
   List<int> qty = [];
@@ -50,18 +54,17 @@ class DetailOrderController extends GetxController {
     setItemOrder(data);
   }
 
-  onOrderSuccess() async {
+  onOrderSuccess(int restId) async {
     isLoading = true;
     update();
     List<MenuPayload> mappedList = List<MenuPayload>.generate(
         menu.length, (index) => MenuPayload(id: menu[index], qty: qty[index]));
-    await endpoint.createHistory(historyPayload(ctrlHome.idUser, totalPrice));
+    await endpoint
+        .createHistory(historyPayload(ctrlHome.idUser, totalPrice, restId));
     final history = HistoryService();
     final datsHist = await history.getData(ctrlHome.idUser);
     setHistory(datsHist);
-    int historyId = datsHist.first.id;
-    print(historyId);
-    print(mappedList);
+    int historyId = datsHist.first.id!;
     final service = DeleteOrder();
     List<Map<String, dynamic>> payloads = [];
     for (var item in mappedList) {
@@ -70,16 +73,19 @@ class DetailOrderController extends GetxController {
     await service.deleteItem(idOrder);
     await endpoint.createItemHistory(payloads);
     await service.deleteOrder(ctrlHome.idUser);
+    ctrlHist.getData();
     isLoading = false;
     update();
     Get.offNamed(Routes.MAIN_PAGES);
   }
 
-  Map<String, dynamic> historyPayload(int id, int price) {
+  Map<String, dynamic> historyPayload(int id, int price, int restId) {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['user_id'] = id;
+    temp['created_at'] = DateTime.now().millisecondsSinceEpoch;
     temp['total'] = price;
     temp['status'] = 'selesai';
+    temp['restaurant_id'] = restId;
     return temp;
   }
 

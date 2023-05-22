@@ -115,6 +115,15 @@ class Endpoint {
     }
   }
 
+  checkCart(int id) async {
+    try {
+      final cart = await client.from('cart').select('*');
+      return cart;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   addMenu(Map<String, dynamic> value) async {
     try {
       final add = await client.from('menu').insert([value]);
@@ -266,6 +275,14 @@ class Endpoint {
                 false) // Mengurutkan berdasarkan created_at secara menurun (terbaru ke terlama)
         .limit(1);
     return order;
+  }
+
+  getHistory(int id) async {
+    final history = await client
+        .from('history')
+        .select('*, restaurant!inner(name,address,phone)')
+        .eq('user_id', id);
+    return history;
   }
 
   getHistoryById(int id) async {

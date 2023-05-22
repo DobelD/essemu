@@ -1,3 +1,4 @@
+import 'package:essemu/app/modules/detail_menu/service/add_to_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -45,8 +46,26 @@ class DetailMenuController extends GetxController {
     update();
   }
 
-  addCart(int menuId, int countPrice) async {
-    await endpoint.addToCart(menuPayload(menuId, countPrice));
+  addCart(int userId, int menuId, int countPrice) async {
+    print(userId);
+    List<dynamic> cartItems = await endpoint.checkCart(userId);
+    print(cartItems);
+
+    bool isMenuExist = false;
+    for (var item in cartItems) {
+      if (item['menu_id'] == menuId) {
+        final service = AddToCart();
+        await service.incrementItem(userId, menuId, item['qty'], counter);
+        isMenuExist = true;
+        break;
+      }
+    }
+    print(isMenuExist);
+
+    if (!isMenuExist) {
+      // Menu belum ada dalam keranjang, tambahkan menu baru
+      await endpoint.addToCart(menuPayload(menuId, countPrice));
+    }
     Get.showSnackbar(GetSnackBar(
       borderRadius: 8.r,
       backgroundColor: kSuccess1,

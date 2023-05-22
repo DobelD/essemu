@@ -2,7 +2,7 @@ class CartOrder {
   final int id;
   final int userId;
   final int menuId;
-  final int qty;
+  int qty;
   final int countPrice;
   final Menu menu; // Menambahkan properti menu
 

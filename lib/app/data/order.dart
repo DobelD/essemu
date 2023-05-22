@@ -1,7 +1,7 @@
 class Order {
   final int id;
   final int userId;
-  final String orderDate;
+  final int orderDate;
   final int totalPrice;
   final String status;
   final int restaurantId;

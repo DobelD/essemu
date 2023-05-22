@@ -31,7 +31,7 @@ class FloatingOrder extends StatelessWidget {
               onTap: () {
                 Get.toNamed(Routes.DETAIL_ORDER, arguments: {
                   'id_order': snap.data?['id'],
-                  // 'status': snap.data?['status'],
+                  'rest': snap.data?['restaurant_id'],
                   'total': snap.data?['total_price'],
                   'fee': snap.data?['delivery_fee']
                 });

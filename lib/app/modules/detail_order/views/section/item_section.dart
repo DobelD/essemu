@@ -73,16 +73,16 @@ class ItemSection extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                      flex: 6,
+                                      flex: 1,
                                       child: Text(
-                                        '${data[index].menu.name}',
+                                        'x ${data[index].quantity}',
                                         style: AppTextTheme.current.bodyText,
                                       )),
                                   SizedBox(width: 6.w),
                                   Expanded(
-                                      flex: 1,
+                                      flex: 6,
                                       child: Text(
-                                        'x ${data[index].quantity}',
+                                        '${data[index].menu.name}',
                                         style: AppTextTheme.current.bodyText,
                                       )),
                                   SizedBox(width: 6.w),

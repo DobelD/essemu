@@ -18,6 +18,8 @@ class DetailOrderView extends GetView<DetailOrderController> {
       int id = Get.arguments['id_order'];
       // String status = Get.arguments['status'];
       int fee = Get.arguments['fee'];
+      int rest = Get.arguments['rest'];
+
       return AppLoadingFull(
         isLoading: c.isLoading,
         success: true,
@@ -30,7 +32,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
               ItemSection(id: id, fee: fee)
             ],
           ),
-          bottomSheet: FooterSection(),
+          bottomSheet: FooterSection(id: rest),
         ),
       );
     });

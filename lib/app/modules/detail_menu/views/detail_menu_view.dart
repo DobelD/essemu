@@ -16,6 +16,7 @@ class DetailMenuView extends GetView<DetailMenuController> {
   Widget build(BuildContext context) {
     Menu menu = Get.arguments['data'];
     bool favorite = Get.arguments['favorite'];
+    int id = Get.arguments['id_user'];
     return Scaffold(
       backgroundColor: kMainBackground,
       body: CustomScrollView(
@@ -28,7 +29,7 @@ class DetailMenuView extends GetView<DetailMenuController> {
           BodySection(data: menu, fav: favorite)
         ],
       ),
-      bottomSheet: FooterSection(data: menu),
+      bottomSheet: FooterSection(data: menu, user: id),
     );
   }
 }
