@@ -15,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../data/bool_favorite.dart';
 import '../../../data/categories.dart';
 import '../../../data/item_order.dart' as i;
+import '../../../provider/endpoint.dart';
 import '../services/favorite_service.dart';
 import '../services/haversine_service.dart';
 
@@ -35,6 +36,7 @@ class HomeController extends GetxController {
   List<i.ItemOrder> get items => _items;
   List<Categories> get category => _category;
   List<Menu> get menu => _searchMenu;
+
   int selected = 99;
   int idSelected = 0;
   bool isLoadMenu = false;
@@ -44,6 +46,7 @@ class HomeController extends GetxController {
   List<String> get images => _images;
   List<FavoriteBool> isFavorite = [];
   int idUser = 0;
+  int idOrder = 0;
   User user = User();
   String alamat = '';
   String jalan = '';
@@ -56,6 +59,7 @@ class HomeController extends GetxController {
   double? currentLong;
   double distance = 0.0;
   double roundedDistance = 0.0;
+  Endpoint endpoint = Endpoint();
 
   void selectedCategory(int index, int id) {
     selected = index;
@@ -266,6 +270,7 @@ class HomeController extends GetxController {
     stopLoading();
     super.onInit();
     checkConnection();
+    print(idUser);
   }
 
   @override

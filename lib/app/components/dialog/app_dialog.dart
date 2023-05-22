@@ -1,6 +1,7 @@
 import 'package:essemu/app/components/button/app_button_primary.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/decoration/app_radius.dart';
+import 'package:essemu/app/utils/assets/json/json_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -32,8 +33,7 @@ class AppDialog extends StatelessWidget {
                       padding: EdgeInsets.all(20.w),
                       height: 250.w,
                       width: Get.width,
-                      child: Lottie.network(
-                          'https://assets1.lottiefiles.com/private_files/lf30_y0m027fl.json')),
+                      child: Lottie.asset(LtAssets.food)),
                   Padding(
                     padding: DefaultPadding.all,
                     child: Column(

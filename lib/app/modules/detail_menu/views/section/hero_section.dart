@@ -16,6 +16,7 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(HomeController());
+    print('${c.pubicUrlCategory}${data?.categories?.imageUrl}');
     return SliverToBoxAdapter(
         child: Hero(
       tag: 1,
@@ -44,8 +45,15 @@ class HeroSection extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: kSecondary4,
                 ),
-                child: SvgPicture.network(
-                    '${c.pubicUrlCategory}${data?.imageUrl}'),
+                child: SizedBox(
+                  height: 18.w,
+                  width: 18.w,
+                  child: SvgPicture.network(
+                    '${c.pubicUrlCategory}${data?.categories?.imageUrl}',
+                    height: 18.w,
+                    width: 18.w,
+                  ),
+                ),
               ),
               SizedBox(width: 12.w),
               Text(

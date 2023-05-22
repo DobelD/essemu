@@ -1,15 +1,16 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:essemu/app/components/button/app_button_primary.dart';
-import 'package:essemu/app/modules/cart/controllers/cart_controller.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
+import 'package:essemu/app/utils/extension/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../components/dialog/app_dialog.dart';
+import '../../controllers/carts_controller.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -17,15 +18,13 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ctrlHome = Get.put(HomeController());
-    return GetBuilder<CartController>(builder: (c) {
+    return GetBuilder<CartsController>(builder: (c) {
+      double totalFee = c.deliveryFee * ctrlHome.roundedDistance;
       int subTotal = 0;
-      List<int> listMenu = [];
       for (var item in c.cartOrder) {
         subTotal += item.menu.price! * item.qty;
-        listMenu.add(item.menuId);
       }
-
-      print("RR: ${subTotal}");
+      double total = subTotal + totalFee;
       return Container(
           height: 200.w,
           width: Get.width,
@@ -42,7 +41,7 @@ class FooterSection extends StatelessWidget {
                         fontSize: 14.sp, fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    'Rp. ${subTotal}',
+                    '${subTotal.toCurrencyFormat()}',
                     style: GoogleFonts.inter(
                         color: kSoftGrey,
                         fontSize: 14.sp,
@@ -60,7 +59,7 @@ class FooterSection extends StatelessWidget {
                         fontSize: 14.sp, fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    'Rp. ${c.cartOrder.first.menu.restaurant?.deliveryFee}',
+                    '${totalFee.toCurrencyFormats()}',
                     style: GoogleFonts.inter(
                         color: kSoftGrey,
                         fontSize: 14.sp,
@@ -85,7 +84,7 @@ class FooterSection extends StatelessWidget {
                         fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    'Rp. ${subTotal + c.cartOrder[0].menu.restaurant!.deliveryFee!}',
+                    '${total.toCurrencyFormats()}',
                     style: GoogleFonts.inter(
                         fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ),
@@ -96,14 +95,10 @@ class FooterSection extends StatelessWidget {
                   width: Get.width,
                   child: AppButtonPrimary(
                     label: 'Checkout',
-                    // onPressed: () => c.getData(ctrlHome.idUser),
+                    // onPressed: () => c.getOrder(ctrlHome.idUser),
                     onPressed: () => Get.dialog(AppDialog(
                       onPressed: () => c.checkout(
-                          ctrlHome.idUser,
-                          listMenu,
-                          subTotal +
-                              c.cartOrder[0].menu.restaurant!.deliveryFee!,
-                          c.cartOrder[0].menu.restaurant!.id!),
+                          ctrlHome.idUser, total.toInt(), totalFee.toInt()),
                     )),
                   ))
             ],

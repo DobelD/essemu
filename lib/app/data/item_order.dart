@@ -3,7 +3,6 @@ class ItemOrder {
   final int orderId;
   final int menuId;
   final int quantity;
-  final int pricePerItem;
   final Menu menu;
 
   ItemOrder({
@@ -11,7 +10,6 @@ class ItemOrder {
     required this.orderId,
     required this.menuId,
     required this.quantity,
-    required this.pricePerItem,
     required this.menu,
   });
 
@@ -21,7 +19,6 @@ class ItemOrder {
       orderId: json['order_id'],
       menuId: json['menu_id'],
       quantity: json['quantity'],
-      pricePerItem: json['price_per_item'],
       menu: menu ?? Menu.fromJson(json),
     );
   }
@@ -32,7 +29,6 @@ class ItemOrder {
     data['order_id'] = this.orderId;
     data['menu_id'] = this.menuId;
     data['quantity'] = this.quantity;
-    data['price_per_item'] = this.pricePerItem;
     data['menu'] = menu.toJson();
     return data;
   }

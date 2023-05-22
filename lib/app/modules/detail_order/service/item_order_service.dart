@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../data/item_order.dart';
+import '../../../provider/endpoint.dart';
 
 class ItemOrderService {
   SupabaseClient client = Supabase.instance.client;
@@ -24,6 +25,17 @@ class ItemOrderService {
       }
       print(itemList);
       yield itemList;
+    }
+  }
+
+  Endpoint endpoint = Endpoint();
+
+  Future<List<ItemOrder>> getDatas(int id) async {
+    try {
+      final response = await endpoint.getItemOrder(id);
+      return response;
+    } catch (e) {
+      throw "$e";
     }
   }
 }

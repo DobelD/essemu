@@ -129,18 +129,33 @@ class Menu {
 class MenuCategory {
   int? id;
   String? name;
+  String? imageUrl;
+  List<Menu>? menu;
 
-  MenuCategory({this.id, this.name});
+  MenuCategory({this.id, this.name, this.menu, this.imageUrl});
 
   MenuCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    imageUrl = json['image_url'];
+
+    if (json['menu'] != null) {
+      menu = <Menu>[];
+      json['menu'].forEach((v) {
+        menu!.add(Menu.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['image_url'] = this.imageUrl;
+
+    if (this.menu != null) {
+      data['menu'] = this.menu!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

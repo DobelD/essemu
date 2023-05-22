@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../data/cart_order.dart';
+import '../data/item_order.dart' as i;
 
 class Endpoint {
   SupabaseClient client = Supabase.instance.client;
@@ -44,14 +45,14 @@ class Endpoint {
   getMenu() async {
     final menu = await client
         .from('menu')
-        .select('*, categories!inner(name), restaurant!inner(coordinate)');
+        .select('*, categories!inner(*), restaurant!inner(coordinate)');
     return menu;
   }
 
   getMenuById(int id) async {
     final menu = await client
         .from('menu')
-        .select('*, categories!inner(name), restaurant!inner(coordinate)')
+        .select('*, categories!inner(*), restaurant!inner(coordinate)')
         .eq('category_id', id);
     return menu;
   }
@@ -172,12 +173,48 @@ class Endpoint {
     throw 'Gagal';
   }
 
+  Future<List<i.ItemOrder>> getItemOrder(int id) async {
+    final menuClient = client.from('menu');
+    final itemFuture = client
+        .from('order_item')
+        .stream(primaryKey: ['id'])
+        .eq('order_id', id)
+        .order('id', ascending: true);
+    await for (final snap in itemFuture) {
+      final itemList = <i.ItemOrder>[];
+      for (final data in snap) {
+        final menuId = data['menu_id'];
+        final menuData = await menuClient
+            .select(
+                '*, categories!inner(name), restaurant!inner(id,coordinate,delivery_fee)')
+            .eq('id', menuId)
+            .single();
+        final menu = i.Menu.fromJson(menuData);
+        final cart = i.ItemOrder.fromJson(data, menu: menu);
+        itemList.add(cart);
+      }
+      return itemList;
+    }
+    throw 'Gagal';
+  }
+
   deleteItemCart(int userId, int menuId) async {
     final item = await client
         .from('cart')
         .delete()
         .eq('user_id', userId)
         .eq('menu_id', menuId);
+    return item;
+  }
+
+  deleteOrder(int userId) async {
+    final item = await client.from('order').delete().eq('user_id', userId);
+    return item;
+  }
+
+  deleteItemOrder(int orderId) async {
+    final item =
+        await client.from('order_item').delete().eq('order_id', orderId);
     return item;
   }
 
@@ -198,7 +235,6 @@ class Endpoint {
   createOrder(Map<String, dynamic> value) async {
     try {
       final add = await client.from('order').insert([value]);
-      print(add['public']);
       return add;
     } catch (e) {
       throw Exception(e);
@@ -207,7 +243,8 @@ class Endpoint {
 
   checkout(List<Map<String, dynamic>> value) async {
     try {
-      final add = await client.from('order_item').insert([value]);
+      final add = await client.from('order_item').insert(value);
+      print(add);
       return add;
     } catch (e) {
       throw Exception(e);
@@ -217,5 +254,48 @@ class Endpoint {
   deleteCart(int userId) async {
     final item = await client.from('cart').delete().eq('user_id', userId);
     return item;
+  }
+
+  getOrder(int id) async {
+    final order = await client
+        .from('order')
+        .select('*')
+        .eq('user_id', id)
+        .order('order_date',
+            ascending:
+                false) // Mengurutkan berdasarkan created_at secara menurun (terbaru ke terlama)
+        .limit(1);
+    return order;
+  }
+
+  getHistoryById(int id) async {
+    final history = await client
+        .from('history')
+        .select('*')
+        .eq('user_id', id)
+        .order('created_at',
+            ascending:
+                false) // Mengurutkan berdasarkan created_at secara menurun (terbaru ke terlama)
+        .limit(1);
+    return history;
+  }
+
+  createHistory(Map<String, dynamic> value) async {
+    try {
+      final add = await client.from('history').insert([value]);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  createItemHistory(List<Map<String, dynamic>> value) async {
+    try {
+      final add = await client.from('history_item').insert(value);
+      print(add);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

@@ -1,34 +1,37 @@
 import 'package:essemu/app/components/loading_action/loading_fullbg.dart';
 import 'package:essemu/app/components/spacer/sliver_spacer.dart';
-import 'package:essemu/app/modules/cart/views/section/add_new_item.dart';
-import 'package:essemu/app/modules/cart/views/section/list_menu_section.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
-import '../controllers/cart_controller.dart';
+import '../controllers/carts_controller.dart';
+import 'section/add_new_item.dart';
 import 'section/app_bar.dart';
 import 'section/footer_section.dart';
+import 'section/list_menu_section.dart';
 
-class CartView extends GetView<CartController> {
-  const CartView({Key? key}) : super(key: key);
+class CartsView extends GetView<CartsController> {
+  const CartsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CartController>(builder: (context) {
+    final controller = Get.put(CartsController());
+    return GetBuilder<CartsController>(builder: (context) {
+      // print(mappedList);
+      // print(totalFee);
+      // print(total);
       return AppLoadingFull(
-        isLoading: context.isLoading,
+        isLoading: controller.isLoading,
         child: Scaffold(
           backgroundColor: kMainBackground,
           body: CustomScrollView(
             slivers: [
               AppBarSection(),
               ListMenuSection(),
-              AddNewMenu(),
+              controller.isCartEmpty ? SliverToBoxAdapter() : AddNewMenu(),
               SliverSpacerV(hight: 212)
             ],
           ),
-          bottomSheet: FooterSection(),
+          bottomSheet: controller.isCartEmpty ? null : FooterSection(),
         ),
       );
     });

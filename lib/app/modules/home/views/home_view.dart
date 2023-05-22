@@ -23,7 +23,7 @@ class HomeView extends GetView<HomeController> {
     final controller = Get.put(HomeController());
     return GetBuilder<HomeController>(builder: (c) {
       return Scaffold(
-        floatingActionButton: c.onOrder ? FloatingOrder() : null,
+        floatingActionButton: FloatingOrder(),
         body: RefreshIndicator(
             onRefresh: () {
               return Future<void>.delayed(2.seconds, () {

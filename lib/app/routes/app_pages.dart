@@ -8,12 +8,14 @@ import '../modules/add_menu/bindings/add_menu_binding.dart';
 import '../modules/add_menu/views/add_menu_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
-import '../modules/cart/bindings/cart_binding.dart';
-import '../modules/cart/views/cart_view.dart';
+import '../modules/carts/bindings/carts_binding.dart';
+import '../modules/carts/views/carts_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/detail_menu/bindings/detail_menu_binding.dart';
 import '../modules/detail_menu/views/detail_menu_view.dart';
+import '../modules/detail_order/bindings/detail_order_binding.dart';
+import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/history/bindings/history_binding.dart';
@@ -131,9 +133,14 @@ class AppPages {
       binding: DetailMenuBinding(),
     ),
     GetPage(
-      name: _Paths.CART,
-      page: () => const CartView(),
-      binding: CartBinding(),
+      name: _Paths.CARTS,
+      page: () => const CartsView(),
+      binding: CartsBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_ORDER,
+      page: () => const DetailOrderView(),
+      binding: DetailOrderBinding(),
     ),
   ];
 }

@@ -1,6 +1,5 @@
 import 'package:essemu/app/data/categories.dart';
 import 'package:essemu/app/modules/detail_menu/controllers/detail_menu_controller.dart';
-import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class BodySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ctrlHome = Get.put(HomeController());
+    // final ctrlHome = Get.put(HomeController());
     return SliverPadding(
         padding: DefaultPadding.all,
         sliver: SliverToBoxAdapter(

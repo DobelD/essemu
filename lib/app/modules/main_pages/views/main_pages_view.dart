@@ -10,6 +10,7 @@ class MainPagesView extends GetView<MainPagesController> {
   const MainPagesView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MainPagesController());
     return GetBuilder<MainPagesController>(builder: (context) {
       return Scaffold(
         backgroundColor: kMainBackground,

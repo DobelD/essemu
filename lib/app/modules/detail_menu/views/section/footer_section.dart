@@ -2,6 +2,7 @@ import 'package:essemu/app/components/button/app_button_primary.dart';
 import 'package:essemu/app/modules/detail_menu/controllers/detail_menu_controller.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
+import 'package:essemu/app/utils/extension/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,7 @@ class FooterSection extends StatelessWidget {
                       ),
                       SizedBox(height: 4.w),
                       Text(
-                        'Rp. ${c.price}',
+                        '${c.price.toCurrencyFormat()}',
                         style: GoogleFonts.inter(
                             fontSize: 18.sp, fontWeight: FontWeight.w500),
                       ),

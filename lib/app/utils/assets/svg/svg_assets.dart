@@ -12,4 +12,9 @@ class SgAssets {
   static const String soup = 'assets/svg/soup.svg';
   static const String western = 'assets/svg/western.svg';
   static const String fire = 'assets/svg/fire.svg';
+  static const String tick = 'assets/svg/tick.svg';
+  static const String cooking = 'assets/svg/cooking.svg';
+  static const String motorbike = 'assets/svg/motorbike.svg';
+  static const String receipt = 'assets/svg/receipt.svg';
+  static const String shoppingCart = 'assets/svg/shopping-cart.svg';
 }
