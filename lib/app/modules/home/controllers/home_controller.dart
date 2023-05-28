@@ -15,9 +15,11 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../data/bool_favorite.dart';
 import '../../../data/categories.dart';
 import '../../../data/item_order.dart' as i;
+import '../../../data/order.dart';
 import '../../../provider/endpoint.dart';
 import '../services/favorite_service.dart';
 import '../services/haversine_service.dart';
+import '../services/order_service.dart';
 
 class HomeController extends GetxController {
   StreamSubscription<ConnectivityResult>? subscription;
@@ -36,6 +38,8 @@ class HomeController extends GetxController {
   List<i.ItemOrder> get items => _items;
   List<Categories> get category => _category;
   List<Menu> get menu => _searchMenu;
+  Order? order;
+  late Future<Order> orders;
 
   int selected = 99;
   int idSelected = 0;
@@ -59,6 +63,7 @@ class HomeController extends GetxController {
   double? currentLong;
   double distance = 0.0;
   double roundedDistance = 0.0;
+  String status = '';
   Endpoint endpoint = Endpoint();
 
   void selectedCategory(int index, int id) {
@@ -112,7 +117,7 @@ class HomeController extends GetxController {
       final mn = await api.getDataById(id);
       setMenu(mn);
     }
-    setDistance(currentLat!, currentLong!);
+    setDistance(currentLat ?? 0, currentLong ?? 0);
   }
 
   getFavorite(int id) async {
@@ -242,6 +247,14 @@ class HomeController extends GetxController {
     update();
   }
 
+  getOrder() async {
+    final service = OrderService();
+    final data = await service.getDatas(idUser);
+    order = data;
+    print(order);
+    update();
+  }
+
   // bool isMatch(int id) {
   //   bool match = isFavorite.any((favorite) => favorite.menuId == id);
   //   if (match) {
@@ -250,6 +263,8 @@ class HomeController extends GetxController {
   //     return false;
   //   }
   // }
+
+  OrderService servie = OrderService();
 
   @override
   void onInit() {
@@ -263,6 +278,8 @@ class HomeController extends GetxController {
     });
     getIdUser();
     getUserId();
+    // orders = servie.getDatas(idUser);
+    print(order);
     getCategory();
     getMenu(idSelected);
     getImage();
@@ -271,11 +288,5 @@ class HomeController extends GetxController {
     super.onInit();
     checkConnection();
     print(idUser);
-  }
-
-  @override
-  void onClose() {
-    subscription?.cancel();
-    super.onClose();
   }
 }

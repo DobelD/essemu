@@ -30,10 +30,10 @@ class ListMenuSection extends StatelessWidget {
                     childCount: c.cartOrder.length, (context, index) {
               final data = c.cartOrder[index];
               final price = data.menu.price ?? 0 * data.qty;
-              int subTotal = 0;
-              for (var item in c.cartOrder) {
-                subTotal += item.menu.price! * item.qty;
-              }
+              // int subTotal = 0;
+              // for (var item in c.cartOrder) {
+              //   subTotal += item.menu.price! * item.qty;
+              // }
               for (var item in c.cartOrder) {
                 c.listQty.add(item.qty);
               }

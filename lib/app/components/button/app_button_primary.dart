@@ -8,7 +8,7 @@ class AppButtonPrimary extends StatelessWidget with AppButtonStyleMixin {
   const AppButtonPrimary({
     Key? key,
     required this.label,
-    required this.onPressed,
+    this.onPressed,
     this.isEnabled = true,
     this.iconData,
     this.isLoading,
@@ -18,7 +18,7 @@ class AppButtonPrimary extends StatelessWidget with AppButtonStyleMixin {
   }) : super(key: key);
 
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isEnabled;
   final IconData? iconData;
   final bool? isLoading;

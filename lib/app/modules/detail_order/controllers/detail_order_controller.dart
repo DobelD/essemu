@@ -11,13 +11,18 @@ import '../../../data/order.dart';
 import '../service/delete_item_service.dart';
 import '../service/history_service.dart';
 import '../service/item_order_service.dart';
+import '../service/order_service.dart';
 
 class DetailOrderController extends GetxController {
   final ctrlHome = Get.put(HomeController());
   final ctrlHist = Get.put(HistoryController());
   Endpoint endpoint = Endpoint();
   int idOrder = 0;
+  int idUser = 0;
   int totalPrice = 0;
+
+  late Stream<List<ItemOrder>> items;
+  late Stream<Order> orders;
 
   // ignore: unused_field
   List<Order> _order = [];
@@ -28,6 +33,7 @@ class DetailOrderController extends GetxController {
   List<int> menu = [];
   List<int> qty = [];
   bool isLoading = false;
+  String status = '';
 
   setOrder(List<Order> data) {
     _order = data;
@@ -76,7 +82,7 @@ class DetailOrderController extends GetxController {
     ctrlHist.getData();
     isLoading = false;
     update();
-    Get.offNamed(Routes.MAIN_PAGES);
+    Get.offNamedUntil(Routes.MAIN_PAGES, (route) => route.isFirst);
   }
 
   Map<String, dynamic> historyPayload(int id, int price, int restId) {
@@ -97,12 +103,20 @@ class DetailOrderController extends GetxController {
     return temp;
   }
 
+  ItemOrderService service = ItemOrderService();
+  OrderService services = OrderService();
   @override
   void onInit() {
+    idUser = Get.arguments['id_user'];
     idOrder = Get.arguments['id_order'];
     totalPrice = Get.arguments['total'];
-    getItem(idOrder);
+    items = service.getData(idOrder);
+    orders = services.getData(idUser);
     super.onInit();
+  }
+
+  setStatus(String? value) {
+    status = value ?? '';
   }
 
   @override

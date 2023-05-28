@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../themes/typograpy/typo.dart';
-import '../../service/item_order_service.dart';
 
 class ItemSection extends StatelessWidget {
   const ItemSection({super.key, required this.id, required this.fee});
@@ -19,13 +18,12 @@ class ItemSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ItemOrderService serviceItem = ItemOrderService();
     final controller = Get.put(DetailOrderController());
     return SliverPadding(
         padding: DefaultPadding.all,
         sliver: SliverToBoxAdapter(
             child: StreamBuilder<List<ItemOrder>>(
-                stream: serviceItem.getData(controller.idOrder),
+                stream: controller.items,
                 builder: (context, snap) {
                   final List<ItemOrder>? data = snap.data;
                   int total = 0;
@@ -33,8 +31,9 @@ class ItemSection extends StatelessWidget {
                   // int deliveryFee = data.first.menu.
                   if (data != null) {
                     for (var item in data) {
+                      int price = item.menu.price ?? 0;
                       total += item.quantity;
-                      totalBuy += item.menu.price! * item.quantity;
+                      totalBuy += price * item.quantity;
                     }
                   }
 

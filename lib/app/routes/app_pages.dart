@@ -10,6 +10,8 @@ import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/carts/bindings/carts_binding.dart';
 import '../modules/carts/views/carts_view.dart';
+import '../modules/comfirm_order/bindings/comfirm_order_binding.dart';
+import '../modules/comfirm_order/views/comfirm_order_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/detail_menu/bindings/detail_menu_binding.dart';
@@ -20,6 +22,8 @@ import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
+import '../modules/history_resto/bindings/history_resto_binding.dart';
+import '../modules/history_resto/views/history_resto_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/main_admin/bindings/main_admin_binding.dart';
@@ -30,6 +34,8 @@ import '../modules/menu/bindings/menu_binding.dart';
 import '../modules/menu/views/menu_view.dart';
 import '../modules/ongkir/bindings/ongkir_binding.dart';
 import '../modules/ongkir/views/ongkir_view.dart';
+import '../modules/order_proccess/bindings/order_proccess_binding.dart';
+import '../modules/order_proccess/views/order_proccess_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -141,6 +147,21 @@ class AppPages {
       name: _Paths.DETAIL_ORDER,
       page: () => const DetailOrderView(),
       binding: DetailOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_PROCCESS,
+      page: () => const OrderProccessView(),
+      binding: OrderProccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_RESTO,
+      page: () => const HistoryRestoView(),
+      binding: HistoryRestoBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMFIRM_ORDER,
+      page: () => const ComfirmOrderView(),
+      binding: ComfirmOrderBinding(),
     ),
   ];
 }

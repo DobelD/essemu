@@ -1,5 +1,6 @@
 import 'package:essemu/app/data/cart_order.dart';
 import 'package:essemu/app/data/order.dart';
+import 'package:essemu/app/data/user.dart';
 import 'package:essemu/app/modules/carts/services/delete_item_service.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import '../../../data/menu_payload.dart';
 import '../../../provider/endpoint.dart';
 import '../../../routes/app_pages.dart';
+import '../../home/services/foreground_sevice.dart';
 import '../services/cart_service.dart';
 import '../services/order_service.dart';
 import '../services/update_count_service.dart';
@@ -38,6 +40,7 @@ class CartsController extends GetxController {
   List<int> listQty = [];
   List<int> listMenu = [];
   Endpoint endpoint = Endpoint();
+  User user = Get.arguments;
 
   setData(List<CartOrder> data) {
     _cartOrder = data;
@@ -114,8 +117,8 @@ class CartsController extends GetxController {
     Get.back();
     isLoading = true;
     update();
-    await endpoint
-        .createOrder(orderPayload(id, totalPrice, restaurantId, deliveryFee));
+    await endpoint.createOrder(orderPayload(
+        id, totalPrice, restaurantId, deliveryFee, user.address ?? ''));
     final order = OrderService();
     final data = await order.getData(id);
     setOrder(data);
@@ -126,14 +129,14 @@ class CartsController extends GetxController {
     }
     await endpoint.checkout(payloads);
     await endpoint.deleteCart(id);
-    await ctrlHome.onOrderCreate();
+    StreamService.init();
     isLoading = false;
     update();
-    Get.offNamed(Routes.MAIN_PAGES);
+    Get.offNamedUntil(Routes.MAIN_PAGES, (route) => route.isFirst);
   }
 
   Map<String, dynamic> orderPayload(
-      int id, int price, int restId, int deliveryFee) {
+      int id, int price, int restId, int deliveryFee, String address) {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['user_id'] = id;
     temp['order_date'] = DateTime.now().millisecondsSinceEpoch;
@@ -141,6 +144,7 @@ class CartsController extends GetxController {
     temp['status'] = 'proses';
     temp['restaurant_id'] = restId;
     temp['delivery_fee'] = deliveryFee;
+    temp['address'] = address;
     return temp;
   }
 

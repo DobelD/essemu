@@ -12,11 +12,18 @@ import '../../themes/typograpy/typo.dart';
 
 class AppDialog extends StatelessWidget {
   const AppDialog(
-      {super.key, this.title, this.massage, required this.onPressed});
+      {super.key,
+      this.title,
+      this.massage,
+      required this.onPressed,
+      this.isSend = false,
+      this.isCencel = false});
 
   final String? title;
   final String? massage;
   final VoidCallback onPressed;
+  final bool isSend;
+  final bool isCencel;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,11 @@ class AppDialog extends StatelessWidget {
                       padding: EdgeInsets.all(20.w),
                       height: 250.w,
                       width: Get.width,
-                      child: Lottie.asset(LtAssets.food)),
+                      child: Lottie.asset(isSend
+                          ? LtAssets.deliveryBike
+                          : isCencel
+                              ? LtAssets.cencel
+                              : LtAssets.food)),
                   Padding(
                     padding: DefaultPadding.all,
                     child: Column(
@@ -41,7 +52,11 @@ class AppDialog extends StatelessWidget {
                         SizedBox(
                           width: Get.width * 0.7,
                           child: Text(
-                            'Lanjutkan pemesanan ?',
+                            isSend
+                                ? 'Apakah pesanan sudah siap dikirim ?'
+                                : isCencel
+                                    ? 'Apakah anda menolak pesanan'
+                                    : 'Lanjutkan pemesanan ?',
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -65,7 +80,11 @@ class AppDialog extends StatelessWidget {
                                   height: 34.h,
                                   width: 100.w,
                                   child: AppButtonPrimary(
-                                      label: 'Lanjutkan',
+                                      label: isSend
+                                          ? 'Kirim'
+                                          : isCencel
+                                              ? 'Tolak'
+                                              : 'Lanjutkan',
                                       onPressed: onPressed)),
                             ),
                           ],

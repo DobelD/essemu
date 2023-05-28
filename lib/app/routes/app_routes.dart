@@ -23,6 +23,9 @@ abstract class Routes {
   static const DETAIL_MENU = _Paths.DETAIL_MENU;
   static const CARTS = _Paths.CARTS;
   static const DETAIL_ORDER = _Paths.DETAIL_ORDER;
+  static const ORDER_PROCCESS = _Paths.ORDER_PROCCESS;
+  static const HISTORY_RESTO = _Paths.HISTORY_RESTO;
+  static const COMFIRM_ORDER = _Paths.COMFIRM_ORDER;
 }
 
 abstract class _Paths {
@@ -47,4 +50,7 @@ abstract class _Paths {
   static const DETAIL_MENU = '/detail-menu';
   static const CARTS = '/carts';
   static const DETAIL_ORDER = '/detail-order';
+  static const ORDER_PROCCESS = '/order-proccess';
+  static const HISTORY_RESTO = '/history-resto';
+  static const COMFIRM_ORDER = '/comfirm-order';
 }

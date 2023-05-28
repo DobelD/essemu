@@ -6,6 +6,7 @@ import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:essemu/app/themes/decoration/app_radius.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:essemu/app/utils/assets/json/json_assets.dart';
+import 'package:essemu/app/utils/extension/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,14 @@ class FloatingOrder extends StatelessWidget {
     return StreamBuilder<Map<String, dynamic>>(
         stream: serviceOrder.getData(controller.idUser),
         builder: (context, snap) {
-          print(snap.data?['total_price']);
+          // DetailOrderController(status: snap.data?.status);
+          final status = snap.data?['status'] == 'terima'
+              ? Status.terima.text
+              : snap.data?['status'] == 'proses'
+                  ? Status.proses.text
+                  : snap.data?['status'] == 'antar'
+                      ? Status.antar.text
+                      : Status.selesai.text;
           if (snap.connectionState == ConnectionState.waiting) {
             return SizedBox();
           }
@@ -30,6 +38,7 @@ class FloatingOrder extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 Get.toNamed(Routes.DETAIL_ORDER, arguments: {
+                  'id_user': controller.idUser,
                   'id_order': snap.data?['id'],
                   'rest': snap.data?['restaurant_id'],
                   'total': snap.data?['total_price'],
@@ -56,7 +65,7 @@ class FloatingOrder extends StatelessWidget {
                     child: Row(
                       children: [
                         SizedBox(width: 12.w),
-                        Text('Pesanan sedang di ${snap.data?['status']}',
+                        Text('${status}',
                             style: AppTextTheme.current.bodyTextWhite),
                         Spacer(),
                         Padding(
@@ -64,10 +73,11 @@ class FloatingOrder extends StatelessWidget {
                           child: SizedBox(
                               height: 48.w,
                               width: 48.w,
-                              child:
-                                  Lottie.asset(snap.data?['status'] == 'proses'
+                              child: Lottie.asset(status == Status.terima.text
+                                  ? LtAssets.receipt
+                                  : status == Status.proses.text
                                       ? LtAssets.cooking
-                                      : snap.data?['status'] == 'antar'
+                                      : status == Status.antar.text
                                           ? LtAssets.delivery
                                           : LtAssets.done)),
                         )

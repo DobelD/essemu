@@ -10,11 +10,11 @@ import 'app/routes/app_pages.dart';
 import 'app/utils/initialize/supabase_initialize.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: Initial.url,
     anonKey: Initial.key,
   );
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     ScreenUtilInit(
         designSize: const Size(360, 800),

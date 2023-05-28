@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../components/connection/no_internet.dart';
 import '../../../components/spacer/sliver_spacer.dart';
 import '../controllers/home_controller.dart';
 import 'section/category.dart';
@@ -24,6 +23,12 @@ class HomeView extends GetView<HomeController> {
     return GetBuilder<HomeController>(builder: (c) {
       return Scaffold(
         floatingActionButton: FloatingOrder(),
+        // floatingActionButton: FloatingActionButton(
+        //   child: const Icon(Icons.add),
+        //   onPressed: () {
+        //     OrderService().getDatas(controller.idUser);
+        //   },
+        // ),
         body: RefreshIndicator(
             onRefresh: () {
               return Future<void>.delayed(2.seconds, () {
@@ -44,21 +49,19 @@ class HomeView extends GetView<HomeController> {
                 // });
               });
             },
-            child: c.isOnline
-                ? CustomScrollView(
-                    slivers: [
-                      HeadingSection(),
-                      SliverSpacerV(hight: 18),
-                      LocationSection(),
-                      SliverSpacerV(hight: 18),
-                      SearchSection(),
-                      SliverSpacerP(),
-                      CategorySection(),
-                      MenuSection(),
-                      // FooterSection()
-                    ],
-                  )
-                : Offline()),
+            child: CustomScrollView(
+              slivers: [
+                HeadingSection(),
+                SliverSpacerV(hight: 18),
+                LocationSection(),
+                SliverSpacerV(hight: 18),
+                SearchSection(),
+                SliverSpacerP(),
+                CategorySection(),
+                MenuSection(),
+                // FooterSection()
+              ],
+            )),
       );
     });
   }

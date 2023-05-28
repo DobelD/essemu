@@ -16,7 +16,7 @@ class HeadingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // CartService service = CartService();
-    // final controller = Get.put(HomeController());
+    final controller = Get.put(HomeController());
     return SliverAppBar(
       automaticallyImplyLeading: false,
       backgroundColor: kWhite,
@@ -59,7 +59,7 @@ class HeadingSection extends StatelessWidget {
       }),
       actions: [
         IconButton(
-            onPressed: () => Get.toNamed(Routes.CARTS),
+            onPressed: () => Get.toNamed(Routes.CARTS,arguments: controller.user),
             icon: SvgPicture.asset(
               SgAssets.shoppingCart,
               height: 22.w,

@@ -42,6 +42,11 @@ class Endpoint {
     return users;
   }
 
+  getUsersId(int id) async {
+    final users = await client.from('users').select('*').eq('id', id).single();
+    return users;
+  }
+
   getMenu() async {
     final menu = await client
         .from('menu')
@@ -277,6 +282,15 @@ class Endpoint {
     return order;
   }
 
+  getOrderRest(int id) async {
+    final order = await client
+        .from('order')
+        .select('*, users!inner(id,name,phone)')
+        .eq('restaurant_id', id)
+        .order('order_date', ascending: false);
+    return order;
+  }
+
   getHistory(int id) async {
     final history = await client
         .from('history')
@@ -314,5 +328,26 @@ class Endpoint {
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  updateStatus(int userId) async {
+    final item = await client
+        .from('order')
+        .update({'status': 'proses'}).eq('user_id', userId);
+    return item;
+  }
+
+  updateStatusSend(int userId) async {
+    final item = await client
+        .from('order')
+        .update({'status': 'kirim'}).eq('user_id', userId);
+    return item;
+  }
+
+  updateStatusCencel(int userId) async {
+    final item = await client
+        .from('order')
+        .update({'status': 'tolak'}).eq('user_id', userId);
+    return item;
   }
 }

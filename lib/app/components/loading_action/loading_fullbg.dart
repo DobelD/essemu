@@ -9,11 +9,13 @@ class AppLoadingFull extends StatelessWidget {
     required this.isLoading,
     this.child,
     this.success = false,
+    this.send = false,
   }) : super(key: key);
 
   final bool isLoading;
   final Widget? child;
   final bool success;
+  final bool send;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,13 @@ class AppLoadingFull extends StatelessWidget {
               color: Colors.white,
               child: Center(
                 child: SizedBox(
-                    height: 70.w,
-                    width: 70.w,
-                    child: Lottie.asset(
-                        success ? LtAssets.success : LtAssets.loading)),
+                    height: success || send ? 130.w : 70.w,
+                    width: success || send ? 130.w : 70.w,
+                    child: Lottie.asset(success
+                        ? LtAssets.success
+                        : send
+                            ? LtAssets.deliveryBike
+                            : LtAssets.loading)),
               ),
             ),
           )
