@@ -40,12 +40,12 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Moch Ali Imron',
+                    '${c.user.name}',
                     style: AppTextTheme.current.title3,
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    'ali.imronashter@gmail.com',
+                    '${c.user.email}',
                     style: AppTextTheme.current.title6,
                   ),
                   SizedBox(height: 12.h),

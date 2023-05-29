@@ -1,4 +1,5 @@
 import 'package:essemu/app/components/loading_action/loading_action.dart';
+import 'package:essemu/app/routes/app_pages.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,8 @@ class AuthView extends GetView<AuthController> {
                       TextSpan(
                           text: " Sign Up", style: AppTextTheme.current.title5)
                     ],
-                        recognizer: TapGestureRecognizer()..onTap = () {},
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Get.toNamed(Routes.REGISTER),
                         text: "Don't have account?",
                         style: AppTextTheme.current.title6)),
               ],

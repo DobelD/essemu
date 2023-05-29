@@ -339,6 +339,28 @@ class AppTextTheme {
       height: 19.6 / 14,
       letterSpacing: 14.sp * 0.01);
 
+  TextStyle get unselectedFilter => GoogleFonts.poppins(
+      textStyle: Theme.of(_localContext)
+          .textTheme
+          .bodyMedium!
+          .copyWith(leadingDistribution: TextLeadingDistribution.even),
+      fontWeight: FontWeight.w500,
+      color: kBlack,
+      fontSize: 14.sp,
+      height: 19.6 / 14,
+      letterSpacing: 14.sp * 0.01);
+
+  TextStyle get selectedFilter => GoogleFonts.poppins(
+      textStyle: Theme.of(_localContext)
+          .textTheme
+          .bodyMedium!
+          .copyWith(leadingDistribution: TextLeadingDistribution.even),
+      fontWeight: FontWeight.w600,
+      color: kPrimary1,
+      fontSize: 14.sp,
+      height: 19.6 / 14,
+      letterSpacing: 14.sp * 0.01);
+
   TextStyle get dashboardLabel => GoogleFonts.poppins(
       textStyle: Theme.of(_localContext)
           .textTheme

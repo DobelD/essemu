@@ -138,8 +138,13 @@ class CartsController extends GetxController {
     Get.back();
     isLoading = true;
     update();
-    await endpoint.createOrder(orderPayload(id, totalPrice, restaurantId,
-        deliveryFee, user.address ?? '', avgDuration));
+    await endpoint.createOrder(orderPayload(
+        id,
+        totalPrice,
+        restaurantId,
+        deliveryFee,
+        user.address ?? '',
+        double.parse(avgDuration.toStringAsFixed(1))));
     final order = OrderService();
     final data = await order.getData(id);
     setOrder(data);

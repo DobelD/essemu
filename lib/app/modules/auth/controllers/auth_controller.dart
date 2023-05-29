@@ -22,6 +22,7 @@ class AuthController extends GetxController {
     try {
       final response = await client.auth
           .signInWithPassword(email: emailC.text, password: passC.text);
+      print(response.session);
       print(response.user);
       if (response.user != null) {
         final emm = await endpoint.setEmail(emailC.text);
@@ -37,7 +38,6 @@ class AuthController extends GetxController {
           isLoading = false;
           update();
           session.saveSession('9', response.user?.id, emailC.text);
-
           Get.toNamed(Routes.MAIN_PAGES);
         }
       } else {
@@ -45,9 +45,15 @@ class AuthController extends GetxController {
         update();
         notRegister();
       }
+      isLoading = false;
+      update();
     } catch (e) {
       print(e);
+      isLoading = false;
+      update();
     }
+    isLoading = false;
+    update();
   }
 
   notRegister() {

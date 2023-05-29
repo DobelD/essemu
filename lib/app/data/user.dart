@@ -44,25 +44,16 @@ class User {
   String? name;
   String? phone;
   String? email;
-  String? password;
   String? address;
   Role? role;
 
-  User(
-      {this.id,
-      this.name,
-      this.phone,
-      this.email,
-      this.password,
-      this.address,
-      this.role});
+  User({this.id, this.name, this.phone, this.email, this.address, this.role});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     phone = json['phone'];
     email = json['email'];
-    password = json['password'];
     address = json['address'];
     role = json['role'] != null ? new Role.fromJson(json['role']) : null;
   }
@@ -73,7 +64,6 @@ class User {
     data['name'] = this.name;
     data['phone'] = this.phone;
     data['email'] = this.email;
-    data['password'] = this.password;
     data['address'] = this.address;
     if (this.role != null) {
       data['role'] = this.role!.toJson();

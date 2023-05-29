@@ -38,6 +38,7 @@ class ComfirmOrderController extends GetxController {
     Future.delayed(1.seconds, () {
       isLoading = false;
       update();
+      ctrl.sortingData.clear();
       ctrl.getOrder();
       Get.back();
     });

@@ -23,9 +23,17 @@ class OrderProccessController extends GetxController
   List<ItemOrder> get items => _items;
   bool isLoading = false;
   User user = User();
+  RxBool isPriority = false.obs;
+  List<OrderRest> sortingData = [];
 
   setOrder(List<OrderRest> data) {
     _futureOrder = data;
+    for (OrderRest item in _futureOrder) {
+      if (item.status == "proses") {
+        sortingData.add(item);
+      }
+    }
+
     update();
   }
 
@@ -50,9 +58,15 @@ class OrderProccessController extends GetxController
 
   void sortOrder(String value) {
     if (value == 'priority') {
-      _futureOrder.sort((a, b) => a.totalPrice!.compareTo(b.totalPrice!));
+      isPriority.value = true;
+      update();
+    } else {
+      isPriority.value = false;
       update();
     }
+    Future.delayed(300.milliseconds, () {
+      Get.back();
+    });
   }
 
   getUsers(int id) async {
@@ -99,6 +113,7 @@ class OrderProccessController extends GetxController
   }
 
   void toProccess(int id) async {
+    sortingData.clear();
     await updateStatus(id);
     await getOrder();
     Get.showSnackbar(GetSnackBar(

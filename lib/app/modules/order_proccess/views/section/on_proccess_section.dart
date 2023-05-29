@@ -21,9 +21,11 @@ class OnProccessSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(OrderProccessController());
+
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(1.seconds, () {
+          controller.sortingData.clear();
           controller.getOrder();
         });
       },
@@ -34,10 +36,10 @@ class OnProccessSection extends StatelessWidget {
               sliver: GetBuilder<OrderProccessController>(builder: (c) {
                 return SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        childCount: controller.futureOrder.length,
+                        childCount: controller.sortingData.length,
                         (context, index) {
-                  final data = controller.futureOrder[index];
-                  if (controller.futureOrder[index].status != "proses") {
+                  final data = controller.sortingData[index];
+                  if (controller.sortingData[index].status != "proses") {
                     return SizedBox();
                   }
                   return Padding(
@@ -110,26 +112,29 @@ class OnProccessSection extends StatelessWidget {
                                 width: 100.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: kPrimary1,
+                                        backgroundColor:
+                                            index == 0 ? kPrimary1 : kGrey3,
                                         padding: EdgeInsets.zero,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(4.r))),
-                                    onPressed: () => Get.dialog(AppDialog(
-                                        isSend: true,
-                                        onPressed: () {
-                                          Get.back();
-                                          Get.toNamed(Routes.COMFIRM_ORDER,
-                                              arguments: {
-                                                'id': data.id,
-                                                'user_id': data.userId,
-                                                'user': data.users,
-                                                'items': controller.items,
-                                                'fee': data.deliveryFee,
-                                                'address': data.address,
-                                                'total': data.totalPrice
-                                              });
-                                        })),
+                                    onPressed: index == 0
+                                        ? () => Get.dialog(AppDialog(
+                                            isSend: true,
+                                            onPressed: () {
+                                              Get.back();
+                                              Get.toNamed(Routes.COMFIRM_ORDER,
+                                                  arguments: {
+                                                    'id': data.id,
+                                                    'user_id': data.userId,
+                                                    'user': data.users,
+                                                    'items': controller.items,
+                                                    'fee': data.deliveryFee,
+                                                    'address': data.address,
+                                                    'total': data.totalPrice
+                                                  });
+                                            }))
+                                        : () {},
                                     child: Center(
                                         child: Text(
                                       'Send',

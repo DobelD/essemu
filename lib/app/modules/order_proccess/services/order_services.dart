@@ -30,8 +30,33 @@ class OrderService {
 
   Stream<List<Order>> getDatae(int id) async* {
     final userClient = client.from('users');
-    final orderStream =
-        client.from('order').stream(primaryKey: ['id']).eq('restaurant_id', 1);
+    final orderStream = client
+        .from('order')
+        .stream(primaryKey: ['id'])
+        .eq('restaurant_id', 1)
+        .order('id', ascending: true);
+    await for (final snap in orderStream) {
+      final dataSnap = <Order>[];
+      for (final data in snap) {
+        final userId = data['user_id'];
+        final userData =
+            await userClient.select('id, name,phone').eq('id', userId).single();
+        final user = Users.fromJson(userData);
+        final item = Order.fromJson(data, user: user);
+        dataSnap.add(item);
+      }
+      print("DTR ${dataSnap}");
+      yield dataSnap;
+    }
+  }
+
+  Stream<List<Order>> getDataes(int id) async* {
+    final userClient = client.from('users');
+    final orderStream = client
+        .from('order')
+        .stream(primaryKey: ['id'])
+        .eq('restaurant_id', 1)
+        .order('avg_duration', ascending: true);
     await for (final snap in orderStream) {
       final dataSnap = <Order>[];
       for (final data in snap) {

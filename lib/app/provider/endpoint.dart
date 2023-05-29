@@ -8,6 +8,16 @@ import '../data/item_order.dart' as i;
 class Endpoint {
   SupabaseClient client = Supabase.instance.client;
 
+  register(String email, String password) async {
+    final regs = await client.auth.signUp(email: email, password: password);
+    return regs;
+  }
+
+  addUsers(dynamic user) async {
+    final add = await client.from('users').insert([user]);
+    return add;
+  }
+
   setEmail(String email) async {
     final emailSet =
         await client.from('users').select('*').eq('email', email).single();

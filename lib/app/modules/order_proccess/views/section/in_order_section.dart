@@ -26,15 +26,23 @@ class InOrderSection extends StatelessWidget {
     OrderService service = OrderService();
 
     final controller = Get.put(OrderProccessController());
-    return StreamBuilder<List<Order>>(
-        stream: service.getDatae(controller.idUser),
+    return Obx(() => StreamBuilder<List<Order>>(
+        stream: controller.isPriority.value
+            ? service.getDataes(controller.idUser)
+            : service.getDatae(controller.idUser),
         builder: (_, snapshot) {
+          List<Order> sortingData = [];
           int count = 0;
+
           for (Order data in snapshot.data ?? []) {
             if (data.status == "terima") {
               count++;
+              sortingData.add(data);
             }
           }
+
+          print(count);
+
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
@@ -43,60 +51,93 @@ class InOrderSection extends StatelessWidget {
               SliverPadding(
                   padding: DefaultPadding.all,
                   sliver: SliverToBoxAdapter(
-                    child: GetBuilder<OrderProccessController>(builder: (c) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('List Order by id',
-                              style: AppTextTheme.current.bodyText),
-                          GestureDetector(
-                              onTap: () {
-                                showSlidingBottomSheet(
-                                  context,
-                                  builder: (BuildContext context) {
-                                    return SlidingSheetDialog(
-                                      elevation: 8,
-                                      cornerRadius: 8.r,
-                                      snapSpec: const SnapSpec(
-                                        snap: true,
-                                        snappings: [1.0],
-                                        positioning: SnapPositioning
-                                            .relativeToAvailableSpace,
-                                      ),
-                                      builder: (context, state) {
-                                        return SortOrder();
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                              child: Icon(IconlyBold.filter_2))
-                        ],
-                      );
-                    }),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            controller.isPriority.value
+                                ? 'Order by priority'
+                                : 'Order by first come',
+                            style: AppTextTheme.current.bodyText),
+                        GestureDetector(
+                            onTap: () {
+                              showSlidingBottomSheet(
+                                context,
+                                builder: (BuildContext context) {
+                                  return SlidingSheetDialog(
+                                    elevation: 8,
+                                    cornerRadius: 8.r,
+                                    snapSpec: const SnapSpec(
+                                      snap: true,
+                                      snappings: [1.0],
+                                      positioning: SnapPositioning
+                                          .relativeToAvailableSpace,
+                                    ),
+                                    builder: (context, state) {
+                                      return BSheet(
+                                          label: 'Sort order',
+                                          child: SortOrder());
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: Icon(IconlyLight.filter_2, size: 16))
+                      ],
+                    ),
                   )),
               SliverPadding(
                   padding: DefaultPadding.side,
                   sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
-                          childCount: snapshot.data?.length, (context, index) {
-                    final data = snapshot.data?[index];
-                    if (snapshot.data![index].status != "terima") {
-                      return SizedBox();
+                          childCount: sortingData.length, (context, index) {
+                    final data = sortingData[index];
+                    Color colorProccess;
+                    bool isEnableButton;
+                    if (index == 0 && sortingData.first.status == 'terima') {
+                      colorProccess = kPrimary1;
+                      isEnableButton = true;
+                    } else if (index == 0 &&
+                        sortingData.first.status == 'terima') {
+                      colorProccess = kPrimary1;
+                      isEnableButton = true;
+                    } else if (index == 1 &&
+                        sortingData.first.status == 'selesai') {
+                      colorProccess = kPrimary1;
+                      isEnableButton = true;
+                    } else {
+                      colorProccess = kGrey3;
+                      isEnableButton = false;
                     }
-                    if (count < 1) {
-                      return Center(
-                          child: SizedBox(
+                    Color colorCencel;
+                    if (index == 0 && sortingData.first.status == 'terima') {
+                      colorCencel = kWarning1;
+                    } else if (index == 0 &&
+                        sortingData.first.status == 'terima') {
+                      colorCencel = kWarning1;
+                    } else if (index == 1 &&
+                        sortingData.first.status == 'selesai') {
+                      if (index == 1) {
+                        colorCencel = kWarning1;
+                      } else {
+                        colorCencel = kGrey3;
+                      }
+                    } else {
+                      colorCencel = kGrey3;
+                    }
+
+                    if (count == 0) {
+                      return SizedBox(
                         height: 200.w,
                         width: 200.w,
                         child: Lottie.asset(LtAssets.emptyOrder),
-                      ));
+                      );
                     }
                     return Padding(
                       padding: MiddlePadding.down,
                       child: GestureDetector(
                         onTap: () {
-                          controller.getItems(data!.id);
+                          controller.getItems(data.id);
                           Future.delayed(600.milliseconds, () {
                             showSlidingBottomSheet(
                               context,
@@ -147,7 +188,7 @@ class InOrderSection extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${data?.user.name}',
+                                    '${data.user.name}',
                                     style: AppTextTheme.current.bodyText,
                                   ),
                                   SizedBox(height: 4.w),
@@ -160,7 +201,7 @@ class InOrderSection extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.w),
                                       Text(
-                                        '${data?.avgDuration} Minuts Avg Duration',
+                                        '${data.avgDuration} Minuts Avg Duration',
                                         style: AppTextTheme
                                             .current.highlightsBodyHint,
                                       ),
@@ -175,16 +216,26 @@ class InOrderSection extends StatelessWidget {
                                       width: 42.w,
                                       child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: kWarning1,
+                                              backgroundColor:
+                                                  controller.isPriority.value
+                                                      ? kWarning1
+                                                      : colorCencel,
                                               padding: EdgeInsets.zero,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           4.r))),
-                                          onPressed: () => Get.dialog(AppDialog(
-                                              isCencel: true,
-                                              onPressed: () => controller
-                                                  .toCencel(data!.userId))),
+                                          onPressed: isEnableButton
+                                              ? () => Get.dialog(AppDialog(
+                                                  isCencel: true,
+                                                  onPressed: () => controller
+                                                      .toCencel(data.userId)))
+                                              : controller.isPriority.value
+                                                  ? () => Get.dialog(AppDialog(
+                                                      isCencel: true,
+                                                      onPressed: () =>
+                                                          controller.toCencel(data.userId)))
+                                                  : () {},
                                           child: Center(
                                               child: Icon(
                                             IconlyLight.close_square,
@@ -197,14 +248,22 @@ class InOrderSection extends StatelessWidget {
                                       width: 42.w,
                                       child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: kPrimary1,
+                                              backgroundColor:
+                                                  controller.isPriority.value
+                                                      ? kPrimary1
+                                                      : colorProccess,
                                               padding: EdgeInsets.zero,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           4.r))),
-                                          onPressed: () => controller
-                                              .toProccess(data!.userId),
+                                          onPressed: isEnableButton
+                                              ? () => controller
+                                                  .toProccess(data.userId)
+                                              : controller.isPriority.value
+                                                  ? () => controller
+                                                      .toProccess(data.userId)
+                                                  : () {},
                                           child: Center(
                                               child: Icon(
                                             IconlyLight.arrow_right_square,
@@ -221,6 +280,6 @@ class InOrderSection extends StatelessWidget {
                   })))
             ],
           );
-        });
+        }));
   }
 }
