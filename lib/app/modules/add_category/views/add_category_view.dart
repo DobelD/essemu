@@ -21,33 +21,42 @@ class AddCategoryView extends GetView<AddCategoryController> {
       return AppLoading(
         isLoading: c.isLoading,
         child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: kWhite,
+              surfaceTintColor: kWhite,
+              centerTitle: true,
+              title: Text(
+                'Add Category',
+                style: AppTextTheme.current.appBarTitleDark,
+              ),
+            ),
             body: ListView(
-          padding: DefaultPadding.all,
-          children: [
-            FormTxt(
-              controller: controller.nama,
-              title: 'Kategori',
-              hint: 'nama kategori',
-            ),
-            SizedBox(height: 12.h),
-            ImagePick(),
-            SizedBox(height: 16.h),
-            SizedBox(
-              height: 54.h,
-              width: Get.width,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: kMain,
-                      shape:
-                          RoundedRectangleBorder(borderRadius: AppRadius.icon)),
-                  onPressed: () => controller.addCategory(),
-                  child: Text(
-                    'Tambah Kategori',
-                    style: AppTextTheme.current.bodyTextWhite,
-                  )),
-            ),
-          ],
-        )),
+              padding: DefaultPadding.all,
+              children: [
+                FormTxt(
+                  controller: controller.nama,
+                  title: 'Kategori',
+                  hint: 'nama kategori',
+                ),
+                SizedBox(height: 12.h),
+                ImagePick(),
+                SizedBox(height: 16.h),
+                SizedBox(
+                  height: 54.h,
+                  width: Get.width,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: kMain,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: AppRadius.icon)),
+                      onPressed: () => controller.addCategory(),
+                      child: Text(
+                        'Tambah Kategori',
+                        style: AppTextTheme.current.bodyTextWhite,
+                      )),
+                ),
+              ],
+            )),
       );
     });
   }

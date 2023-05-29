@@ -132,7 +132,7 @@ class StatusSection extends StatelessWidget {
                                   width: 32.w,
                                   child: SvgPicture.asset(
                                     status == "tolak"
-                                        ? SgAssets.cooking
+                                        ? SgAssets.cancel
                                         : SgAssets.tick,
                                     colorFilter: ColorFilter.mode(
                                         status == "selesai"

@@ -1,7 +1,8 @@
+import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 
 import '../../../themes/colors/colors.dart';
 import '../controllers/main_admin_controller.dart';
@@ -23,16 +24,27 @@ class MainAdminView extends GetView<MainAdminController> {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             items: [
-              _itemBar(IconlyBold.document, ''),
-              _itemBar(IconlyBold.heart, ''),
-              _itemBar(IconlyBold.document, ''),
-              _itemBar(IconlyBold.profile, ''),
+              _itemBar(SgAssets.shoppingList,
+                  controller.indexTab == 0 ? kMain : kGrey3, ''),
+              _itemBar(
+                  SgAssets.file, controller.indexTab == 1 ? kMain : kGrey3, ''),
+              _itemBar(
+                  SgAssets.bell, controller.indexTab == 2 ? kMain : kGrey3, ''),
+              _itemBar(
+                  SgAssets.user, controller.indexTab == 3 ? kMain : kGrey3, ''),
             ]),
       );
     });
   }
 }
 
-_itemBar(IconData icon, String label) {
-  return BottomNavigationBarItem(icon: Icon(icon), label: label);
+_itemBar(String icon, Color color, String label) {
+  return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        icon,
+        height: 24,
+        width: 24,
+        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+      ),
+      label: label);
 }

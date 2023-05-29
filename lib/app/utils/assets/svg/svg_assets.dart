@@ -17,4 +17,14 @@ class SgAssets {
   static const String motorbike = 'assets/svg/motorbike.svg';
   static const String receipt = 'assets/svg/receipt.svg';
   static const String shoppingCart = 'assets/svg/shopping-cart.svg';
+  static const String cancel = 'assets/svg/cancel.svg';
+  static const String shoppingList = 'assets/svg/shopping-list.svg';
+  static const String sort = 'assets/svg/sort.svg';
+  static const String bell = 'assets/svg/bell.svg';
+  static const String comingSoon = 'assets/svg/coming-soon.svg';
+  static const String file = 'assets/svg/file.svg';
+  static const String user = 'assets/svg/user.svg';
+  static const String photoCamera = 'assets/svg/photo-camera.svg';
+  static const String picture = 'assets/svg/picture.svg';
+  static const String gallery = 'assets/svg/gallery.svg';
 }

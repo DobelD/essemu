@@ -3,13 +3,22 @@ import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/decoration/app_padding.dart';
 import '../../themes/decoration/app_radius.dart';
 import '../../themes/typograpy/typo.dart';
 
 class DropKategori extends StatelessWidget {
-  const DropKategori({super.key});
+  const DropKategori(
+      {super.key,
+      this.trailling = false,
+      this.textTrailling = 'Trailling',
+      this.onTap});
+
+  final bool trailling;
+  final String? textTrailling;
+  final GestureTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +26,30 @@ class DropKategori extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(text: 'Kategori', style: AppTextTheme.current.bodyText),
-              TextSpan(text: '*', style: AppTextTheme.current.bodyText),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                      text: 'Kategori', style: AppTextTheme.current.bodyText),
+                  TextSpan(text: '*', style: AppTextTheme.current.bodyTextRed),
+                ],
+              ),
+            ),
+            trailling
+                ? GestureDetector(
+                    onTap: onTap,
+                    child: Text(
+                      '${textTrailling}',
+                      style: GoogleFonts.inter(
+                          fontSize: 12.sp,
+                          color: kPrimary1,
+                          fontWeight: FontWeight.w600),
+                    ))
+                : SizedBox()
+          ],
         ),
         SizedBox(height: 8.h),
         Container(

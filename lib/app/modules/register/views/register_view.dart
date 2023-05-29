@@ -103,7 +103,7 @@ class RegisterView extends GetView<RegisterController> {
                           text: " Sign In", style: AppTextTheme.current.title5)
                     ],
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.offNamed(Routes.REGISTER),
+                          ..onTap = () => Get.offNamed(Routes.AUTH),
                         text: "Don't have account?",
                         style: AppTextTheme.current.title6)),
               ],

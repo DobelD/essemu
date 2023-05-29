@@ -22,6 +22,8 @@ import '../modules/edit_delivery_address/bindings/edit_delivery_address_binding.
 import '../modules/edit_delivery_address/views/edit_delivery_address_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
+import '../modules/forgot/bindings/forgot_binding.dart';
+import '../modules/forgot/views/forgot_view.dart';
 import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/history_resto/bindings/history_resto_binding.dart';
@@ -169,6 +171,11 @@ class AppPages {
       name: _Paths.EDIT_DELIVERY_ADDRESS,
       page: () => const EditDeliveryAddressView(),
       binding: EditDeliveryAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT,
+      page: () => const ForgotView(),
+      binding: ForgotBinding(),
     ),
   ];
 }

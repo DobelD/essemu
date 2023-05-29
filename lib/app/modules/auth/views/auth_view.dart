@@ -50,7 +50,7 @@ class AuthView extends GetView<AuthController> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () => Get.toNamed(Routes.FORGOT),
                       child: Text(
                         'Forgot Password ?',
                         style: AppTextTheme.current.title5,

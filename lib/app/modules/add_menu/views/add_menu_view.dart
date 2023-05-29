@@ -1,4 +1,5 @@
 import 'package:essemu/app/components/loading_action/loading_action.dart';
+import 'package:essemu/app/routes/app_pages.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,15 @@ class AddMenuView extends GetView<AddMenuController> {
       return AppLoading(
         isLoading: c.isLoading,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: kWhite,
+            surfaceTintColor: kWhite,
+            centerTitle: true,
+            title: Text(
+              'Add Menu',
+              style: AppTextTheme.current.appBarTitleDark,
+            ),
+          ),
           body: ListView(
             padding: DefaultPadding.all,
             children: [
@@ -44,7 +54,11 @@ class AddMenuView extends GetView<AddMenuController> {
                 hint: 'Harga',
               ),
               SizedBox(height: 12.h),
-              DropKategori(),
+              DropKategori(
+                trailling: true,
+                textTrailling: 'Add Category',
+                onTap: () => Get.toNamed(Routes.ADD_CATEGORY),
+              ),
               SizedBox(height: 12.h),
               ImagePick(),
               SizedBox(height: 16.h),

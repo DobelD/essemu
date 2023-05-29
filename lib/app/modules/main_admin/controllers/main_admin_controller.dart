@@ -14,8 +14,8 @@ class MainAdminController extends GetxController {
 
   List<Widget> pages = [
     OrderProccessView(),
-    AddMenuView(),
     HistoryRestoView(),
+    AddMenuView(),
     SettingView()
   ];
 

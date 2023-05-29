@@ -1,8 +1,9 @@
 import 'package:essemu/app/themes/decoration/app_padding.dart';
+import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 
 import '../../../../themes/colors/colors.dart';
 import '../../../../themes/decoration/app_radius.dart';
@@ -22,7 +23,7 @@ class ImagePick extends StatelessWidget {
           Text.rich(
             TextSpan(
               children: [
-                TextSpan(text: 'Foto', style: AppTextTheme.current.bodyText),
+                TextSpan(text: 'Icons', style: AppTextTheme.current.bodyText),
                 TextSpan(text: '*', style: AppTextTheme.current.bodyTextRed),
               ],
             ),
@@ -39,15 +40,15 @@ class ImagePick extends StatelessWidget {
                     width: Get.width,
                     decoration: BoxDecoration(
                         borderRadius: AppRadius.all,
-                        color: kMain.withOpacity(0.08),
+                        color: kGrey4,
                         border: Border.all(
                             color: kMain.withOpacity(0.1), width: 1)),
                     child: Center(
-                        child: Icon(
-                      IconlyLight.camera,
-                      size: 56,
-                      color: kMain.withOpacity(0.16),
-                    )),
+                        child: SvgPicture.asset(SgAssets.gallery,
+                            colorFilter:
+                                ColorFilter.mode(kGrey2, BlendMode.srcIn),
+                            height: 48,
+                            width: 58)),
                   ),
                 )
               : GestureDetector(
@@ -63,7 +64,7 @@ class ImagePick extends StatelessWidget {
                               image: FileImage(controller.menu!),
                               fit: BoxFit.cover),
                           borderRadius: AppRadius.all,
-                          color: kMain.withOpacity(0.08),
+                          color: kGrey4,
                           border: Border.all(
                               color: kMain.withOpacity(0.1), width: 1))),
                 ),
@@ -94,14 +95,11 @@ Widget pickImages() {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: AppRadius.all,
-                  color: kMain.withOpacity(0.08),
+                  color: kGrey4,
                   border: Border.all(color: kMain.withOpacity(0.1), width: 1)),
               child: Center(
-                  child: Icon(
-                IconlyLight.camera,
-                size: 36,
-                color: kMain.withOpacity(0.16),
-              )),
+                  child: SvgPicture.asset(SgAssets.photoCamera,
+                      height: 48, width: 58)),
             ),
           ),
         ),
@@ -115,14 +113,11 @@ Widget pickImages() {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: AppRadius.all,
-                  color: kMain.withOpacity(0.08),
+                  color: kGrey4,
                   border: Border.all(color: kMain.withOpacity(0.1), width: 1)),
               child: Center(
-                  child: Icon(
-                Icons.browse_gallery_outlined,
-                size: 36,
-                color: kMain.withOpacity(0.16),
-              )),
+                  child: SvgPicture.asset(SgAssets.gallery,
+                      height: 48, width: 58)),
             ),
           ),
         )

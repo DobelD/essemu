@@ -7,8 +7,10 @@ import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:essemu/app/themes/decoration/app_radius.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:essemu/app/utils/assets/json/json_assets.dart';
+import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
@@ -82,7 +84,13 @@ class InOrderSection extends StatelessWidget {
                                 },
                               );
                             },
-                            child: Icon(IconlyLight.filter_2, size: 16))
+                            child: SvgPicture.asset(
+                              SgAssets.sort,
+                              height: 18,
+                              width: 18,
+                              colorFilter:
+                                  ColorFilter.mode(kBlack, BlendMode.srcIn),
+                            ))
                       ],
                     ),
                   )),
