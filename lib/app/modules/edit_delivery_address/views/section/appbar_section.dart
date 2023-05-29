@@ -9,13 +9,8 @@ class AppBarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: kWhite,
-      surfaceTintColor: kWhite,
-      automaticallyImplyLeading: false,
-      pinned: true,
-      title: Text(
-        'Order History',
-        style: AppTextTheme.current.appBarTitleDark,
-      ),
+      title: Text('Edit Delivery Address',
+          style: AppTextTheme.current.appBarTitleDark),
       centerTitle: true,
     );
   }

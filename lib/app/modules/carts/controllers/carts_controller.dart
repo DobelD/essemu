@@ -13,10 +13,12 @@ import 'package:get/get.dart';
 import '../../../data/menu_payload.dart';
 import '../../../provider/endpoint.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/session/session_manager.dart';
 import '../../home/services/foreground_sevice.dart';
 import '../services/cart_service.dart';
 import '../services/order_service.dart';
 import '../services/update_count_service.dart';
+import '../services/users_services.dart';
 
 class CartsController extends GetxController {
   final ctrlHome = Get.put(HomeController());
@@ -39,16 +41,34 @@ class CartsController extends GetxController {
   List<Order> get order => _order;
   List<int> listQty = [];
   List<int> listMenu = [];
+  List<int> durations = [];
+
+  double avgDuration = 0.0;
   Endpoint endpoint = Endpoint();
-  User user = Get.arguments;
+  User user = User();
 
   setData(List<CartOrder> data) {
     _cartOrder = data;
     if (data.isNotEmpty) {
       deliveryFee = _cartOrder[0].menu.restaurant?.deliveryFee ?? 0;
+      var uniqueMenuIds = <int>{};
+      var uniqueCartOrder = <CartOrder>{};
+
       for (var item in _cartOrder) {
-        listMenu.add(item.menuId);
+        uniqueMenuIds.add(item.menuId);
+        uniqueCartOrder.add(item);
       }
+
+      listMenu = uniqueMenuIds.toList();
+      _cartOrder = uniqueCartOrder.toList();
+      listQty = _cartOrder.map((item) => item.qty).toList();
+      durations = _cartOrder.map((item) => item.menu.duration!).toList();
+
+      int sumDuration = 0;
+      for (int i = 0; i < durations.length; i++) {
+        sumDuration += durations[i];
+      }
+      avgDuration = sumDuration / listQty.length;
       restaurantId = _cartOrder[0].menu.restaurant?.id ?? 0;
       isCartEmpty = false;
       update();
@@ -97,6 +117,7 @@ class CartsController extends GetxController {
     final updateItem = UpdateItemCart();
     final service = CartService();
     await updateItem.incrementItem(id, menuId, count);
+    print(count);
     final data = await service.getData(id);
     setData(data);
   }
@@ -117,8 +138,8 @@ class CartsController extends GetxController {
     Get.back();
     isLoading = true;
     update();
-    await endpoint.createOrder(orderPayload(
-        id, totalPrice, restaurantId, deliveryFee, user.address ?? ''));
+    await endpoint.createOrder(orderPayload(id, totalPrice, restaurantId,
+        deliveryFee, user.address ?? '', avgDuration));
     final order = OrderService();
     final data = await order.getData(id);
     setOrder(data);
@@ -135,16 +156,17 @@ class CartsController extends GetxController {
     Get.offNamedUntil(Routes.MAIN_PAGES, (route) => route.isFirst);
   }
 
-  Map<String, dynamic> orderPayload(
-      int id, int price, int restId, int deliveryFee, String address) {
+  Map<String, dynamic> orderPayload(int id, int price, int restId,
+      int deliveryFee, String address, double avgDuration) {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['user_id'] = id;
     temp['order_date'] = DateTime.now().millisecondsSinceEpoch;
     temp['total_price'] = price;
-    temp['status'] = 'proses';
+    temp['status'] = 'terima';
     temp['restaurant_id'] = restId;
     temp['delivery_fee'] = deliveryFee;
     temp['address'] = address;
+    temp['avg_duration'] = avgDuration;
     return temp;
   }
 
@@ -156,10 +178,18 @@ class CartsController extends GetxController {
     return temp;
   }
 
+  getUsers() async {
+    String email = await session.getEmail();
+    final service = UserService();
+    user = await service.getData(email);
+    update();
+    print(user);
+  }
+
   @override
   void onInit() {
     getData(ctrlHome.idUser);
-    print("jalan");
+    getUsers();
     super.onInit();
   }
 }

@@ -299,6 +299,14 @@ class Endpoint {
     return history;
   }
 
+  getHistoryRest(int id) async {
+    final history = await client
+        .from('history')
+        .select('*, users!inner(*)')
+        .eq('restaurant_id', id);
+    return history;
+  }
+
   getHistoryById(int id) async {
     final history = await client
         .from('history')
@@ -340,7 +348,7 @@ class Endpoint {
   updateStatusSend(int userId) async {
     final item = await client
         .from('order')
-        .update({'status': 'kirim'}).eq('user_id', userId);
+        .update({'status': 'antar'}).eq('user_id', userId);
     return item;
   }
 
@@ -348,6 +356,19 @@ class Endpoint {
     final item = await client
         .from('order')
         .update({'status': 'tolak'}).eq('user_id', userId);
+    return item;
+  }
+
+  updateStatusDone(int userId) async {
+    final item = await client
+        .from('order')
+        .update({'status': 'selesai'}).eq('user_id', userId);
+    return item;
+  }
+
+  updateUserCheckout(int id, String name, int phone, String address) async {
+    final item = await client.from('users').update(
+        {'name': name, 'phone': phone, 'address': address}).eq('id', id);
     return item;
   }
 }

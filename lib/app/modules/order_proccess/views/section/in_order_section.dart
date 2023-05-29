@@ -7,7 +7,6 @@ import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:essemu/app/themes/decoration/app_radius.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:essemu/app/utils/assets/json/json_assets.dart';
-import 'package:essemu/app/utils/extension/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -152,9 +151,20 @@ class InOrderSection extends StatelessWidget {
                                     style: AppTextTheme.current.bodyText,
                                   ),
                                   SizedBox(height: 4.w),
-                                  Text(
-                                    '${data?.totalPrice.toCurrencyFormat()}',
-                                    style: AppTextTheme.current.hintText,
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        IconlyLight.time_circle,
+                                        color: kGrey2,
+                                        size: 13,
+                                      ),
+                                      SizedBox(width: 4.w),
+                                      Text(
+                                        '${data?.avgDuration} Minuts Avg Duration',
+                                        style: AppTextTheme
+                                            .current.highlightsBodyHint,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               )),

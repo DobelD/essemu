@@ -30,7 +30,9 @@ class FloatingOrder extends StatelessWidget {
                   ? Status.proses.text
                   : snap.data?['status'] == 'antar'
                       ? Status.antar.text
-                      : Status.selesai.text;
+                      : snap.data?['status'] == 'tolak'
+                          ? Status.tolak.text
+                          : Status.selesai.text;
           if (snap.connectionState == ConnectionState.waiting) {
             return SizedBox();
           }
@@ -79,7 +81,9 @@ class FloatingOrder extends StatelessWidget {
                                       ? LtAssets.cooking
                                       : status == Status.antar.text
                                           ? LtAssets.delivery
-                                          : LtAssets.done)),
+                                          : status == Status.tolak.text
+                                              ? LtAssets.delivery
+                                              : LtAssets.done)),
                         )
                       ],
                     ),

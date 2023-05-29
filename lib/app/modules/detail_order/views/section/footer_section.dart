@@ -12,13 +12,17 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(DetailOrderController());
-    return Container(
-        width: Get.width,
-        color: kWhite,
-        padding: DefaultPadding.all,
-        child: AppButtonPrimary(
-          label: 'Terima Pesanan',
-          onPressed: () => controller.onOrderSuccess(id),
-        ));
+    return GetBuilder<DetailOrderController>(builder: (context) {
+      return Container(
+          width: Get.width,
+          color: kWhite,
+          padding: DefaultPadding.all,
+          child: AppButtonPrimary(
+            label: controller.status == 'tolak'
+                ? 'Batalkan Pesanan'
+                : 'Terima Pesanan',
+            onPressed: () => controller.onOrderSuccess(id),
+          ));
+    });
   }
 }

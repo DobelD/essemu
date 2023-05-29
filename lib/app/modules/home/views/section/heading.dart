@@ -59,7 +59,7 @@ class HeadingSection extends StatelessWidget {
       }),
       actions: [
         IconButton(
-            onPressed: () => Get.toNamed(Routes.CARTS,arguments: controller.user),
+            onPressed: () => Get.toNamed(Routes.CARTS),
             icon: SvgPicture.asset(
               SgAssets.shoppingCart,
               height: 22.w,

@@ -17,13 +17,15 @@ class AppDialog extends StatelessWidget {
       this.massage,
       required this.onPressed,
       this.isSend = false,
-      this.isCencel = false});
+      this.isCencel = false,
+      this.isDone = false});
 
   final String? title;
   final String? massage;
   final VoidCallback onPressed;
   final bool isSend;
   final bool isCencel;
+  final bool isDone;
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +46,23 @@ class AppDialog extends StatelessWidget {
                           ? LtAssets.deliveryBike
                           : isCencel
                               ? LtAssets.cencel
-                              : LtAssets.food)),
+                              : isDone
+                                  ? LtAssets.done
+                                  : LtAssets.food)),
                   Padding(
                     padding: DefaultPadding.all,
                     child: Column(
                       children: [
                         SizedBox(
-                          width: Get.width * 0.7,
+                          width: Get.width * 0.9,
                           child: Text(
                             isSend
                                 ? 'Apakah pesanan sudah siap dikirim ?'
                                 : isCencel
                                     ? 'Apakah anda menolak pesanan'
-                                    : 'Lanjutkan pemesanan ?',
+                                    : isDone
+                                        ? 'Apakah pesanan sudah selesai diantar ?'
+                                        : 'Lanjutkan pemesanan ?',
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -84,7 +90,9 @@ class AppDialog extends StatelessWidget {
                                           ? 'Kirim'
                                           : isCencel
                                               ? 'Tolak'
-                                              : 'Lanjutkan',
+                                              : isDone
+                                                  ? 'Ya'
+                                                  : 'Lanjutkan',
                                       onPressed: onPressed)),
                             ),
                           ],

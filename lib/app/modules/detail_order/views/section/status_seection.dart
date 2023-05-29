@@ -57,7 +57,8 @@ class StatusSection extends StatelessWidget {
                                   child: SvgPicture.asset(
                                     SgAssets.receipt,
                                     colorFilter: ColorFilter.mode(
-                                        kSuccess1, BlendMode.srcIn),
+                                        status == "tolak" ? kRed : kSuccess1,
+                                        BlendMode.srcIn),
                                   )),
                               SizedBox(width: 6.w),
                               DottedLine(
@@ -68,7 +69,9 @@ class StatusSection extends StatelessWidget {
                                         status == "antar" ||
                                         status == "selesai"
                                     ? kSuccess1
-                                    : kGrey2,
+                                    : status == "tolak"
+                                        ? kRed
+                                        : kGrey2,
                               ),
                               SizedBox(width: 6.w),
                               SizedBox(
@@ -81,7 +84,9 @@ class StatusSection extends StatelessWidget {
                                                 status == "antar" ||
                                                 status == "selesai"
                                             ? kSuccess1
-                                            : kGrey2,
+                                            : status == "tolak"
+                                                ? kRed
+                                                : kGrey2,
                                         BlendMode.srcIn),
                                   )),
                               SizedBox(width: 6.w),
@@ -92,7 +97,9 @@ class StatusSection extends StatelessWidget {
                                 dashColor:
                                     status == "antar" || status == "selesai"
                                         ? kSuccess1
-                                        : kGrey2,
+                                        : status == "tolak"
+                                            ? kRed
+                                            : kGrey2,
                               ),
                               SizedBox(width: 6.w),
                               SizedBox(
@@ -103,7 +110,9 @@ class StatusSection extends StatelessWidget {
                                     colorFilter: ColorFilter.mode(
                                         status == "antar" || status == "selesai"
                                             ? kSuccess1
-                                            : kGrey2,
+                                            : status == "tolak"
+                                                ? kRed
+                                                : kGrey2,
                                         BlendMode.srcIn),
                                   )),
                               SizedBox(width: 6.w),
@@ -111,19 +120,26 @@ class StatusSection extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 lineLength: 30,
                                 lineThickness: 2.0,
-                                dashColor:
-                                    status == "selesai" ? kSuccess1 : kGrey2,
+                                dashColor: status == "selesai"
+                                    ? kSuccess1
+                                    : status == "tolak"
+                                        ? kRed
+                                        : kGrey2,
                               ),
                               SizedBox(width: 6.w),
                               SizedBox(
                                   height: 22.w,
                                   width: 32.w,
                                   child: SvgPicture.asset(
-                                    SgAssets.tick,
+                                    status == "tolak"
+                                        ? SgAssets.cooking
+                                        : SgAssets.tick,
                                     colorFilter: ColorFilter.mode(
                                         status == "selesai"
                                             ? kSuccess1
-                                            : kGrey2,
+                                            : status == "tolak"
+                                                ? kRed
+                                                : kGrey2,
                                         BlendMode.srcIn),
                                   )),
                             ],

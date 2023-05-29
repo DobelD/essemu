@@ -20,4 +20,13 @@ class UpdateStatusOrder {
       throw Exception(e);
     }
   }
+
+  Future<void> done(int userId) async {
+    try {
+      final response = await endpoint.updateStatusDone(userId);
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

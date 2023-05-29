@@ -7,6 +7,7 @@ class Order {
   final int deliveryFee;
   final int restaurantId;
   final String address;
+  final double avgDuration;
   final Users user;
 
   Order(
@@ -18,6 +19,7 @@ class Order {
       required this.deliveryFee,
       required this.restaurantId,
       required this.address,
+      required this.avgDuration,
       required this.user});
 
   factory Order.fromJson(Map<String, dynamic> json, {Users? user}) {
@@ -30,6 +32,7 @@ class Order {
         deliveryFee: json['delivery_fee'],
         restaurantId: json['restaurant_id'],
         address: json['address'],
+        avgDuration: json['avg_duration'],
         user: user ?? Users.fromJson(json));
   }
 
@@ -43,6 +46,7 @@ class Order {
     data['delivery_fee'] = this.deliveryFee;
     data['restaurant_id'] = this.restaurantId;
     data['address'] = this.address;
+    data['avg_duration'] = this.avgDuration;
     data['users'] = user.toJson();
     return data;
   }

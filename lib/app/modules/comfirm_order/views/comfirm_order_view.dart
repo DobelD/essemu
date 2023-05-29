@@ -20,7 +20,7 @@ class ComfirmOrderView extends GetView<ComfirmOrderController> {
     int fee = Get.arguments['fee'];
     String address = Get.arguments['address'];
     int id = Get.arguments['user_id'];
-
+    int total = Get.arguments['total'];
     return GetBuilder<ComfirmOrderController>(builder: (c) {
       return AppLoadingFull(
         isLoading: c.isLoading,
@@ -41,7 +41,8 @@ class ComfirmOrderView extends GetView<ComfirmOrderController> {
               )
             ],
           ),
-          bottomSheet: FooterSection(id: id),
+          bottomSheet: FooterSection(
+              id: id, data: user, address: address, fee: fee, total: total),
         ),
       );
     });

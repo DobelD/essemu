@@ -23,6 +23,7 @@ class AppBarSection extends StatelessWidget {
           tabs: [
             Text('In Order'),
             Text('On Proccess'),
+            Text('On Delivery'),
           ]),
     );
   }

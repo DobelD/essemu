@@ -1,5 +1,4 @@
 import 'package:essemu/app/components/dialog/app_dialog.dart';
-import 'package:essemu/app/routes/app_pages.dart';
 import 'package:essemu/app/utils/extension/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,8 +14,8 @@ import '../../../../themes/typograpy/typo.dart';
 import '../../controllers/order_proccess_controller.dart';
 import '../widget/proccess_item.dart';
 
-class OnProccessSection extends StatelessWidget {
-  const OnProccessSection({super.key});
+class OnDelivery extends StatelessWidget {
+  const OnDelivery({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class OnProccessSection extends StatelessWidget {
                         childCount: controller.futureOrder.length,
                         (context, index) {
                   final data = controller.futureOrder[index];
-                  if (controller.futureOrder[index].status != "proses") {
+                  if (controller.futureOrder[index].status != "antar") {
                     return SizedBox();
                   }
                   return Padding(
@@ -116,23 +115,12 @@ class OnProccessSection extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(4.r))),
                                     onPressed: () => Get.dialog(AppDialog(
-                                        isSend: true,
-                                        onPressed: () {
-                                          Get.back();
-                                          Get.toNamed(Routes.COMFIRM_ORDER,
-                                              arguments: {
-                                                'id': data.id,
-                                                'user_id': data.userId,
-                                                'user': data.users,
-                                                'items': controller.items,
-                                                'fee': data.deliveryFee,
-                                                'address': data.address,
-                                                'total': data.totalPrice
-                                              });
-                                        })),
+                                        isDone: true,
+                                        onPressed: () => controller
+                                            .updateStatusDone(data.userId!))),
                                     child: Center(
                                         child: Text(
-                                      'Send',
+                                      'Done',
                                       style: GoogleFonts.inter(
                                           fontSize: 12, color: kWhite),
                                     ))))

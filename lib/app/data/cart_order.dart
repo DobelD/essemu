@@ -2,7 +2,7 @@ class CartOrder {
   final int id;
   final int userId;
   final int menuId;
-  int qty;
+  final int qty;
   final int countPrice;
   final Menu menu; // Menambahkan properti menu
 
@@ -47,6 +47,7 @@ class Menu {
   int? price;
   String? imageUrl;
   bool? favorit;
+  int? duration;
   MenuCategory? categories;
   Restaurant? restaurant;
 
@@ -57,6 +58,7 @@ class Menu {
       this.price,
       this.imageUrl,
       this.favorit,
+      this.duration,
       this.categories,
       this.restaurant});
 
@@ -67,6 +69,7 @@ class Menu {
     price = json['price'];
     imageUrl = json['image_url'];
     favorit = json['favorit'];
+    duration = json['duration'];
     categories = json['categories'] != null
         ? new MenuCategory.fromJson(json['categories'])
         : null;
@@ -83,6 +86,7 @@ class Menu {
     data['price'] = this.price;
     data['image_url'] = this.imageUrl;
     data['favorit'] = this.favorit;
+    data['duration'] = this.duration;
     if (this.categories != null) {
       data['categories'] = this.categories!.toJson();
     }

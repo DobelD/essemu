@@ -26,6 +26,8 @@ abstract class Routes {
   static const ORDER_PROCCESS = _Paths.ORDER_PROCCESS;
   static const HISTORY_RESTO = _Paths.HISTORY_RESTO;
   static const COMFIRM_ORDER = _Paths.COMFIRM_ORDER;
+  static const ADIT_DELIVERY_ADDRESS = _Paths.ADIT_DELIVERY_ADDRESS;
+  static const EDIT_DELIVERY_ADDRESS = _Paths.EDIT_DELIVERY_ADDRESS;
 }
 
 abstract class _Paths {
@@ -53,4 +55,6 @@ abstract class _Paths {
   static const ORDER_PROCCESS = '/order-proccess';
   static const HISTORY_RESTO = '/history-resto';
   static const COMFIRM_ORDER = '/comfirm-order';
+  static const ADIT_DELIVERY_ADDRESS = '/adit-delivery-address';
+  static const EDIT_DELIVERY_ADDRESS = '/edit-delivery-address';
 }

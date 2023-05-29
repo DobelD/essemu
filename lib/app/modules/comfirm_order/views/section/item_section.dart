@@ -42,7 +42,7 @@ class ItemSection extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 12.w),
                 child: DottedLine(
                   direction: Axis.horizontal,
-                  lineLength: Get.width * 0.82,
+                  lineLength: Get.width * 0.9,
                   lineThickness: 1.0,
                   dashColor: kGrey2,
                 ),
@@ -65,7 +65,7 @@ class ItemSection extends StatelessWidget {
                           )),
                       SizedBox(width: 6.w),
                       Expanded(
-                          flex: 6,
+                          flex: 7,
                           child: Text(
                             '${items[index].menu.name}',
                             style: AppTextTheme.current.bodyText,
@@ -85,7 +85,7 @@ class ItemSection extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 12.w),
                 child: DottedLine(
                   direction: Axis.horizontal,
-                  lineLength: Get.width * 0.82,
+                  lineLength: Get.width * 0.9,
                   lineThickness: 1.0,
                   dashColor: kGrey2,
                 ),
@@ -93,7 +93,7 @@ class ItemSection extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      flex: 7,
+                      flex: 8,
                       child: Text(
                         'Delivery fee',
                         style: AppTextTheme.current.bodyText,
@@ -111,17 +111,11 @@ class ItemSection extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      flex: 6,
+                      flex: 8,
                       child: Text(
                         'Total',
                         style: AppTextTheme.current.bodyText,
                         overflow: TextOverflow.ellipsis,
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Text(
-                        '${total}',
-                        style: AppTextTheme.current.bodyText,
                       )),
                   Expanded(
                       flex: 3,

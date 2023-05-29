@@ -34,9 +34,6 @@ class ListMenuSection extends StatelessWidget {
               // for (var item in c.cartOrder) {
               //   subTotal += item.menu.price! * item.qty;
               // }
-              for (var item in c.cartOrder) {
-                c.listQty.add(item.qty);
-              }
 
               return Padding(
                   padding: DefaultPadding.down,

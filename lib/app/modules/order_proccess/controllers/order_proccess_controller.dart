@@ -17,9 +17,8 @@ class OrderProccessController extends GetxController
     with GetTickerProviderStateMixin {
   // StreamSubscription<Postg>? streamSubscription;
   late Stream<List<Order>> orders;
-  List<OrderRest> _fiturOrder = [];
   List<OrderRest> _futureOrder = [];
-  List<OrderRest> get futureOrder => _fiturOrder;
+  List<OrderRest> get futureOrder => _futureOrder;
   List<ItemOrder> _items = [];
   List<ItemOrder> get items => _items;
   bool isLoading = false;
@@ -27,7 +26,6 @@ class OrderProccessController extends GetxController
 
   setOrder(List<OrderRest> data) {
     _futureOrder = data;
-    _fiturOrder = data;
     update();
   }
 
@@ -84,9 +82,25 @@ class OrderProccessController extends GetxController
     await service.cencel(id);
   }
 
-  void toProccess(int id) {
-    updateStatus(id);
-    getOrder();
+  updateStatusDone(int id) async {
+    final service = UpdateStatusOrder();
+    await service.done(id);
+    await getOrder();
+    Get.back();
+    Get.showSnackbar(GetSnackBar(
+      borderRadius: 8.r,
+      backgroundColor: kSuccess1,
+      duration: 2.seconds,
+      margin: DefaultPadding.all,
+      snackPosition: SnackPosition.TOP,
+      messageText:
+          Text('Order Completed', style: AppTextTheme.current.bodyTextWhite),
+    ));
+  }
+
+  void toProccess(int id) async {
+    await updateStatus(id);
+    await getOrder();
     Get.showSnackbar(GetSnackBar(
       borderRadius: 8.r,
       backgroundColor: kSuccess1,
@@ -103,11 +117,16 @@ class OrderProccessController extends GetxController
     updateStatusCencel(id);
   }
 
+  void toDone(int id) {
+    Get.back();
+    updateStatusDone(id);
+  }
+
   OrderService service = OrderService();
 
   @override
   void onInit() {
-    controlTabs = TabController(length: 2, vsync: this);
+    controlTabs = TabController(length: 3, vsync: this);
     getIdUser();
     orders = service.getDatae(idUser);
     getOrder();

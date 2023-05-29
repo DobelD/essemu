@@ -18,6 +18,8 @@ import '../modules/detail_menu/bindings/detail_menu_binding.dart';
 import '../modules/detail_menu/views/detail_menu_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
+import '../modules/edit_delivery_address/bindings/edit_delivery_address_binding.dart';
+import '../modules/edit_delivery_address/views/edit_delivery_address_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/history/bindings/history_binding.dart';
@@ -162,6 +164,11 @@ class AppPages {
       name: _Paths.COMFIRM_ORDER,
       page: () => const ComfirmOrderView(),
       binding: ComfirmOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_DELIVERY_ADDRESS,
+      page: () => const EditDeliveryAddressView(),
+      binding: EditDeliveryAddressBinding(),
     ),
   ];
 }

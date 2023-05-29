@@ -13,8 +13,15 @@ class HistoryView extends GetView<HistoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kMainBackground,
-        body: CustomScrollView(
-          slivers: [AppBarSection(), ListHistory()],
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await Future.delayed(2.seconds, () {
+              controller.getData();
+            });
+          },
+          child: CustomScrollView(
+            slivers: [AppBarSection(), ListHistory()],
+          ),
         ));
   }
 }
