@@ -11,7 +11,7 @@ extension MillisecondsToString on int {
   String toDateTimeString() {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(this);
     String formattedString =
-        '${dateTime.day} ${_addLeadingZero(dateTime.month)} ${_addLeadingZero(dateTime.year)}, ${_addLeadingZero(dateTime.hour)}:${_addLeadingZero(dateTime.minute)}';
+        '${dateTime.day}-${_addLeadingZero(dateTime.month)}-${_addLeadingZero(dateTime.year)}, ${_addLeadingZero(dateTime.hour)}:${_addLeadingZero(dateTime.minute)}';
     return formattedString;
   }
 

@@ -32,103 +32,58 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
         color: kMainBackground,
         child: c.loading
             ? CategoryLoading()
-            : Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: LabelAction(
-                        label: shrinkOffset > 22 ? '' : S.categoryLabel,
-                        labelAction: shrinkOffset > 22 ? '' : S.seeAll,
-                        onTap: () async {
-                          showSlidingBottomSheet(
-                            context,
-                            builder: (BuildContext context) {
-                              return SlidingSheetDialog(
-                                elevation: 8,
-                                cornerRadius: 8.r,
-                                snapSpec: const SnapSpec(
-                                  snap: true,
-                                  snappings: [1.0],
-                                  positioning:
-                                      SnapPositioning.relativeToAvailableSpace,
-                                ),
-                                builder: (context, state) {
-                                  return BSheet(
-                                      isLabel: true,
-                                      label: S.allCategory,
-                                      child: ItemCategory(
-                                          isLoading: c.loading,
-                                          category: c.category));
-                                },
-                              );
-                            },
-                          );
-                        }),
-                  ),
-                  SizedBox(height: 16.h),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 16.w),
-                            child: SizedBox(
-                                height: 36.h,
-                                child: InkWell(
-                                  onTap: () {
-                                    c.selectedCategory(99, 0);
+            : Padding(
+                padding: EdgeInsets.only(top: shrinkOffset > 12 ? 0 : 16),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: shrinkOffset > 12
+                          ? SizedBox()
+                          : LabelAction(
+                              label: shrinkOffset > 12 ? '' : S.categoryLabel,
+                              labelAction: shrinkOffset > 12 ? '' : S.seeAll,
+                              onTap: () async {
+                                showSlidingBottomSheet(
+                                  context,
+                                  builder: (BuildContext context) {
+                                    return SlidingSheetDialog(
+                                      elevation: 8,
+                                      cornerRadius: 8.r,
+                                      snapSpec: const SnapSpec(
+                                        snap: true,
+                                        snappings: [1.0],
+                                        positioning: SnapPositioning
+                                            .relativeToAvailableSpace,
+                                      ),
+                                      builder: (context, state) {
+                                        return BSheet(
+                                            isLabel: true,
+                                            label: S.allCategory,
+                                            child: ItemCategory(
+                                                isLoading: c.loading,
+                                                category: c.category));
+                                      },
+                                    );
                                   },
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16.w),
-                                    height: 36.w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(8.r),
-                                        color: c.selected == 99
-                                            ? kMainDark
-                                            : kWhite),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: 16.w,
-                                          width: 16.w,
-                                          child:
-                                              SvgPicture.asset(SgAssets.fire),
-                                        ),
-                                        SizedBox(width: 6.w),
-                                        Text(
-                                          S.all,
-                                          style: c.selected == 99
-                                              ? AppTextTheme
-                                                  .current.bodyTextWhite
-                                              : AppTextTheme.current.bodyText,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )),
-                          ),
-                          SizedBox(
-                            height: 36.h,
-                            child: ListView.separated(
-                                padding:
-                                    EdgeInsets.only(right: 16.w, left: 12.w),
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                physics: ScrollPhysics(),
-                                itemBuilder: (_, index) {
-                                  final data = c.category[index];
-                                  return InkWell(
+                                );
+                              }),
+                    ),
+                    SizedBox(height: 16.h),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 16.w),
+                              child: SizedBox(
+                                  height: 36.h,
+                                  child: InkWell(
                                     onTap: () {
-                                      c.selectedCategory(index, data.id!);
+                                      c.selectedCategory(99, 0);
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
@@ -137,7 +92,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(8.r),
-                                          color: c.selected == index
+                                          color: c.selected == 99
                                               ? kMainDark
                                               : kWhite),
                                       child: Row(
@@ -149,13 +104,13 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                           SizedBox(
                                             height: 16.w,
                                             width: 16.w,
-                                            child: SvgPicture.network(
-                                                '${c.pubicUrlCategory}${data.imageUrl}'),
+                                            child:
+                                                SvgPicture.asset(SgAssets.fire),
                                           ),
                                           SizedBox(width: 6.w),
                                           Text(
-                                            "${data.name ?? '-'}",
-                                            style: c.selected == index
+                                            S.all,
+                                            style: c.selected == 99
                                                 ? AppTextTheme
                                                     .current.bodyTextWhite
                                                 : AppTextTheme.current.bodyText,
@@ -163,27 +118,78 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                                         ],
                                       ),
                                     ),
-                                  );
-                                },
-                                separatorBuilder: (__, i) =>
-                                    SizedBox(width: 12.w),
-                                itemCount: c.category.length),
-                          ),
-                        ],
+                                  )),
+                            ),
+                            SizedBox(
+                              height: 36.h,
+                              child: ListView.separated(
+                                  padding:
+                                      EdgeInsets.only(right: 16.w, left: 12.w),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  itemBuilder: (_, index) {
+                                    final data = c.category[index];
+                                    return InkWell(
+                                      onTap: () {
+                                        c.selectedCategory(index, data.id!);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.w),
+                                        height: 36.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
+                                            color: c.selected == index
+                                                ? kMainDark
+                                                : kWhite),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 16.w,
+                                              width: 16.w,
+                                              child: SvgPicture.network(
+                                                  '${c.pubicUrlCategory}${data.imageUrl}'),
+                                            ),
+                                            SizedBox(width: 6.w),
+                                            Text(
+                                              "${data.name ?? '-'}",
+                                              style: c.selected == index
+                                                  ? AppTextTheme
+                                                      .current.bodyTextWhite
+                                                  : AppTextTheme
+                                                      .current.bodyText,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (__, i) =>
+                                      SizedBox(width: 12.w),
+                                  itemCount: c.category.length),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
       );
     });
   }
 
   @override
-  double get maxExtent => 92.h;
+  double get maxExtent => 98.h;
 
   @override
-  double get minExtent => 82.h;
+  double get minExtent => 62.h;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

@@ -57,7 +57,14 @@ class DetailOrderController extends GetxController {
   getItem(int id) async {
     final service = ItemOrderService();
     final data = await service.getDatas(id);
+    print(data);
     setItemOrder(data);
+  }
+
+  cobas() {
+    List<MenuPayload> mappedList = List<MenuPayload>.generate(
+        menu.length, (index) => MenuPayload(id: menu[index], qty: qty[index]));
+    print(mappedList);
   }
 
   onOrderSuccess(int restId) async {
@@ -71,11 +78,14 @@ class DetailOrderController extends GetxController {
     final datsHist = await history.getData(ctrlHome.idUser);
     setHistory(datsHist);
     int historyId = datsHist.first.id!;
-    final service = DeleteOrder();
+    print('map::$mappedList');
+    print('his:$historyId');
     List<Map<String, dynamic>> payloads = [];
     for (var item in mappedList) {
       payloads.add(itemPayload(historyId, item.id!, item.qty!));
     }
+    final service = DeleteOrder();
+    print('pat:$payloads');
     await service.deleteItem(idOrder);
     await endpoint.createItemHistory(payloads);
     await service.deleteOrder(ctrlHome.idUser);
@@ -112,6 +122,7 @@ class DetailOrderController extends GetxController {
     totalPrice = Get.arguments['total'];
     items = service.getData(idOrder);
     orders = services.getData(idUser);
+    getItem(idOrder);
     super.onInit();
   }
 

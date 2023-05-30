@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
                 LocationSection(),
                 SliverSpacerV(hight: 18),
                 SearchSection(),
-                SliverSpacerP(),
+                // SliverSpacerP(),
                 CategorySection(),
                 MenuSection(),
                 // FooterSection()

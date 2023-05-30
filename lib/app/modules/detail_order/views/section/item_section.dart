@@ -19,134 +19,125 @@ class ItemSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(DetailOrderController());
+    final List<ItemOrder>? data = controller.itemOrder;
+    int total = 0;
+    int totalBuy = 0 + fee;
+    // int deliveryFee = data.first.menu.
+    if (data != null) {
+      for (var item in data) {
+        int price = item.menu.price ?? 0;
+        total += item.quantity;
+        totalBuy += price * item.quantity;
+      }
+    }
     return SliverPadding(
         padding: DefaultPadding.all,
         sliver: SliverToBoxAdapter(
-            child: StreamBuilder<List<ItemOrder>>(
-                stream: controller.items,
-                builder: (context, snap) {
-                  final List<ItemOrder>? data = snap.data;
-                  int total = 0;
-                  int totalBuy = 0 + fee;
-                  // int deliveryFee = data.first.menu.
-                  if (data != null) {
-                    for (var item in data) {
-                      int price = item.menu.price ?? 0;
-                      total += item.quantity;
-                      totalBuy += price * item.quantity;
-                    }
-                  }
+            child: Container(
+                padding: DefaultPadding.all,
+                decoration:
+                    BoxDecoration(borderRadius: AppRadius.all, color: kWhite),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Detail Pesanan',
+                        style: AppTextTheme.current.buttonText),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12.w),
+                      child: DottedLine(
+                        direction: Axis.horizontal,
+                        lineLength: Get.width * 0.82,
+                        lineThickness: 1.0,
+                        dashColor: kGrey2,
+                      ),
+                    ),
+                    SizedBox(
+                        child: Column(
+                            children: List.generate(controller.itemOrder.length,
+                                (index) {
+                      int totalPrice = controller.itemOrder[index].menu.price ??
+                          0 * controller.itemOrder[index].quantity;
 
-                  if (snap.connectionState == ConnectionState.waiting) {
-                    return SizedBox();
-                  }
-                  if (data == null) {
-                    return SizedBox();
-                  }
-                  return Container(
-                      padding: DefaultPadding.all,
-                      decoration: BoxDecoration(
-                          borderRadius: AppRadius.all, color: kWhite),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Detail Pesanan',
-                              style: AppTextTheme.current.buttonText),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12.w),
-                            child: DottedLine(
-                              direction: Axis.horizontal,
-                              lineLength: Get.width * 0.82,
-                              lineThickness: 1.0,
-                              dashColor: kGrey2,
-                            ),
-                          ),
-                          SizedBox(
-                              child: Column(
-                                  children: List.generate(data.length, (index) {
-                            int totalPrice = data[index].menu.price ??
-                                0 * data[index].quantity;
-                            return Padding(
-                              padding: EdgeInsets.only(bottom: 8.w),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        'x ${data[index].quantity}',
-                                        style: AppTextTheme.current.bodyText,
-                                      )),
-                                  SizedBox(width: 6.w),
-                                  Expanded(
-                                      flex: 6,
-                                      child: Text(
-                                        '${data[index].menu.name}',
-                                        style: AppTextTheme.current.bodyText,
-                                      )),
-                                  SizedBox(width: 6.w),
-                                  Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        '${totalPrice.toCurrencyFormat()}',
-                                        style: AppTextTheme.current.bodyText,
-                                      ))
-                                ],
-                              ),
-                            );
-                          }))),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12.w),
-                            child: DottedLine(
-                              direction: Axis.horizontal,
-                              lineLength: Get.width * 0.82,
-                              lineThickness: 1.0,
-                              dashColor: kGrey2,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                  flex: 7,
-                                  child: Text(
-                                    'Delivery fee',
-                                    style: AppTextTheme.current.bodyText,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                              Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    '${fee.toCurrencyFormat()}',
-                                    style: AppTextTheme.current.bodyText,
-                                  ))
-                            ],
-                          ),
-                          SizedBox(height: 12.w),
-                          Row(
-                            children: [
-                              Expanded(
-                                  flex: 6,
-                                  child: Text(
-                                    'Total',
-                                    style: AppTextTheme.current.bodyText,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    '${total}',
-                                    style: AppTextTheme.current.bodyText,
-                                  )),
-                              Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    '${totalBuy.toCurrencyFormat()}',
-                                    style: AppTextTheme.current.bodyText,
-                                  ))
-                            ],
-                          )
-                        ],
-                      ));
-                })));
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 8.w),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Text(
+                                  'x ${data?[index].quantity}',
+                                  style: AppTextTheme.current.bodyText,
+                                )),
+                            SizedBox(width: 6.w),
+                            Expanded(
+                                flex: 6,
+                                child: Text(
+                                  '${data?[index].menu.name}',
+                                  style: AppTextTheme.current.bodyText,
+                                )),
+                            SizedBox(width: 6.w),
+                            Expanded(
+                                flex: 3,
+                                child: Text(
+                                  '${totalPrice.toCurrencyFormat()}',
+                                  style: AppTextTheme.current.bodyText,
+                                ))
+                          ],
+                        ),
+                      );
+                    }))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12.w),
+                      child: DottedLine(
+                        direction: Axis.horizontal,
+                        lineLength: Get.width * 0.82,
+                        lineThickness: 1.0,
+                        dashColor: kGrey2,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            flex: 7,
+                            child: Text(
+                              'Delivery fee',
+                              style: AppTextTheme.current.bodyText,
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: Text(
+                              '${fee.toCurrencyFormat()}',
+                              style: AppTextTheme.current.bodyText,
+                            ))
+                      ],
+                    ),
+                    SizedBox(height: 12.w),
+                    Row(
+                      children: [
+                        Expanded(
+                            flex: 6,
+                            child: Text(
+                              'Total',
+                              style: AppTextTheme.current.bodyText,
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Text(
+                              '${total}',
+                              style: AppTextTheme.current.bodyText,
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: Text(
+                              '${totalBuy.toCurrencyFormat()}',
+                              style: AppTextTheme.current.bodyText,
+                            ))
+                      ],
+                    )
+                  ],
+                ))));
   }
 }

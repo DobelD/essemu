@@ -97,6 +97,7 @@ class OrderProccessController extends GetxController
   }
 
   updateStatusDone(int id) async {
+    sortingData.clear();
     final service = UpdateStatusOrder();
     await service.done(id);
     await getOrder();

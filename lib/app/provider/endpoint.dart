@@ -325,6 +325,7 @@ class Endpoint {
             ascending:
                 false) // Mengurutkan berdasarkan created_at secara menurun (terbaru ke terlama)
         .limit(1);
+    print(history);
     return history;
   }
 
@@ -378,6 +379,14 @@ class Endpoint {
   updateUserCheckout(int id, String name, int phone, String address) async {
     final item = await client.from('users').update(
         {'name': name, 'phone': phone, 'address': address}).eq('id', id);
+    return item;
+  }
+
+  getHistoryItem(int id) async {
+    final item = await client
+        .from('history_item')
+        .select('*, menu!inner(name,price)')
+        .eq('history_id', id);
     return item;
   }
 }

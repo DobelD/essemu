@@ -109,7 +109,7 @@ class OnDelivery extends StatelessWidget {
                                 width: 100.w,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: kPrimary1,
+                                        backgroundColor: kSuccess1,
                                         padding: EdgeInsets.zero,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
