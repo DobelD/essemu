@@ -24,27 +24,42 @@ class MainAdminView extends GetView<MainAdminController> {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             items: [
-              _itemBar(SgAssets.shoppingList,
-                  controller.indexTab == 0 ? kMain : kGrey3, ''),
               _itemBar(
-                  SgAssets.file, controller.indexTab == 1 ? kMain : kGrey3, ''),
+                  SvgPicture.asset(
+                      controller.indexTab == 0
+                          ? SgAssets.homes
+                          : SgAssets.uhomes,
+                      height: 24,
+                      width: 24),
+                  ''),
               _itemBar(
-                  SgAssets.bell, controller.indexTab == 2 ? kMain : kGrey3, ''),
+                  SvgPicture.asset(
+                      controller.indexTab == 1 ? SgAssets.list : SgAssets.ulist,
+                      height: 24,
+                      width: 24),
+                  ''),
               _itemBar(
-                  SgAssets.user, controller.indexTab == 3 ? kMain : kGrey3, ''),
+                  SvgPicture.asset(
+                      controller.indexTab == 2
+                          ? SgAssets.favorites
+                          : SgAssets.ufavorites,
+                      height: 24,
+                      width: 24),
+                  ''),
+              _itemBar(
+                  SvgPicture.asset(
+                      controller.indexTab == 3
+                          ? SgAssets.users
+                          : SgAssets.uusers,
+                      height: 24,
+                      width: 24),
+                  ''),
             ]),
       );
     });
   }
 }
 
-_itemBar(String icon, Color color, String label) {
-  return BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        icon,
-        height: 24,
-        width: 24,
-        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-      ),
-      label: label);
+_itemBar(Widget icon, String label) {
+  return BottomNavigationBarItem(icon: icon, label: label);
 }

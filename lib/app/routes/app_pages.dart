@@ -36,6 +36,8 @@ import '../modules/main_pages/bindings/main_pages_binding.dart';
 import '../modules/main_pages/views/main_pages_view.dart';
 import '../modules/menu/bindings/menu_binding.dart';
 import '../modules/menu/views/menu_view.dart';
+import '../modules/menu_bycategory/bindings/menu_bycategory_binding.dart';
+import '../modules/menu_bycategory/views/menu_bycategory_view.dart';
 import '../modules/ongkir/bindings/ongkir_binding.dart';
 import '../modules/ongkir/views/ongkir_view.dart';
 import '../modules/order_proccess/bindings/order_proccess_binding.dart';
@@ -176,6 +178,11 @@ class AppPages {
       name: _Paths.FORGOT,
       page: () => const ForgotView(),
       binding: ForgotBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_BYCATEGORY,
+      page: () => const MenuBycategoryView(),
+      binding: MenuBycategoryBinding(),
     ),
   ];
 }

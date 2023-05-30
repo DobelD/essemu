@@ -82,7 +82,7 @@ class FloatingOrder extends StatelessWidget {
                                       : status == Status.antar.text
                                           ? LtAssets.delivery
                                           : status == Status.tolak.text
-                                              ? LtAssets.delivery
+                                              ? LtAssets.cencel
                                               : LtAssets.done)),
                         )
                       ],

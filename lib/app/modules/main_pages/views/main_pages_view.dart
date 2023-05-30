@@ -1,9 +1,10 @@
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 
+import '../../../utils/assets/svg/svg_assets.dart';
 import '../controllers/main_pages_controller.dart';
 
 class MainPagesView extends GetView<MainPagesController> {
@@ -28,16 +29,42 @@ class MainPagesView extends GetView<MainPagesController> {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             items: [
-              _itemBar(IconlyBold.home, ''),
-              _itemBar(IconlyBold.heart, ''),
-              _itemBar(IconlyBold.document, ''),
-              _itemBar(IconlyBold.profile, ''),
+              _itemBar(
+                  SvgPicture.asset(
+                      controller.indexTab == 0
+                          ? SgAssets.homes
+                          : SgAssets.uhomes,
+                      height: 24,
+                      width: 24),
+                  ''),
+              _itemBar(
+                  SvgPicture.asset(
+                      controller.indexTab == 1
+                          ? SgAssets.favorites
+                          : SgAssets.ufavorites,
+                      height: 24,
+                      width: 24),
+                  ''),
+              _itemBar(
+                  SvgPicture.asset(
+                      controller.indexTab == 2 ? SgAssets.list : SgAssets.ulist,
+                      height: 24,
+                      width: 24),
+                  ''),
+              _itemBar(
+                  SvgPicture.asset(
+                      controller.indexTab == 3
+                          ? SgAssets.users
+                          : SgAssets.uusers,
+                      height: 24,
+                      width: 24),
+                  ''),
             ]),
       );
     });
   }
 }
 
-_itemBar(IconData icon, String label) {
-  return BottomNavigationBarItem(icon: Icon(icon), label: label);
+_itemBar(Widget icon, String label) {
+  return BottomNavigationBarItem(icon: icon, label: label);
 }

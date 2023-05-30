@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/button/app_button_primary.dart';
 import '../../../components/textfield/text_field_label.dart';
@@ -21,7 +22,7 @@ class AuthView extends GetView<AuthController> {
       return AppLoading(
         isLoading: controller.isLoading,
         child: Scaffold(
-          backgroundColor: kMainBackground,
+          backgroundColor: kWhite,
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: ListView(
@@ -53,9 +54,13 @@ class AuthView extends GetView<AuthController> {
                       onPressed: () => Get.toNamed(Routes.FORGOT),
                       child: Text(
                         'Forgot Password ?',
-                        style: AppTextTheme.current.title5,
+                        style: GoogleFonts.inter(
+                            fontSize: 12,
+                            color: kPrimary1,
+                            fontWeight: FontWeight.w600),
                       )),
                 ),
+                SizedBox(height: 22.w),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 16.w),
                   height: 78.h,
@@ -69,7 +74,7 @@ class AuthView extends GetView<AuthController> {
           bottomSheet: Container(
             height: 86.h,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            color: kMainBackground,
+            color: kWhite,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -84,10 +89,15 @@ class AuthView extends GetView<AuthController> {
                     text: TextSpan(
                         children: [
                       TextSpan(
-                          text: " Sign Up", style: AppTextTheme.current.title5)
-                    ],
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Get.toNamed(Routes.REGISTER),
+                        text: " Sign Up",
+                        style: GoogleFonts.inter(
+                            fontSize: 12,
+                            color: kPrimary1,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
                         text: "Don't have account?",
                         style: AppTextTheme.current.title6)),
               ],

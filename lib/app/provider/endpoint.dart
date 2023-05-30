@@ -296,8 +296,7 @@ class Endpoint {
     final order = await client
         .from('order')
         .select('*, users!inner(id,name,phone)')
-        .eq('restaurant_id', id)
-        .order('order_date', ascending: false);
+        .eq('restaurant_id', id);
     return order;
   }
 

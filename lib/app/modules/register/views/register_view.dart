@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/button/app_button_primary.dart';
 import '../../../components/loading_action/loading_action.dart';
@@ -100,10 +101,15 @@ class RegisterView extends GetView<RegisterController> {
                     text: TextSpan(
                         children: [
                       TextSpan(
-                          text: " Sign In", style: AppTextTheme.current.title5)
-                    ],
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.offNamed(Routes.AUTH),
+                          ..onTap = () => Get.toNamed(Routes.AUTH),
+                        text: " Sign In",
+                        style: GoogleFonts.inter(
+                            fontSize: 12,
+                            color: kPrimary1,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
                         text: "Don't have account?",
                         style: AppTextTheme.current.title6)),
               ],

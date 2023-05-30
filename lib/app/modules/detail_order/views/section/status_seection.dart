@@ -13,7 +13,8 @@ import 'package:get/get.dart';
 import '../../../../themes/typograpy/typo.dart';
 
 class StatusSection extends StatelessWidget {
-  const StatusSection({super.key});
+  const StatusSection({super.key, required this.fee});
+  final int fee;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,24 @@ class StatusSection extends StatelessWidget {
                   return SizedBox();
                 }
 
+                double deliveryDuration = fee / 2000;
+                double estimatedDeliver = deliveryDuration + data.avgDuration;
+                int originalTimestamp = data.orderDate;
+                double durationMinutes = estimatedDeliver;
+                int durationSeconds = (durationMinutes * 60).round();
+                int millisecondsToAdd = durationSeconds * 1000;
+                int newTimestamp = originalTimestamp + millisecondsToAdd;
+                DateTime origin =
+                    DateTime.fromMillisecondsSinceEpoch(originalTimestamp);
+                DateTime timesDelivery =
+                    DateTime.fromMillisecondsSinceEpoch(newTimestamp);
+                String formattedTimeOrigin =
+                    '${origin.hour.toString().padLeft(2, '0')}:${origin.minute.toString().padLeft(2, '0')}';
+                String formattedTimeDelivery =
+                    '${timesDelivery.hour.toString().padLeft(2, '0')}:${timesDelivery.minute.toString().padLeft(2, '0')}';
+                print(formattedTimeOrigin);
+                print(formattedTimeDelivery);
+
                 if (snapshot.hasData) {
                   return Container(
                       padding: DefaultPadding.all,
@@ -45,7 +64,8 @@ class StatusSection extends StatelessWidget {
                           color: kWhite, borderRadius: AppRadius.all),
                       child: Column(
                         children: [
-                          Text('Estimated delivery time is 16:18 PM',
+                          Text(
+                              'Estimated delivery time is $formattedTimeDelivery PM',
                               style: AppTextTheme.current.bodyText),
                           SizedBox(height: 16.w),
                           Row(

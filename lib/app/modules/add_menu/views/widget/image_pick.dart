@@ -1,11 +1,13 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:essemu/app/modules/add_menu/controllers/add_menu_controller.dart';
+import 'package:essemu/app/themes/decoration/app_padding.dart';
+import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 
 import '../../../../themes/colors/colors.dart';
-import '../../../../themes/decoration/app_padding.dart';
 import '../../../../themes/decoration/app_radius.dart';
 import '../../../../themes/typograpy/typo.dart';
 
@@ -14,61 +16,68 @@ class ImagePick extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AddMenuController());
     return GetBuilder<AddMenuController>(builder: (context) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(text: 'Foto', style: AppTextTheme.current.bodyText),
-                TextSpan(text: '*', style: AppTextTheme.current.bodyText),
-              ],
-            ),
-          ),
-          SizedBox(height: 8.h),
-          controller.menu == null
-              ? GestureDetector(
-                  onTap: () => Get.bottomSheet(
-                      enterBottomSheetDuration: 520.milliseconds,
-                      exitBottomSheetDuration: 520.milliseconds,
-                      pickImages()),
-                  child: Container(
-                    height: 160.h,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                        borderRadius: AppRadius.all,
-                        color: kMain.withOpacity(0.08),
-                        border: Border.all(
-                            color: kMain.withOpacity(0.1), width: 1)),
-                    child: Center(
-                        child: Icon(
-                      IconlyLight.camera,
-                      size: 56,
-                      color: kMain.withOpacity(0.16),
-                    )),
+      return DottedBorder(
+          borderType: BorderType.RRect,
+          radius: Radius.circular(8),
+          padding: EdgeInsets.all(1),
+          color: kGrey3,
+          strokeWidth: 1,
+          dashPattern: [8, 4],
+          child: Container(
+              height: context.menu != null ? 389.h : 206.h,
+              width: Get.width,
+              padding: EdgeInsets.all(20.w),
+              decoration:
+                  BoxDecoration(color: kWhite, borderRadius: AppRadius.all),
+              child: Column(
+                children: [
+                  context.menu != null
+                      ? Container(
+                          height: 240.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              image: DecorationImage(
+                                  image: FileImage(context.menu!),
+                                  fit: BoxFit.cover)),
+                        )
+                      : SvgPicture.asset(
+                          SgAssets.gallery,
+                          width: 64.w,
+                          height: 48.w,
+                          colorFilter:
+                              ColorFilter.mode(kGrey3, BlendMode.srcIn),
+                        ),
+                  SizedBox(height: 12.w),
+                  Text(
+                    'Ambil gambar',
+                    style: AppTextTheme.current.bodyText,
                   ),
-                )
-              : GestureDetector(
-                  onTap: () => Get.bottomSheet(
-                      enterBottomSheetDuration: 520.milliseconds,
-                      exitBottomSheetDuration: 520.milliseconds,
-                      pickImages()),
-                  child: Container(
-                      height: 160.h,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: FileImage(controller.menu!),
-                              fit: BoxFit.cover),
-                          borderRadius: AppRadius.all,
-                          color: kMain.withOpacity(0.08),
-                          border: Border.all(
-                              color: kMain.withOpacity(0.1), width: 1))),
-                ),
-        ],
-      );
+                  SizedBox(height: 4.w),
+                  Text(
+                    'Pastikan format icon .jpg',
+                    style: AppTextTheme.current.hintText,
+                  ),
+                  SizedBox(height: 18.w),
+                  SizedBox(
+                      height: 30.w,
+                      width: Get.width * 0.36,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: kPrimary1),
+                                  borderRadius: AppRadius.icon)),
+                          onPressed: () => Get.bottomSheet(pickImages()),
+                          child: Center(
+                              child: Text(
+                            context.menu != null ? 'Upload ulang' : 'Upload',
+                            style: AppTextTheme.current.bodyText,
+                          ))))
+                ],
+              )));
     });
   }
 }
@@ -94,14 +103,13 @@ Widget pickImages() {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: AppRadius.all,
-                  color: kMain.withOpacity(0.08),
+                  color: kGrey4,
                   border: Border.all(color: kMain.withOpacity(0.1), width: 1)),
               child: Center(
-                  child: Icon(
-                IconlyLight.camera,
-                size: 36,
-                color: kMain.withOpacity(0.16),
-              )),
+                  child: SvgPicture.asset(SgAssets.photoCamera,
+                      colorFilter: ColorFilter.mode(kGrey3, BlendMode.srcIn),
+                      height: 48,
+                      width: 58)),
             ),
           ),
         ),
@@ -115,13 +123,21 @@ Widget pickImages() {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: AppRadius.all,
-                  color: kMain.withOpacity(0.08),
+                  color: kGrey4,
                   border: Border.all(color: kMain.withOpacity(0.1), width: 1)),
               child: Center(
-                  child: Icon(
-                Icons.browse_gallery_outlined,
-                size: 36,
-                color: kMain.withOpacity(0.16),
+                  child: Column(
+                children: [
+                  SvgPicture.asset(SgAssets.gallery,
+                      colorFilter: ColorFilter.mode(kGrey3, BlendMode.srcIn),
+                      height: 28,
+                      width: 28),
+                  SizedBox(height: 8.w),
+                  Text(
+                    'Ambil dari galery',
+                    style: AppTextTheme.current.filter,
+                  )
+                ],
               )),
             ),
           ),

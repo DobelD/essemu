@@ -6,6 +6,7 @@ class Order {
   final String status;
   final int deliveryFee;
   final int restaurantId;
+  final double avgDuration;
 
   Order(
       {required this.id,
@@ -14,7 +15,8 @@ class Order {
       required this.totalPrice,
       required this.status,
       required this.deliveryFee,
-      required this.restaurantId});
+      required this.restaurantId,
+      required this.avgDuration});
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
@@ -24,7 +26,8 @@ class Order {
         totalPrice: json['total_price'],
         status: json['status'],
         deliveryFee: json['delivery_fee'],
-        restaurantId: json['restaurant_id']);
+        restaurantId: json['restaurant_id'],
+        avgDuration: json['avg_duration']);
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +39,8 @@ class Order {
     data['status'] = this.status;
     data['delivery_fee'] = this.deliveryFee;
     data['restaurant_id'] = this.restaurantId;
+    data['avg_duration'] = this.avgDuration;
+
     return data;
   }
 }

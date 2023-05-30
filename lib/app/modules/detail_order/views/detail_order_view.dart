@@ -16,7 +16,6 @@ class DetailOrderView extends GetView<DetailOrderController> {
   Widget build(BuildContext context) {
     return GetBuilder<DetailOrderController>(builder: (c) {
       int id = Get.arguments['id_order'];
-      // String status = Get.arguments['status'];
       int fee = Get.arguments['fee'];
       int rest = Get.arguments['rest'];
 
@@ -28,7 +27,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
           body: CustomScrollView(
             slivers: [
               AppBarSection(),
-              StatusSection(),
+              StatusSection(fee: fee),
               ItemSection(id: id, fee: fee)
             ],
           ),

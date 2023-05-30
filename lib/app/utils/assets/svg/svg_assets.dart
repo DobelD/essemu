@@ -27,4 +27,12 @@ class SgAssets {
   static const String photoCamera = 'assets/svg/photo-camera.svg';
   static const String picture = 'assets/svg/picture.svg';
   static const String gallery = 'assets/svg/gallery.svg';
+  static const String users = 'assets/svg/users.svg';
+  static const String list = 'assets/svg/list.svg';
+  static const String favorites = 'assets/svg/favorites.svg';
+  static const String homes = 'assets/svg/homes.svg';
+  static const String uusers = 'assets/svg/uusers.svg';
+  static const String ulist = 'assets/svg/ulist.svg';
+  static const String ufavorites = 'assets/svg/ufavorites.svg';
+  static const String uhomes = 'assets/svg/uhomes.svg';
 }

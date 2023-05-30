@@ -1,4 +1,5 @@
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
+import 'package:essemu/app/routes/app_pages.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,30 +44,42 @@ class ItemCategory extends StatelessWidget {
                     ? ItemLoading()
                     : Padding(
                         padding: EdgeInsets.all(6.w),
-                        child: Container(
-                          height: 110.w,
-                          width: 158.w,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: kDividerItemSectionDashboard),
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: kPrimary4),
-                          child: SizedBox(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12.w),
-                              child: Column(
-                                children: [
-                                  SvgPicture.network(
-                                    '${c.pubicUrlCategory}${data?.imageUrl}',
-                                    height: 55.w,
-                                    width: 70.w,
-                                  ),
-                                  SizedBox(height: 10.w),
-                                  Text(
-                                    '${data?.name}',
-                                    style: AppTextTheme.current.bodyText,
-                                  )
-                                ],
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.back();
+                            Get.toNamed(Routes.MENU_BYCATEGORY, arguments: {
+                              'id': data?.id,
+                              'name': data?.name,
+                              'distance': c.distance,
+                              'id_user': c.idUser,
+                              'image_url': data?.imageUrl
+                            });
+                          },
+                          child: Container(
+                            height: 110.w,
+                            width: 158.w,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: kDividerItemSectionDashboard),
+                                borderRadius: BorderRadius.circular(8.r),
+                                color: kPrimary4),
+                            child: SizedBox(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 12.w),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.network(
+                                      '${c.pubicUrlCategory}${data?.imageUrl}',
+                                      height: 55.w,
+                                      width: 70.w,
+                                    ),
+                                    SizedBox(height: 10.w),
+                                    Text(
+                                      '${data?.name}',
+                                      style: AppTextTheme.current.bodyText,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
