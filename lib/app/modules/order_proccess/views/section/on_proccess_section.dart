@@ -126,6 +126,8 @@ class OnProccessSection extends StatelessWidget {
                                               Get.toNamed(Routes.COMFIRM_ORDER,
                                                   arguments: {
                                                     'id': data.id,
+                                                    'id_rest':
+                                                        data.restaurantId,
                                                     'user_id': data.userId,
                                                     'user': data.users,
                                                     'items': controller.items,

@@ -2,6 +2,7 @@ import 'package:essemu/app/modules/history/controllers/history_controller.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/provider/endpoint.dart';
 import 'package:essemu/app/routes/app_pages.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/history.dart';
@@ -20,6 +21,8 @@ class DetailOrderController extends GetxController {
   int idOrder = 0;
   int idUser = 0;
   int totalPrice = 0;
+  List<String> courierName = [];
+  List<String> statusName = [];
 
   late Stream<List<ItemOrder>> items;
   late Stream<Order> orders;
@@ -102,6 +105,7 @@ class DetailOrderController extends GetxController {
     temp['total'] = price;
     temp['status'] = 'selesai';
     temp['restaurant_id'] = restId;
+    temp['courier'] = courierName.first;
     return temp;
   }
 
@@ -123,11 +127,15 @@ class DetailOrderController extends GetxController {
     items = service.getData(idOrder);
     orders = services.getData(idUser);
     getItem(idOrder);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setStatus(statusName.first);
+    });
     super.onInit();
   }
 
   setStatus(String? value) {
     status = value ?? '';
+    update();
   }
 
   @override

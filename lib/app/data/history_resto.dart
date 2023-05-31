@@ -4,6 +4,7 @@ class HistoryRest {
   int? userId;
   int? total;
   String? status;
+  String? courier;
   User? user;
 
   HistoryRest(
@@ -12,6 +13,7 @@ class HistoryRest {
       this.userId,
       this.total,
       this.status,
+      this.courier,
       this.user});
 
   HistoryRest.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class HistoryRest {
     userId = json['user_id'];
     total = json['total'];
     status = json['status'];
+    courier = json['courier'];
     user = json['users'] != null ? new User.fromJson(json['users']) : null;
   }
 
@@ -30,6 +33,7 @@ class HistoryRest {
     data['user_id'] = this.userId;
     data['total'] = this.total;
     data['status'] = this.status;
+    data['courier'] = this.courier;
     if (this.user != null) {
       data['users'] = this.user!.toJson();
     }

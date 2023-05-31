@@ -20,6 +20,8 @@ import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/edit_delivery_address/bindings/edit_delivery_address_binding.dart';
 import '../modules/edit_delivery_address/views/edit_delivery_address_view.dart';
+import '../modules/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/forgot/bindings/forgot_binding.dart';
@@ -50,6 +52,8 @@ import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/update_fee/bindings/update_fee_binding.dart';
+import '../modules/update_fee/views/update_fee_view.dart';
 
 part 'app_routes.dart';
 
@@ -183,6 +187,16 @@ class AppPages {
       name: _Paths.MENU_BYCATEGORY,
       page: () => const MenuBycategoryView(),
       binding: MenuBycategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => const EditProfileView(),
+      binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_FEE,
+      page: () => const UpdateFeeView(),
+      binding: UpdateFeeBinding(),
     ),
   ];
 }

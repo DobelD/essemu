@@ -1,3 +1,4 @@
+import 'package:essemu/app/data/user_rest.dart';
 import 'package:essemu/app/provider/endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,10 +27,13 @@ class AuthController extends GetxController {
       print(response.user);
       if (response.user != null) {
         final emm = await endpoint.setEmail(emailC.text);
-        final role = await endpoint.getRole(emm);
         session.saveUser(us.User.fromJson(emm));
+        final role = await endpoint.getRole(emm);
         print("USER: ${emm}");
         if (role['name'] == 'owner') {
+          final adm = await endpoint.setEmailRest(emailC.text);
+          session.saveUserRest(UserRest.fromJson(adm));
+
           session.saveSession('9', response.user?.id, emailC.text);
           isLoading = false;
           update();

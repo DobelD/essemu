@@ -12,9 +12,10 @@ import '../../../../themes/decoration/app_padding.dart';
 import '../../../../themes/typograpy/typo.dart';
 
 class DetailItemHistory extends StatelessWidget {
-  const DetailItemHistory({super.key, required this.data});
+  const DetailItemHistory({super.key, required this.data, required this.total});
 
   final List<HistoryItem> data;
+  final int total;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +88,25 @@ class DetailItemHistory extends StatelessWidget {
                   lineThickness: 1.0,
                   dashColor: kGrey2,
                 ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total',
+                    style: AppTextTheme.current.bodyText,
+                  ),
+                  SizedBox(width: 6.w),
+                  Expanded(
+                    child: Text(
+                      '${total.toCurrencyFormat()}',
+                      textAlign: TextAlign.right,
+                      style: AppTextTheme.current.bodyText,
+                    ),
+                  ),
+                  SizedBox(width: 26.w),
+                ],
               ),
               SizedBox(height: 32.w)
             ],

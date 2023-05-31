@@ -1,7 +1,10 @@
 import 'package:essemu/app/modules/order_proccess/controllers/order_proccess_controller.dart';
+import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
+import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SortOrder extends StatelessWidget {
@@ -23,9 +26,18 @@ class SortOrder extends StatelessWidget {
                         ? AppTextTheme.current.unselectedFilter
                         : AppTextTheme.current.selectedFilter,
                   ),
+                  SizedBox(
+                      child: SvgPicture.asset(
+                    SgAssets.comingSoon,
+                    height: 20,
+                    width: 20,
+                    colorFilter: ColorFilter.mode(
+                        c.isPriority.value ? kBlack : kPrimary1,
+                        BlendMode.srcIn),
+                  ))
                 ],
               )),
-          SizedBox(height: 12.w),
+          SizedBox(height: 22.w),
           GestureDetector(
               onTap: () => c.sortOrder('priority'),
               child: Row(
@@ -37,9 +49,18 @@ class SortOrder extends StatelessWidget {
                         ? AppTextTheme.current.selectedFilter
                         : AppTextTheme.current.unselectedFilter,
                   ),
+                  SizedBox(
+                      child: SvgPicture.asset(
+                    SgAssets.priority,
+                    height: 20,
+                    width: 20,
+                    colorFilter: ColorFilter.mode(
+                        c.isPriority.value ? kPrimary1 : kBlack,
+                        BlendMode.srcIn),
+                  ))
                 ],
               )),
-          SizedBox(height: 22.w),
+          SizedBox(height: 32.w),
         ],
       );
     });

@@ -45,6 +45,7 @@ class User {
   String? phone;
   String? email;
   String? address;
+  String? gender;
   Role? role;
 
   User({this.id, this.name, this.phone, this.email, this.address, this.role});
@@ -55,6 +56,7 @@ class User {
     phone = json['phone'];
     email = json['email'];
     address = json['address'];
+    gender = json['gender'];
     role = json['role'] != null ? new Role.fromJson(json['role']) : null;
   }
 
@@ -65,6 +67,7 @@ class User {
     data['phone'] = this.phone;
     data['email'] = this.email;
     data['address'] = this.address;
+    data['gender'] = this.gender;
     if (this.role != null) {
       data['role'] = this.role!.toJson();
     }

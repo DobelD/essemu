@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/user.dart';
+import '../../data/user_rest.dart';
 
 class SessionManager {
   String? idUser;
@@ -18,12 +19,27 @@ class SessionManager {
     await prefs.setString('user', json.encode(user.toJson()));
   }
 
+  void saveUserRest(UserRest user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_rest', json.encode(user.toJson()));
+  }
+
   Future<User?> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userData = prefs.getString('user');
     if (userData != null) {
       Map<String, dynamic> userJson = json.decode(userData);
       return User.fromJson(userJson);
+    }
+    return null;
+  }
+
+  Future<UserRest?> getUserRest() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userData = prefs.getString('user_rest');
+    if (userData != null) {
+      Map<String, dynamic> userJson = json.decode(userData);
+      return UserRest.fromJson(userJson);
     }
     return null;
   }

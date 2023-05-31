@@ -3,6 +3,7 @@ class History {
   int? createdAt;
   int? userId;
   int? total;
+  String? courier;
   String? status;
   Restaurant? restaurant;
 
@@ -12,6 +13,7 @@ class History {
       this.userId,
       this.total,
       this.status,
+      this.courier,
       this.restaurant});
 
   History.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class History {
     userId = json['user_id'];
     total = json['total'];
     status = json['status'];
+    courier = json['courier'];
     restaurant = json['restaurant'] != null
         ? new Restaurant.fromJson(json['restaurant'])
         : null;
@@ -32,6 +35,7 @@ class History {
     data['user_id'] = this.userId;
     data['total'] = this.total;
     data['status'] = this.status;
+    data['courier'] = this.courier;
     if (this.restaurant != null) {
       data['restaurant'] = this.restaurant!.toJson();
     }

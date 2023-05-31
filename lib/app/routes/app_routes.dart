@@ -30,6 +30,8 @@ abstract class Routes {
   static const EDIT_DELIVERY_ADDRESS = _Paths.EDIT_DELIVERY_ADDRESS;
   static const FORGOT = _Paths.FORGOT;
   static const MENU_BYCATEGORY = _Paths.MENU_BYCATEGORY;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const UPDATE_FEE = _Paths.UPDATE_FEE;
 }
 
 abstract class _Paths {
@@ -61,4 +63,6 @@ abstract class _Paths {
   static const EDIT_DELIVERY_ADDRESS = '/edit-delivery-address';
   static const FORGOT = '/forgot';
   static const MENU_BYCATEGORY = '/menu-bycategory';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const UPDATE_FEE = '/update-fee';
 }

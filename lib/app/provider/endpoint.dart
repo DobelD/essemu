@@ -24,6 +24,12 @@ class Endpoint {
     return emailSet;
   }
 
+  setEmailRest(String email) async {
+    final emailSet =
+        await client.from('restaurant').select('*').eq('email', email).single();
+    return emailSet;
+  }
+
   setId(String id) async {
     final idSet = await client.from('users').select('*').eq('id', id).single();
     return idSet;
@@ -49,6 +55,12 @@ class Endpoint {
   getUsers(String email) async {
     final users =
         await client.from('users').select('*').eq('email', email).single();
+    return users;
+  }
+
+  getUsersRest(String email) async {
+    final users =
+        await client.from('restaurant').select('*').eq('email', email).single();
     return users;
   }
 
@@ -355,10 +367,9 @@ class Endpoint {
     return item;
   }
 
-  updateStatusSend(int userId) async {
-    final item = await client
-        .from('order')
-        .update({'status': 'antar'}).eq('user_id', userId);
+  updateStatusSend(int userId, int idCourier) async {
+    final item = await client.from('order').update(
+        {'status': 'antar', 'courier_id': idCourier}).eq('user_id', userId);
     return item;
   }
 
@@ -388,5 +399,23 @@ class Endpoint {
         .select('*, menu!inner(name,price)')
         .eq('history_id', id);
     return item;
+  }
+
+  addCourier(dynamic value) async {
+    final add = await client.from('courier').insert(value);
+    return add;
+  }
+
+  deleteCourier(int id) async {
+    final add = await client.from('courier').delete().eq('id', id);
+    return add;
+  }
+
+  getCourier(int id) async {
+    final order = await client
+        .from('courier')
+        .select('id,name,phone')
+        .eq('restaurant_id', id);
+    return order;
   }
 }

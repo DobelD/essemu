@@ -38,7 +38,8 @@ class OrderService {
           status: orderData['status'],
           restaurantId: orderData['restaurant_id'],
           deliveryFee: orderData['delivery_fee'],
-          avgDuration: orderData['avg_duration']);
+          avgDuration: orderData['avg_duration'],
+          courierId: orderData['courier_id']);
     } catch (e) {
       throw "$e";
     }

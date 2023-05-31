@@ -35,4 +35,13 @@ class SgAssets {
   static const String ulist = 'assets/svg/ulist.svg';
   static const String ufavorites = 'assets/svg/ufavorites.svg';
   static const String uhomes = 'assets/svg/uhomes.svg';
+  static const String question = 'assets/svg/question.svg';
+  static const String information = 'assets/svg/information.svg';
+  static const String lock = 'assets/svg/lock.svg';
+  static const String compose = 'assets/svg/compose.svg';
+  static const String logout = 'assets/svg/logout.svg';
+  static const String fee = 'assets/svg/fee.svg';
+  static const String update = 'assets/svg/update.svg';
+  static const String priority = 'assets/svg/priority.svg';
+  static const String courier = 'assets/svg/courier.svg';
 }

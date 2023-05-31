@@ -172,6 +172,7 @@ class CartsController extends GetxController {
     temp['delivery_fee'] = deliveryFee;
     temp['address'] = address;
     temp['avg_duration'] = avgDuration;
+    temp['courier_id'] = 0;
     return temp;
   }
 

@@ -80,6 +80,7 @@ class Menu {
   int? price;
   String? imageUrl;
   bool? favorit;
+  int? duration;
   MenuCategory? categories;
   Restaurant? restaurant;
 
@@ -91,6 +92,7 @@ class Menu {
       this.imageUrl,
       this.favorit,
       this.categories,
+      this.duration,
       this.restaurant});
 
   Menu.fromJson(Map<String, dynamic> json) {
@@ -100,6 +102,7 @@ class Menu {
     price = json['price'];
     imageUrl = json['image_url'];
     favorit = json['favorit'];
+    duration = json['duration'];
     categories = json['categories'] != null
         ? new MenuCategory.fromJson(json['categories'])
         : null;
@@ -116,6 +119,7 @@ class Menu {
     data['price'] = this.price;
     data['image_url'] = this.imageUrl;
     data['favorit'] = this.favorit;
+    data['duration'] = this.duration;
     if (this.categories != null) {
       data['categories'] = this.categories!.toJson();
     }

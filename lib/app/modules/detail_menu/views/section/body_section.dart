@@ -37,7 +37,7 @@ class BodySection extends StatelessWidget {
                   ),
                   SizedBox(width: 6.w),
                   Text(
-                    '15 min',
+                    '${data?.duration ?? 0} min',
                     style: GoogleFonts.inter(
                         fontSize: 14.sp, fontWeight: FontWeight.w400),
                   ),

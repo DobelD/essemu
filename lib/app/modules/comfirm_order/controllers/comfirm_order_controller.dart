@@ -1,7 +1,9 @@
 import 'package:essemu/app/modules/order_proccess/controllers/order_proccess_controller.dart';
 import 'package:get/get.dart';
 
+import '../../../data/courier.dart';
 import '../../../data/item_order.dart';
+import '../services/courier_service.dart';
 import '../services/item_service.dart';
 import '../services/update_status.dart';
 
@@ -10,6 +12,27 @@ class ComfirmOrderController extends GetxController {
   bool isLoading = false;
   List<ItemOrder> _items = [];
   List<ItemOrder> get items => _items;
+  List<Courier> _courier = [];
+  List<Courier> get courier => _courier;
+  Courier? selectCourier;
+  List<Map<String, dynamic>> listCourier = [];
+  String? selectCr;
+  int idResto = 0;
+  int courierId = 0;
+
+  setCourier(List<Courier> data) {
+    _courier = data;
+    for (int i = 0; i < _courier.length; i++) {
+      listCourier.add({'id': _courier[i].id, 'name': _courier[i].name});
+    }
+    update();
+  }
+
+  getCaourier(int id) async {
+    final service = CourierService();
+    final data = await service.getData(id);
+    setCourier(data);
+  }
 
   setItem(List<ItemOrder> data) {
     _items = data;
@@ -28,7 +51,7 @@ class ComfirmOrderController extends GetxController {
 
   updateStatusSend(int id) async {
     final service = UpdateStatusOrder();
-    await service.proccess(id);
+    await service.proccess(id, courierId);
   }
 
   void toSend(int id) {
@@ -44,9 +67,24 @@ class ComfirmOrderController extends GetxController {
     });
   }
 
+  void changeCourier(String cr) {
+    selectCr = cr;
+    print(cr);
+    changeId(cr);
+    update();
+  }
+
+  changeId(String sctg) {
+    List<String> parts = sctg.split(': ');
+    List<String> idPart = parts[1].split(',');
+    courierId = int.parse(idPart[0]);
+  }
+
   @override
   void onInit() {
     getItems(Get.arguments['id']);
+    idResto = Get.arguments['id_rest'];
+    getCaourier(idResto);
     super.onInit();
   }
 

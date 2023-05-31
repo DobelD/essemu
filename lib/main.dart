@@ -1,6 +1,7 @@
 import 'package:essemu/app/themes/app_theme.dart';
 import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
     url: Initial.url,
     anonKey: Initial.key,
   );
+
   runApp(
     ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -28,6 +30,11 @@ Future<void> main() async {
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
             theme: AppTheme.light,
+            builder: (context, child) {
+              return KeyboardVisibilityProvider(
+                child: child!,
+              );
+            },
           );
         }),
   );

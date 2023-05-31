@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../controllers/comfirm_order_controller.dart';
 import 'section/address_section.dart';
 import 'section/appbar_section.dart';
+import 'section/courier_section.dart';
 import 'section/footer_section.dart';
 import 'section/item_section.dart';
 
@@ -38,7 +39,8 @@ class ComfirmOrderView extends GetView<ComfirmOrderController> {
               ),
               ItemSection(
                 fee: fee,
-              )
+              ),
+              CourierSection()
             ],
           ),
           bottomSheet: FooterSection(
