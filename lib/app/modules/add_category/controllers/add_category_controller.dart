@@ -10,10 +10,10 @@ import '../../../provider/endpoint.dart';
 
 class AddCategoryController extends GetxController {
   TextEditingController nama = TextEditingController();
+  Endpoint endpoint = Endpoint();
   bool isLoading = false;
   var imagesMenu;
   File? menu;
-  Endpoint endpoint = Endpoint();
   Future getImageMenu() async {
     final sharedPref = await SharedPreferences.getInstance();
     final ImagePicker picker1 = ImagePicker();

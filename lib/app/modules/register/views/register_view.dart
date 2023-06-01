@@ -12,6 +12,7 @@ import '../../../routes/app_pages.dart';
 import '../../../themes/colors/colors.dart';
 import '../../../themes/typograpy/typo.dart';
 import '../controllers/register_controller.dart';
+import '../widget/dropdown.dart';
 
 class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
@@ -52,6 +53,8 @@ class RegisterView extends GetView<RegisterController> {
                   title: 'No Telephone',
                   hint: 'no telephone',
                 ),
+                SizedBox(height: 8.w),
+                DropGender(),
                 SizedBox(height: 8.w),
                 FormTxt(
                   controller: controller.address,

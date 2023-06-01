@@ -14,6 +14,17 @@ class RegisterController extends GetxController {
   TextEditingController address = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController name = TextEditingController();
+  String? selectedGender;
+  List<Map<String, dynamic>> listGender = [
+    {"name": "Male"},
+    {"name": "Female"}
+  ];
+
+  updateGender(String value) {
+    selectedGender = value;
+    print(selectedGender);
+    update();
+  }
 
   bool isLoading = false;
 
@@ -31,7 +42,8 @@ class RegisterController extends GetxController {
           address.text,
           '',
           phone.text,
-          2);
+          2,
+          selectedGender!);
       if (regst) {
         isLoading = false;
         update();

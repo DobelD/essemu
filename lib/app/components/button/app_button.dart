@@ -31,8 +31,8 @@ class AppButton extends StatelessWidget {
       this.isSecond = true});
   const AppButton.secondarySmall(
       {super.key,
-      this.bgColor = kWhite,
-      this.border = kSecondary1,
+      this.bgColor = kBlack,
+      this.border = Colors.transparent,
       this.onPressed,
       this.text,
       this.icon,
@@ -42,7 +42,7 @@ class AppButton extends StatelessWidget {
       this.isSecond = true});
   const AppButton.primarySmall(
       {super.key,
-      this.bgColor = kSecondary1,
+      this.bgColor = kBlack,
       this.border = Colors.transparent,
       this.onPressed,
       this.text,

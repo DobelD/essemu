@@ -11,12 +11,13 @@ class RegistService {
       String addressC,
       String imagesUrlC,
       String phoneC,
-      int roleC) async {
+      int roleC,
+      String gender) async {
     if (emailC.isNotEmpty && passwordC.isNotEmpty ||
         passComfirmC == passwordC) {
       final response = await endpoint.register(emailC, passwordC);
       final addUser = await endpoint.addUsers(
-          payload(nameC, emailC, addressC, imagesUrlC, phoneC, roleC));
+          payload(nameC, emailC, addressC, imagesUrlC, phoneC, roleC, gender));
       print(response);
       print(addUser);
       return true;
@@ -26,7 +27,7 @@ class RegistService {
   }
 
   Map<String, dynamic> payload(String name, String email, String address,
-      String imagesUrl, String phone, int role) {
+      String imagesUrl, String phone, int role, String gender) {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['name'] = name;
     temp['email'] = email;
@@ -34,6 +35,7 @@ class RegistService {
     temp['images_url'] = imagesUrl;
     temp['phone'] = phone;
     temp['role_id'] = role;
+    temp['gender'] = gender;
     return temp;
   }
 }

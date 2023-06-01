@@ -18,8 +18,11 @@ class AvatarSection extends StatelessWidget {
             Container(
               height: 90.w,
               width: 90.w,
-              decoration:
-                  BoxDecoration(color: kSoftMain, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                  color: kSoftMain,
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: NetworkImage('${c.urlUsers}/${c.user.name}'))),
             ),
             SizedBox(height: 12.w),
             Text(

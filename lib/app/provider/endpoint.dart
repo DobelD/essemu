@@ -418,4 +418,9 @@ class Endpoint {
         .eq('restaurant_id', id);
     return order;
   }
+
+  updateUser(dynamic value, int id) async {
+    final user = await client.from('users').update(value).eq('id', id);
+    return user;
+  }
 }

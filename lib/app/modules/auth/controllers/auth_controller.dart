@@ -33,7 +33,6 @@ class AuthController extends GetxController {
         if (role['name'] == 'owner') {
           final adm = await endpoint.setEmailRest(emailC.text);
           session.saveUserRest(UserRest.fromJson(adm));
-
           session.saveSession('9', response.user?.id, emailC.text);
           isLoading = false;
           update();

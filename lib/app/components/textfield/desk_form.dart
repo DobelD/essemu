@@ -43,16 +43,16 @@ class DeskForm extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
                 border: OutlineInputBorder(
                     borderRadius: AppRadius.icon,
-                    borderSide: BorderSide(color: Colors.transparent)),
+                    borderSide: BorderSide(color: kSofterGrey)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: AppRadius.icon,
                     borderSide: BorderSide(
-                      color: Colors.transparent,
+                      color: kSofterGrey,
                     )),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: AppRadius.icon,
                     borderSide: BorderSide(
-                      color: Colors.transparent,
+                      color: kSofterGrey,
                     ))),
           ),
         ),

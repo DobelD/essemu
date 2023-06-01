@@ -6,20 +6,12 @@ import '../../../data/user.dart' as u;
 
 class ProfileController extends GetxController {
   SupabaseClient client = Supabase.instance.client;
+  String urlUsers =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/users/';
   bool isLoading = false;
   bool isSave = true;
 
   u.User user = u.User();
-
-  setSave() {
-    isSave = false;
-    update();
-  }
-
-  setSEdit() {
-    isSave = true;
-    update();
-  }
 
   logout() async {
     isLoading = true;
