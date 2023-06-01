@@ -49,9 +49,9 @@ class ListHistory extends StatelessWidget {
                               isLabel: true,
                               label: 'Detail Pesanan',
                               child: DetailItemHistory(
-                                total: data.total!,
-                                data: controller.historyItem,
-                              ));
+                                  total: data.total!,
+                                  data: controller.historyItem,
+                                  courier: data.courier!));
                         },
                       );
                     },

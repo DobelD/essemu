@@ -361,9 +361,10 @@ class Endpoint {
   }
 
   updateStatus(int userId) async {
-    final item = await client
-        .from('order')
-        .update({'status': 'proses'}).eq('user_id', userId);
+    final item = await client.from('order').update({
+      'status': 'proses',
+      'order_date': DateTime.now().millisecondsSinceEpoch
+    }).eq('user_id', userId);
     return item;
   }
 

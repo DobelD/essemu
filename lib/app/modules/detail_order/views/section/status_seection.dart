@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import '../../../../themes/typograpy/typo.dart';
+import '../../../../utils/extension/status_mesaage.dart';
 
 class StatusSection extends StatelessWidget {
   const StatusSection({super.key, required this.fee});
@@ -119,13 +120,25 @@ class StatusSection extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                            'Estimated delivery time is $formattedTimeDelivery PM',
+                            status == 'terima' || status == 'tolak'
+                                ? 'Estimated delivery time is not specified'
+                                : 'Estimated delivery time is $formattedTimeDelivery PM',
                             style: AppTextTheme.current.bodyText),
                         SizedBox(height: 6.w),
                         Text(
-                            'Estimated delivery time is ${data.courier?.name}PM',
+                            status == 'terima'
+                                ? StatusMessage.terima.text
+                                : status == 'proses'
+                                    ? StatusMessage.proses.text
+                                    : status == 'antar'
+                                        ? StatusMessage.antar.text
+                                        : status == 'selesai'
+                                            ? StatusMessage.selesai.text
+                                            : StatusMessage.tolak.text,
                             style: GoogleFonts.inter(
-                                fontSize: 12, color: kSuccess1)),
+                                fontSize: 12,
+                                color:
+                                    status != 'tolak' ? kSuccess1 : kWarning1)),
                         SizedBox(height: 16.w),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

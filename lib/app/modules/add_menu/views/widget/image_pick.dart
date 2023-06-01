@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:essemu/app/components/picker/picker_images.dart';
 import 'package:essemu/app/modules/add_menu/controllers/add_menu_controller.dart';
-import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:essemu/app/utils/assets/svg/svg_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,7 +70,10 @@ class ImagePick extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(color: kPrimary1),
                                   borderRadius: AppRadius.icon)),
-                          onPressed: () => Get.bottomSheet(pickImages()),
+                          onPressed: () => Get.bottomSheet(PickerImages.double(
+                                onTapCamera: () => context.getImageMenu(),
+                                onTapGallery: () => context.getImageGalery(),
+                              )),
                           child: Center(
                               child: Text(
                             context.menu != null ? 'Upload ulang' : 'Upload',
@@ -80,69 +83,4 @@ class ImagePick extends StatelessWidget {
               )));
     });
   }
-}
-
-Widget pickImages() {
-  final controller = Get.put(AddMenuController());
-  return Container(
-    padding: DefaultPadding.all,
-    height: 120.h,
-    width: Get.width,
-    decoration: BoxDecoration(
-        color: kWhite,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.r), topRight: Radius.circular(8.r))),
-    child: Row(
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              controller.getImageMenu();
-              Get.back();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: AppRadius.all,
-                  color: kGrey4,
-                  border: Border.all(color: kMain.withOpacity(0.1), width: 1)),
-              child: Center(
-                  child: SvgPicture.asset(SgAssets.photoCamera,
-                      colorFilter: ColorFilter.mode(kGrey3, BlendMode.srcIn),
-                      height: 48,
-                      width: 58)),
-            ),
-          ),
-        ),
-        SizedBox(width: 16.w),
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              controller.getImageGalery();
-              Get.back();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: AppRadius.all,
-                  color: kGrey4,
-                  border: Border.all(color: kMain.withOpacity(0.1), width: 1)),
-              child: Center(
-                  child: Column(
-                children: [
-                  SvgPicture.asset(SgAssets.gallery,
-                      colorFilter: ColorFilter.mode(kGrey3, BlendMode.srcIn),
-                      height: 28,
-                      width: 28),
-                  SizedBox(height: 8.w),
-                  Text(
-                    'Ambil dari galery',
-                    style: AppTextTheme.current.filter,
-                  )
-                ],
-              )),
-            ),
-          ),
-        )
-      ],
-    ),
-  );
 }

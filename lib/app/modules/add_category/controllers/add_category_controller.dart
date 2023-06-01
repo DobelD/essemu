@@ -27,6 +27,7 @@ class AddCategoryController extends GetxController {
   }
 
   Future getImageGalery() async {
+    Get.back();
     final sharedPref = await SharedPreferences.getInstance();
     final ImagePicker picker1 = ImagePicker();
     final imagePicked1 =

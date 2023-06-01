@@ -7,10 +7,9 @@ import 'package:get/get.dart';
 
 import '../../../../components/textfield/form.dart';
 
-class FormSection extends StatelessWidget {
-  const FormSection({super.key, required this.role});
+class FormRestSection extends StatelessWidget {
+  const FormRestSection({super.key, required this.role});
   final String role;
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(EditProfileController());
@@ -36,25 +35,18 @@ class FormSection extends StatelessWidget {
             title: 'Telephone',
             hint: 'Telephone',
           ),
+          FormTxt(
+            controller: controller.open,
+            title: 'Open',
+            hint: 'Open',
+          ),
           SizedBox(height: 8.w),
-          role == 'rest'
-              ? Column(
-                  children: [
-                    FormTxt(
-                      controller: controller.open,
-                      title: 'Open',
-                      hint: 'Open',
-                    ),
-                    SizedBox(height: 8.w),
-                    FormTxt(
-                      controller: controller.close,
-                      title: 'Closed',
-                      hint: 'Closed',
-                    ),
-                    SizedBox(height: 8.w),
-                  ],
-                )
-              : SizedBox(),
+          FormTxt(
+            controller: controller.close,
+            title: 'Closed',
+            hint: 'Closed',
+          ),
+          SizedBox(height: 8.w),
           DeskForm(
             controller: controller.address,
             title: 'Address',

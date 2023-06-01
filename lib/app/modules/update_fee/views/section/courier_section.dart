@@ -75,52 +75,54 @@ class CourierSection extends StatelessWidget {
                   return Column(
                       children: List.generate(
                           controller.courier.length,
-                          (index) => Padding(
-                                padding: EdgeInsets.only(bottom: 12.w),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: kWhite,
-                                      borderRadius: AppRadius.all),
-                                  child: ListTile(
-                                    leading: Text(
-                                      '#${index + 1}',
-                                      style: AppTextTheme.current.link,
-                                    ),
-                                    title: Text(
-                                      '${controller.courier[index].name}',
-                                      style: AppTextTheme.current.bodyText,
-                                    ),
-                                    subtitle: Text(
-                                      '${controller.courier[index].phone}',
-                                      style: AppTextTheme.current.hintText,
-                                    ),
-                                    trailing: SizedBox(
-                                      width: 60,
-                                      child: Row(
-                                        children: [
-                                          GestureDetector(
-                                              onTap: () {},
-                                              child: Icon(
-                                                IconlyLight.edit,
-                                                color: kBlack,
-                                                size: 20,
-                                              )),
-                                          SizedBox(width: 16.w),
-                                          GestureDetector(
-                                              onTap: () => controller
-                                                  .deleteCourier(controller
-                                                      .courier[index].id!),
-                                              child: Icon(
-                                                IconlyLight.delete,
-                                                color: kBlack,
-                                                size: 20,
-                                              )),
-                                        ],
+                          (index) => controller.courier[index].id != 0
+                              ? Padding(
+                                  padding: EdgeInsets.only(bottom: 12.w),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: kWhite,
+                                        borderRadius: AppRadius.all),
+                                    child: ListTile(
+                                      leading: Text(
+                                        '#${index + 1}',
+                                        style: AppTextTheme.current.link,
+                                      ),
+                                      title: Text(
+                                        '${controller.courier[index].name}',
+                                        style: AppTextTheme.current.bodyText,
+                                      ),
+                                      subtitle: Text(
+                                        '${controller.courier[index].phone}',
+                                        style: AppTextTheme.current.hintText,
+                                      ),
+                                      trailing: SizedBox(
+                                        width: 60,
+                                        child: Row(
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {},
+                                                child: Icon(
+                                                  IconlyLight.edit,
+                                                  color: kBlack,
+                                                  size: 20,
+                                                )),
+                                            SizedBox(width: 16.w),
+                                            GestureDetector(
+                                                onTap: () => controller
+                                                    .deleteCourier(controller
+                                                        .courier[index].id!),
+                                                child: Icon(
+                                                  IconlyLight.delete,
+                                                  color: kBlack,
+                                                  size: 20,
+                                                )),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )));
+                                )
+                              : SizedBox()));
                 })
               ],
             )));

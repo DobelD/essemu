@@ -12,10 +12,15 @@ import '../../../../themes/typograpy/typo.dart';
 import '../../controllers/history_resto_controller.dart';
 
 class DetailItemHistory extends StatelessWidget {
-  const DetailItemHistory({super.key, required this.data, required this.total});
+  const DetailItemHistory(
+      {super.key,
+      required this.data,
+      required this.total,
+      required this.courier});
 
   final List<HistoryItem> data;
   final int total;
+  final String courier;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +43,12 @@ class DetailItemHistory extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                  padding: MiddlePadding.down,
+                  child: Text(
+                    'Courier : $courier',
+                    style: AppTextTheme.current.bodyText,
+                  )),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 12.w),
                 child: DottedLine(

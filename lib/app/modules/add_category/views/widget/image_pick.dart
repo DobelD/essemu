@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../components/picker/picker_images.dart';
 import '../../../../themes/colors/colors.dart';
 import '../../../../themes/decoration/app_radius.dart';
 import '../../../../themes/typograpy/typo.dart';
@@ -70,7 +71,9 @@ class ImagePick extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(color: kPrimary1),
                                   borderRadius: AppRadius.icon)),
-                          onPressed: () => context.getImageGalery(),
+                          onPressed: () => Get.bottomSheet(PickerImages.single(
+                                onTapGallery: () => context.getImageGalery(),
+                              )),
                           child: Center(
                               child: Text(
                             context.menu != null ? 'Upload ulang' : 'Upload',

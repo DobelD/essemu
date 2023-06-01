@@ -40,7 +40,7 @@ class AddressSection extends StatelessWidget {
                 SizedBox(height: 8.w),
                 Padding(
                   padding: EdgeInsets.only(left: 20.w),
-                  child: Text('${data.name} - ${data.phone}',
+                  child: Text('${data.name} - 0${data.phone}',
                       style: AppTextTheme.current.bodyText),
                 ),
                 Padding(
