@@ -8,21 +8,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../components/snacbar/app_snackbar.dart';
 import '../../../provider/endpoint.dart';
 
-class AddCategoryController extends GetxController {
+class CampaignController extends GetxController {
   TextEditingController nama = TextEditingController();
   Endpoint endpoint = Endpoint();
   bool isLoading = false;
-  var imagesMenu;
-  File? menu;
-  Future getImageMenu() async {
+  var imagesCampaign;
+  File? campaign;
+  Future getImageCamera() async {
     final sharedPref = await SharedPreferences.getInstance();
     final ImagePicker picker1 = ImagePicker();
     final imagePicked1 =
         await picker1.pickImage(source: ImageSource.camera, imageQuality: 30);
 
-    imagesMenu = imagePicked1!.path;
-    await sharedPref.setString('menu_url', imagesMenu);
-    menu = File(imagePicked1.path);
+    imagesCampaign = imagePicked1!.path;
+    await sharedPref.setString('campaigns', imagesCampaign);
+    campaign = File(imagePicked1.path);
     update();
   }
 
@@ -33,23 +33,23 @@ class AddCategoryController extends GetxController {
     final imagePicked1 =
         await picker1.pickImage(source: ImageSource.gallery, imageQuality: 30);
 
-    imagesMenu = imagePicked1!.path;
-    await sharedPref.setString('menu_url', imagesMenu);
-    menu = File(imagePicked1.path);
+    imagesCampaign = imagePicked1!.path;
+    await sharedPref.setString('campaigns', imagesCampaign);
+    campaign = File(imagePicked1.path);
     update();
   }
 
   addCategory() async {
     isLoading = true;
     update();
-    if (nama.text.isNotEmpty && menu!.path.isNotEmpty) {
-      await endpoint.addCategory(payload());
-      await endpoint.addImageCategory('${nama.text}.svg', menu!.path);
+    if (nama.text.isNotEmpty && campaign!.path.isNotEmpty) {
+      await endpoint.addCampaign(payload());
+      await endpoint.addImageCampaign('${nama.text}', campaign!.path);
       nama.clear();
-      menu == null;
+      campaign == null;
       isLoading = false;
       update();
-      Get.showSnackbar(appSnackBarSuccess('Berhasil menambahkan category'));
+      Get.showSnackbar(appSnackBarSuccess('Success add campaign'));
     } else {
       isLoading = false;
       update();
@@ -60,7 +60,7 @@ class AddCategoryController extends GetxController {
   Map<String, dynamic> payload() {
     Map<String, dynamic> temp = <String, dynamic>{};
     temp['name'] = nama.text;
-    temp['image_url'] = menu!.path;
+    temp['url'] = campaign!.path;
     return temp;
   }
 }

@@ -8,6 +8,8 @@ import '../modules/add_menu/bindings/add_menu_binding.dart';
 import '../modules/add_menu/views/add_menu_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/campaign/bindings/campaign_binding.dart';
+import '../modules/campaign/views/campaign_view.dart';
 import '../modules/carts/bindings/carts_binding.dart';
 import '../modules/carts/views/carts_view.dart';
 import '../modules/comfirm_order/bindings/comfirm_order_binding.dart';
@@ -197,6 +199,11 @@ class AppPages {
       name: _Paths.UPDATE_FEE,
       page: () => const UpdateFeeView(),
       binding: UpdateFeeBinding(),
+    ),
+    GetPage(
+      name: _Paths.CAMPAIGN,
+      page: () => const CampaignView(),
+      binding: CampaignBinding(),
     ),
   ];
 }

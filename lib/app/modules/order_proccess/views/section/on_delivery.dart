@@ -23,7 +23,7 @@ class OnDelivery extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(1.seconds, () {
-          controller.getOrder();
+          controller.getOrderDeliver();
         });
       },
       child: CustomScrollView(
@@ -33,12 +33,9 @@ class OnDelivery extends StatelessWidget {
               sliver: GetBuilder<OrderProccessController>(builder: (c) {
                 return SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        childCount: controller.futureOrder.length,
+                        childCount: controller.deliveryOrder.length,
                         (context, index) {
-                  final data = controller.futureOrder[index];
-                  if (controller.futureOrder[index].status != "antar") {
-                    return SizedBox();
-                  }
+                  final data = controller.deliveryOrder[index];
                   return Padding(
                     padding: MiddlePadding.down,
                     child: GestureDetector(

@@ -36,12 +36,9 @@ class OnProccessSection extends StatelessWidget {
               sliver: GetBuilder<OrderProccessController>(builder: (c) {
                 return SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        childCount: controller.sortingData.length,
+                        childCount: controller.futureOrder.length,
                         (context, index) {
-                  final data = controller.sortingData[index];
-                  if (controller.sortingData[index].status != "proses") {
-                    return SizedBox();
-                  }
+                  final data = controller.futureOrder[index];
                   return Padding(
                     padding: MiddlePadding.down,
                     child: GestureDetector(

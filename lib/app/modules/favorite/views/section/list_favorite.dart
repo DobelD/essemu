@@ -7,9 +7,9 @@ import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/colors/colors.dart';
 import '../../../../themes/decoration/app_radius.dart';
 import '../../../../themes/typograpy/typo.dart';
@@ -46,7 +46,12 @@ class ListFavorite extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final data = snap.data?[index];
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () => Get.toNamed(Routes.DETAIL_MENU,
+                            arguments: {
+                              "data": snap.data![index].menu,
+                              "favorite": true,
+                              "id_user": c.idUser
+                            }),
                         child: Container(
                           height: 200.w,
                           width: 158.w,
@@ -66,37 +71,11 @@ class ListFavorite extends StatelessWidget {
                                     color: kSofterGrey,
                                     image: DecorationImage(
                                         image: NetworkImage(
-                                            "${c.publicUrlImages}/${data?.menu.name}.jpg"),
+                                            "${c.publicUrlImages}${data?.menu.name}"),
                                         fit: BoxFit.cover),
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8))),
-                                child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                          minWidth: 20.w, maxWidth: 60.w),
-                                      child: Container(
-                                        height: 18.w,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 2),
-                                        decoration: BoxDecoration(
-                                            color: kSuccess3.withOpacity(0.8),
-                                            borderRadius:
-                                                BorderRadius.circular(4.r),
-                                            border:
-                                                Border.all(color: kSuccess1)),
-                                        child: Center(
-                                          child: Text(
-                                              '${data?.menu.categories?.name}',
-                                              style: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w400,
-                                                color: kSuccess1,
-                                                fontSize: 10.sp,
-                                              )),
-                                        ),
-                                      ),
-                                    )),
                               ),
                               SizedBox(
                                   child: Padding(

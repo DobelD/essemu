@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -5,8 +6,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/session/session_manager.dart';
 
-class SplashController extends GetxController {
+class SplashController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   SupabaseClient client = Supabase.instance.client;
+  AnimationController? ctrl;
+  Animation<double>? animation;
 
   Future<void> login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -34,5 +38,24 @@ class SplashController extends GetxController {
         }
       });
     });
+  }
+
+  @override
+  void onInit() {
+    ctrl = AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
+    animation = CurvedAnimation(
+      parent: ctrl!,
+      curve: Curves.easeInOut,
+    );
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    ctrl!.dispose();
+    super.onClose();
   }
 }

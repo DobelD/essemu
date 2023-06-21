@@ -7,7 +7,6 @@ import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../../provider/endpoint.dart';
@@ -72,43 +71,12 @@ class MenuSection extends StatelessWidget {
                                             color: kSofterGrey,
                                             image: DecorationImage(
                                                 // "${c.publicUrlImages}/${menu.name}.jpg"
-                                                image: NetworkImage(''),
+                                                image: NetworkImage(
+                                                    "${c.publicUrlImages}/${menu.name}"),
                                                 fit: BoxFit.cover),
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(8),
                                                 topRight: Radius.circular(8))),
-                                        child: Align(
-                                            alignment: Alignment.topRight,
-                                            child: ConstrainedBox(
-                                              constraints: BoxConstraints(
-                                                  minWidth: 20.w,
-                                                  maxWidth: 60.w),
-                                              child: Container(
-                                                height: 18.w,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 6,
-                                                        vertical: 2),
-                                                decoration: BoxDecoration(
-                                                    color: kSuccess3
-                                                        .withOpacity(0.8),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4.r),
-                                                    border: Border.all(
-                                                        color: kSuccess1)),
-                                                child: Center(
-                                                  child: Text(
-                                                      '${menu.categories?.name}',
-                                                      style: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: kSuccess1,
-                                                        fontSize: 10.sp,
-                                                      )),
-                                                ),
-                                              ),
-                                            )),
                                       ),
                                       SizedBox(
                                           child: Padding(

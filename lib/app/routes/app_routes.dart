@@ -32,6 +32,7 @@ abstract class Routes {
   static const MENU_BYCATEGORY = _Paths.MENU_BYCATEGORY;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const UPDATE_FEE = _Paths.UPDATE_FEE;
+  static const CAMPAIGN = _Paths.CAMPAIGN;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const MENU_BYCATEGORY = '/menu-bycategory';
   static const EDIT_PROFILE = '/edit-profile';
   static const UPDATE_FEE = '/update-fee';
+  static const CAMPAIGN = '/campaign';
 }

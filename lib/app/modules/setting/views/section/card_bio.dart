@@ -112,7 +112,7 @@ class CardBioSection extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 12.w),
+              SizedBox(height: 8.w),
               GestureDetector(
                 onTap: () => Get.toNamed(Routes.EDIT_PROFILE,
                     arguments: {'user': c.rest, 'role': 'rest'}),
@@ -141,7 +141,7 @@ class CardBioSection extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 12.w),
+              SizedBox(height: 8.w),
               GestureDetector(
                 onTap: () => Get.toNamed(Routes.UPDATE_FEE,
                     arguments: {'id': c.rest.id, 'fee': c.rest.deliveryFee}),

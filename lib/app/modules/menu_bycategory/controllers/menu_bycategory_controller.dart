@@ -12,6 +12,9 @@ class MenuBycategoryController extends GetxController {
   TextEditingController searchC = TextEditingController();
   String pubicUrlCategory =
       'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/category/';
+  String publicUrlImages =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/orderfood/';
+
   List<FavoriteBool> isFavorite = [];
   List<Menu> _menu = [];
   List<Menu> _searchMenu = [];

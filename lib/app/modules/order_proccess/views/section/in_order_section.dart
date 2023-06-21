@@ -102,15 +102,7 @@ class InOrderSection extends StatelessWidget {
                     final data = sortingData[index];
                     Color colorProccess;
                     bool isEnableButton;
-                    if (index == 0 && sortingData.first.status == 'terima') {
-                      colorProccess = kPrimary1;
-                      isEnableButton = true;
-                    } else if (index == 0 &&
-                        sortingData.first.status == 'terima') {
-                      colorProccess = kPrimary1;
-                      isEnableButton = true;
-                    } else if (index == 1 &&
-                        sortingData.first.status == 'selesai') {
+                    if (index == 0 && controller.isNextOrder.value == false) {
                       colorProccess = kPrimary1;
                       isEnableButton = true;
                     } else {
@@ -118,18 +110,8 @@ class InOrderSection extends StatelessWidget {
                       isEnableButton = false;
                     }
                     Color colorCencel;
-                    if (index == 0 && sortingData.first.status == 'terima') {
+                    if (index == 0 && controller.isNextOrder.value == false) {
                       colorCencel = kWarning1;
-                    } else if (index == 0 &&
-                        sortingData.first.status == 'terima') {
-                      colorCencel = kWarning1;
-                    } else if (index == 1 &&
-                        sortingData.first.status == 'selesai') {
-                      if (index == 1) {
-                        colorCencel = kWarning1;
-                      } else {
-                        colorCencel = kGrey3;
-                      }
                     } else {
                       colorCencel = kGrey3;
                     }

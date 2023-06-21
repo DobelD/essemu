@@ -47,7 +47,7 @@ class BodySection extends StatelessWidget {
               SizedBox(
                 width: Get.width * 0.9,
                 child: Text(
-                  '${data?.description}',
+                  '${data?.description ?? data?.name}',
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(

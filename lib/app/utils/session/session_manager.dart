@@ -7,9 +7,9 @@ import '../../data/user_rest.dart';
 
 class SessionManager {
   String? idUser;
-  Future<void> saveSession(String? user_id, String? myId, String? email) async {
+  Future<void> saveSession(String? myId, String? email) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user_id', user_id ?? '');
+    // prefs.setString('user_id', user_id ?? '');
     prefs.setString('id', myId ?? '');
     prefs.setString('email', email ?? '');
   }

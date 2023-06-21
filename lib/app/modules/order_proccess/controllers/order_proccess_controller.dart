@@ -19,21 +19,23 @@ class OrderProccessController extends GetxController
   late Stream<List<Order>> orders;
   List<OrderRest> _futureOrder = [];
   List<OrderRest> get futureOrder => _futureOrder;
+  List<OrderRest> _deliveryOrder = [];
+  List<OrderRest> get deliveryOrder => _deliveryOrder;
   List<ItemOrder> _items = [];
   List<ItemOrder> get items => _items;
   bool isLoading = false;
   User user = User();
   RxBool isPriority = false.obs;
+  RxBool isNextOrder = false.obs;
   List<OrderRest> sortingData = [];
 
   setOrder(List<OrderRest> data) {
     _futureOrder = data;
-    for (OrderRest item in _futureOrder) {
-      if (item.status == "proses") {
-        sortingData.add(item);
-      }
-    }
+    update();
+  }
 
+  setOrderDelivery(List<OrderRest> data) {
+    _deliveryOrder = data;
     update();
   }
 
@@ -47,6 +49,12 @@ class OrderProccessController extends GetxController
     final service = OrderService();
     final data = await service.getDatad(idUser);
     setOrder(data);
+  }
+
+  getOrderDeliver() async {
+    final service = OrderService();
+    final data = await service.getDatade(idUser);
+    setOrderDelivery(data);
   }
 
   getItems(int id) async {
@@ -89,6 +97,7 @@ class OrderProccessController extends GetxController
   updateStatus(int id) async {
     final service = UpdateStatusOrder();
     await service.proccess(id);
+    isNextOrder.value = true;
   }
 
   updateStatusCencel(int id) async {
@@ -117,6 +126,7 @@ class OrderProccessController extends GetxController
     sortingData.clear();
     await updateStatus(id);
     await getOrder();
+    isNextOrder.value = true;
     Get.showSnackbar(GetSnackBar(
       borderRadius: 8.r,
       backgroundColor: kSuccess1,
@@ -146,6 +156,7 @@ class OrderProccessController extends GetxController
     getIdUser();
     orders = service.getDatae(idUser);
     getOrder();
+    getOrderDeliver();
     super.onInit();
   }
 }

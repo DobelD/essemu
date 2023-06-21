@@ -13,10 +13,12 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../data/bool_favorite.dart';
+import '../../../data/campaign.dart';
 import '../../../data/categories.dart';
 import '../../../data/item_order.dart' as i;
 import '../../../data/order.dart';
 import '../../../provider/endpoint.dart';
+import '../services/campaign_service.dart';
 import '../services/favorite_service.dart';
 import '../services/haversine_service.dart';
 import '../services/order_service.dart';
@@ -26,6 +28,8 @@ class HomeController extends GetxController {
   TextEditingController searchC = TextEditingController();
   String publicUrlImages =
       'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/orderfood/';
+  String publicUrlCampaign =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/campaign/';
   String pubicUrlCategory =
       'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/category/';
   bool isOnline = false;
@@ -38,6 +42,8 @@ class HomeController extends GetxController {
   List<i.ItemOrder> get items => _items;
   List<Categories> get category => _category;
   List<Menu> get menu => _searchMenu;
+  List<Campaign> _campaign = [];
+  List<Campaign> get campaign => _campaign;
   Order? order;
   late Future<Order> orders;
 
@@ -75,6 +81,11 @@ class HomeController extends GetxController {
     stopLoad();
   }
 
+  setCampaign(List<Campaign> data) {
+    _campaign = data;
+    update();
+  }
+
   setCategory(List<Categories> ctg) {
     _category = ctg;
     update();
@@ -91,6 +102,12 @@ class HomeController extends GetxController {
   setImage(List<String> img) {
     _images = img;
     update();
+  }
+
+  getCampaign() async {
+    final api = CampaignService();
+    final cmp = await api.getData();
+    setCampaign(cmp);
   }
 
   getCategory() async {
@@ -276,6 +293,7 @@ class HomeController extends GetxController {
         await getKordinat();
       }
     });
+    getCampaign();
     getIdUser();
     getUserId();
     // orders = servie.getDatas(idUser);

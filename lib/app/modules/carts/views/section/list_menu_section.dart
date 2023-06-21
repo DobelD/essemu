@@ -45,7 +45,10 @@ class ListMenuSection extends StatelessWidget {
                           height: 102.w,
                           width: 102.w,
                           decoration: BoxDecoration(
-                              image: DecorationImage(image: NetworkImage('')),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      '${c.publicUrlImages}/${c.cartOrder[index].menu.name}'),
+                                  fit: BoxFit.cover),
                               color: kSoftGrey,
                               borderRadius: AppRadius.all),
                         ),

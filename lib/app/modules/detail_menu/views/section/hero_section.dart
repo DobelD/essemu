@@ -80,11 +80,10 @@ class HeroSection extends StatelessWidget {
                   color: kBlack,
                   borderRadius: AppRadius.all,
                   image: DecorationImage(
-                      image: NetworkImage(
-                          '${c.publicUrlImages}/${data?.name}.jpg'),
+                      image: NetworkImage('${c.publicUrlImages}/${data?.name}'),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
-                          kBlack.withOpacity(0.5), BlendMode.multiply))),
+                          kBlack.withOpacity(0.3), BlendMode.multiply))),
             ),
           ],
         ),

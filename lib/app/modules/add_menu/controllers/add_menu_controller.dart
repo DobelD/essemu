@@ -98,7 +98,7 @@ class AddMenuController extends GetxController {
         selectCtg!.isNotEmpty &&
         menu!.path.isNotEmpty) {
       await endpoint.addMenu(menuPayload());
-      await endpoint.addImagesMenu('${namaC.text}.jpg', menu!.path);
+      await endpoint.addImagesMenu('${namaC.text}', menu!.path);
       namaC.clear();
       deskC.clear();
       hargaC.clear();

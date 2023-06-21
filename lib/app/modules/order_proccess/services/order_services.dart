@@ -15,7 +15,22 @@ class OrderService {
 
   Future<List<r.OrderRest>> getDatad(int id) async {
     try {
-      final response = await endpoint.getOrderRest(1);
+      final response = await endpoint.getOrderRestProcess(1);
+      final List<r.OrderRest> order = [];
+      for (var data in response) {
+        final ctg = r.OrderRest.fromJson(data);
+        order.add(ctg);
+      }
+      print(order);
+      return order;
+    } catch (e) {
+      throw "$e";
+    }
+  }
+
+  Future<List<r.OrderRest>> getDatade(int id) async {
+    try {
+      final response = await endpoint.getOrderRestDelivery(1);
       final List<r.OrderRest> order = [];
       for (var data in response) {
         final ctg = r.OrderRest.fromJson(data);

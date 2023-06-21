@@ -46,4 +46,5 @@ class SgAssets {
   static const String courier = 'assets/svg/courier.svg';
   static const String camera = 'assets/svg/camera.svg';
   static const String photoGallery = 'assets/svg/photo-gallery.svg';
+  static const String campaign = 'assets/svg/campaign.svg';
 }

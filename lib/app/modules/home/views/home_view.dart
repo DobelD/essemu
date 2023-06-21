@@ -7,9 +7,10 @@ import 'package:get/get.dart';
 
 import '../../../components/spacer/sliver_spacer.dart';
 import '../controllers/home_controller.dart';
+import 'section/campaign_section.dart';
 import 'section/category.dart';
 import 'section/heading.dart';
-import 'section/location.dart';
+
 import 'section/menu.dart';
 import 'widget/floating_order.dart';
 
@@ -32,6 +33,7 @@ class HomeView extends GetView<HomeController> {
         body: RefreshIndicator(
             onRefresh: () {
               return Future<void>.delayed(2.seconds, () {
+                c.getCampaign();
                 c.loading = true;
                 c.getFavorite(c.idUser);
                 c.getCategory();
@@ -52,13 +54,14 @@ class HomeView extends GetView<HomeController> {
             child: CustomScrollView(
               slivers: [
                 HeadingSection(),
-                SliverSpacerV(hight: 18),
-                LocationSection(),
-                SliverSpacerV(hight: 18),
+                SliverSpacerV(hight: 16),
+                CampaignSection(),
+                SliverSpacerV(hight: 8),
                 SearchSection(),
                 // SliverSpacerP(),
                 CategorySection(),
                 MenuSection(),
+                SliverSpacerV(hight: 72),
                 // FooterSection()
               ],
             )),

@@ -22,6 +22,8 @@ import '../services/users_services.dart';
 
 class CartsController extends GetxController {
   final ctrlHome = Get.put(HomeController());
+  String publicUrlImages =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/orderfood/';
 
   int counter = 1;
   int price = 0;

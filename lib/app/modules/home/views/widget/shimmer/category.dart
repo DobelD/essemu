@@ -10,6 +10,7 @@ class CategoryLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 12.h),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(

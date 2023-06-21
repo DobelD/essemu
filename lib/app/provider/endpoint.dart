@@ -76,6 +76,11 @@ class Endpoint {
     return menu;
   }
 
+  getCampaign() async {
+    final menu = await client.from('campaign').select('*');
+    return menu;
+  }
+
   getMenuById(int id) async {
     final menu = await client
         .from('menu')
@@ -177,8 +182,20 @@ class Endpoint {
     return add;
   }
 
+  addCampaign(dynamic value) async {
+    final add = await client.from('campaign').insert(value);
+    return add;
+  }
+
   addImageCategory(String name, String path) async {
     final image = await client.storage.from('category').upload(
+        '$name', File(path),
+        fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
+    return image;
+  }
+
+  addImageCampaign(String name, String path) async {
+    final image = await client.storage.from('campaign').upload(
         '$name', File(path),
         fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
     return image;
@@ -304,6 +321,25 @@ class Endpoint {
     return order;
   }
 
+  getOrderRestProcess(int id) async {
+    final order = await client
+        .from('order')
+        .select('*, users!inner(id,name,phone)')
+        .eq('restaurant_id', id)
+        .eq('status', 'proses')
+        .order('id', ascending: false);
+    return order;
+  }
+
+  getOrderRestDelivery(int id) async {
+    final order = await client
+        .from('order')
+        .select('*, users!inner(id,name,phone)')
+        .eq('restaurant_id', id)
+        .eq('status', 'antar');
+    return order;
+  }
+
   getOrderRest(int id) async {
     final order = await client
         .from('order')
@@ -416,7 +452,8 @@ class Endpoint {
     final order = await client
         .from('courier')
         .select('id,name,phone')
-        .eq('restaurant_id', id);
+        .eq('restaurant_id', id)
+        .neq('id', 0);
     return order;
   }
 

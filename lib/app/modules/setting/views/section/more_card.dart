@@ -1,3 +1,4 @@
+import 'package:essemu/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,27 +29,49 @@ class MoreCardSection extends StatelessWidget {
               border:
                   Border.all(color: kDividerItemSectionDashboard, width: 1.4)),
           padding: DefaultPadding.all,
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () => Get.dialog(AboutApp()),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SvgPicture.asset(
-                      SgAssets.information,
-                      height: 20,
-                      width: 20,
-                      colorFilter: ColorFilter.mode(kBlack, BlendMode.srcIn),
-                    ),
-                    SizedBox(width: 12.w),
-                    Text('About', style: AppTextTheme.current.bodyText),
-                    Spacer(),
-                    Icon(IconlyLight.arrow_right_2, color: kBlack)
-                  ],
+          child: Padding(
+            padding: MiddlePadding.updown,
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.toNamed(Routes.CAMPAIGN),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(
+                        SgAssets.campaign,
+                        height: 24,
+                        width: 24,
+                        colorFilter: ColorFilter.mode(kBlack, BlendMode.srcIn),
+                      ),
+                      SizedBox(width: 12.w),
+                      Text('Campaign', style: AppTextTheme.current.bodyText),
+                      Spacer(),
+                      Icon(IconlyLight.arrow_right_2, color: kBlack)
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 20.w),
+                GestureDetector(
+                  onTap: () => Get.dialog(AboutApp()),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(
+                        SgAssets.information,
+                        height: 20,
+                        width: 20,
+                        colorFilter: ColorFilter.mode(kBlack, BlendMode.srcIn),
+                      ),
+                      SizedBox(width: 12.w),
+                      Text('About', style: AppTextTheme.current.bodyText),
+                      Spacer(),
+                      Icon(IconlyLight.arrow_right_2, color: kBlack)
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       })),

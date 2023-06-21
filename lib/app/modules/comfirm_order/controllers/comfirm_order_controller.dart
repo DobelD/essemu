@@ -63,6 +63,8 @@ class ComfirmOrderController extends GetxController {
       update();
       ctrl.sortingData.clear();
       ctrl.getOrder();
+      ctrl.getOrderDeliver();
+      ctrl.isNextOrder.value = false;
       Get.back();
     });
   }
