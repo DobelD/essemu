@@ -1,18 +1,35 @@
+import 'package:essemu/app/modules/menu/controllers/menu_controller.dart';
+import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../themes/colors/colors.dart';
+import '../widget/item_menu.dart';
 
 class MenuSection extends StatelessWidget {
   const MenuSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-        child: Column(
-            children: List.generate(20, (index) {
-      return Container(height: 100.h, width: Get.width, color: kMain);
-    })));
+    return GetBuilder<MenuControllers>(builder: (c) {
+      // return SliverToBoxAdapter(
+      //   child: Center(
+      //     child: Text('data'),
+      //   ),
+      // );
+      return SliverList(
+          delegate: SliverChildBuilderDelegate(childCount: c.menu.length,
+              (context, index) {
+        print("lenght :${c.menu.length}");
+        final data = c.menu[index];
+        return Padding(
+            padding: DefaultPadding.all, child: ItemMenu(data: data));
+      }));
+      // return SliverToBoxAdapter(
+      //     child: Column(
+      //         children: List.generate(controller.menu.length, (index) {
+      //   final data = controller.menu[index];
+      //   return ItemMenu(data: data);
+      // })));
+    });
   }
 }

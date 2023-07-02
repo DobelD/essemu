@@ -53,7 +53,6 @@ class AddCategoryController extends GetxController {
     } else {
       isLoading = false;
       update();
-      print('Gagal');
     }
   }
 

@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import '../../../../components/shimmer/shimmer.dart';
 import '../../../../data/categories.dart';
 import '../../../../themes/colors/colors.dart';
-import '../../../../utils/assets/svg/svg_assets.dart';
 
 class ItemCategory extends StatelessWidget {
   const ItemCategory({super.key, this.isLoading = true, this.category});
@@ -20,20 +19,6 @@ class ItemCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(HomeController());
-    List<String> imageAssets = [
-      SgAssets.classicCoffe,
-      SgAssets.frappe,
-      SgAssets.freshDrink,
-      SgAssets.mainCourse,
-      SgAssets.manualBrew,
-      SgAssets.nonCoffee,
-      SgAssets.pasta,
-      SgAssets.riceBowl,
-      SgAssets.signature,
-      SgAssets.snack,
-      SgAssets.soup,
-      SgAssets.western
-    ];
     return Material(
       child: SizedBox(
           child: Wrap(
@@ -50,7 +35,7 @@ class ItemCategory extends StatelessWidget {
                             Get.toNamed(Routes.MENU_BYCATEGORY, arguments: {
                               'id': data?.id,
                               'name': data?.name,
-                              'distance': c.distance,
+                              'distance': c.roundedDistance,
                               'id_user': c.idUser,
                               'image_url': data?.imageUrl
                             });

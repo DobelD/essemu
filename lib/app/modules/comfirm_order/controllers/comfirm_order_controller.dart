@@ -42,8 +42,6 @@ class ComfirmOrderController extends GetxController {
   getItems(int id) async {
     final service = ItemService();
     final data = await service.getData(id);
-    print(data);
-    print(id);
     setItem(data);
   }
 
@@ -71,7 +69,6 @@ class ComfirmOrderController extends GetxController {
 
   void changeCourier(String cr) {
     selectCr = cr;
-    print(cr);
     changeId(cr);
     update();
   }

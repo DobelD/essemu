@@ -23,7 +23,6 @@ class ItemOrderService {
         final favorite = ItemOrder.fromJson(data, menu: menu);
         itemList.add(favorite);
       }
-      print(itemList);
       yield itemList;
     }
   }

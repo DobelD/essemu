@@ -36,6 +36,23 @@ class ForgotView extends GetView<ForgotController> {
                   title: 'Email',
                   hint: 'email',
                 ),
+                // SizedBox(
+                //     child: Column(
+                //   children: [
+                //     SizedBox(height: 22.w),
+                //     FormTxt(
+                //       controller: controller.email,
+                //       title: 'Password',
+                //       hint: 'email',
+                //     ),
+                //     SizedBox(height: 22.w),
+                //     FormTxt(
+                //       controller: controller.email,
+                //       title: 'Konfirmasi Password',
+                //       hint: 'email',
+                //     ),
+                //   ],
+                // )),
                 SizedBox(height: 22.w),
                 AppButtonPrimary(
                   label: 'Kirim',

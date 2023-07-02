@@ -21,7 +21,6 @@ class OrderService {
         final ctg = r.OrderRest.fromJson(data);
         order.add(ctg);
       }
-      print(order);
       return order;
     } catch (e) {
       throw "$e";
@@ -36,7 +35,6 @@ class OrderService {
         final ctg = r.OrderRest.fromJson(data);
         order.add(ctg);
       }
-      print(order);
       return order;
     } catch (e) {
       throw "$e";
@@ -60,7 +58,6 @@ class OrderService {
         final item = Order.fromJson(data, user: user);
         dataSnap.add(item);
       }
-      print("DTR ${dataSnap}");
       yield dataSnap;
     }
   }
@@ -82,7 +79,6 @@ class OrderService {
         final item = Order.fromJson(data, user: user);
         dataSnap.add(item);
       }
-      print("DTR ${dataSnap}");
       yield dataSnap;
     }
   }

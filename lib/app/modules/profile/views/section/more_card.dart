@@ -35,7 +35,8 @@ class MoreCardSection extends StatelessWidget {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () => Get.toNamed(Routes.FORGOT),
+                  onTap: () =>
+                      Get.toNamed(Routes.FORGOT, arguments: c.user.email),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

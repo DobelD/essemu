@@ -24,12 +24,6 @@ class HomeView extends GetView<HomeController> {
     return GetBuilder<HomeController>(builder: (c) {
       return Scaffold(
         floatingActionButton: FloatingOrder(),
-        // floatingActionButton: FloatingActionButton(
-        //   child: const Icon(Icons.add),
-        //   onPressed: () {
-        //     OrderService().getDatas(controller.idUser);
-        //   },
-        // ),
         body: RefreshIndicator(
             onRefresh: () {
               return Future<void>.delayed(2.seconds, () {
@@ -41,14 +35,6 @@ class HomeView extends GetView<HomeController> {
                 c.getImage();
                 c.stopLoading();
                 c.checkConnection();
-                // await c.checkLocationPermission().then((val) async {
-                //   if (val == true) {
-                //     await c.getKordinat();
-                //   } else {
-                //     c.requestPermission();
-                //     await c.getKordinat();
-                //   }
-                // });
               });
             },
             child: CustomScrollView(
@@ -58,11 +44,9 @@ class HomeView extends GetView<HomeController> {
                 CampaignSection(),
                 SliverSpacerV(hight: 8),
                 SearchSection(),
-                // SliverSpacerP(),
                 CategorySection(),
                 MenuSection(),
                 SliverSpacerV(hight: 72),
-                // FooterSection()
               ],
             )),
       );

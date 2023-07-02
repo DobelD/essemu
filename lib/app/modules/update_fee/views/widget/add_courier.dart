@@ -19,8 +19,8 @@ class AddCourier extends StatelessWidget {
       color: Colors.transparent,
       child: Padding(
         padding: DefaultPadding.all,
-        child: SingleChildScrollView(
-          reverse: true,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: isKeyboardVisible ? 400.w : 0),
           child: Column(
             children: [
               FormTxt(
@@ -42,7 +42,7 @@ class AddCourier extends StatelessWidget {
                   onPressed: () => controller.addCourier(),
                 ),
               ),
-              SizedBox(height: isKeyboardVisible ? 400.w : 0)
+              // SizedBox(height: isKeyboardVisible ? 400.w : 0)
             ],
           ),
         ),

@@ -21,23 +21,30 @@ class ProfileView extends GetView<ProfileController> {
         isLoading: controller.isLoading,
         child: Scaffold(
             backgroundColor: kMainBackground,
-            body: CustomScrollView(
-              slivers: [
-                AppBars(),
-                SliverSpacerV(hight: 20),
-                AvatarSection(),
-                SliverSpacerV(hight: 22),
-                CardBioSection(),
-                SliverSpacerV(hight: 12),
-                MoreCardSection(),
-                SliverSpacerV(hight: 12),
-                LogoutSection(),
-                SliverSpacerV(hight: 22),
+            body: RefreshIndicator(
+              onRefresh: () async {
+                await Future.delayed(2.seconds, () {
+                  c.getUser();
+                });
+              },
+              child: CustomScrollView(
+                slivers: [
+                  AppBars(),
+                  SliverSpacerV(hight: 20),
+                  AvatarSection(),
+                  SliverSpacerV(hight: 22),
+                  CardBioSection(),
+                  SliverSpacerV(hight: 12),
+                  MoreCardSection(),
+                  SliverSpacerV(hight: 12),
+                  LogoutSection(),
+                  SliverSpacerV(hight: 22),
 
-                // HeaderSection(),
-                // FormSection(),
-                // LogoutSection()
-              ],
+                  // HeaderSection(),
+                  // FormSection(),
+                  // LogoutSection()
+                ],
+              ),
             )),
       );
     });

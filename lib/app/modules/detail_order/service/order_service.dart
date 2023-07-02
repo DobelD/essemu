@@ -36,7 +36,6 @@ class OrderService {
         final ctg = Order.fromJson(data);
         order.add(ctg);
       }
-      print(order);
       return order;
     } catch (e) {
       throw "$e";

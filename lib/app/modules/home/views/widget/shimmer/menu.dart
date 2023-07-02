@@ -14,7 +14,7 @@ class MenuLoading extends StatelessWidget {
           child: Wrap(
             direction: Axis.horizontal,
             children: List.generate(
-                4,
+                6,
                 (index) => Padding(
                       padding: EdgeInsets.all(6.w),
                       child: AppShimmer(

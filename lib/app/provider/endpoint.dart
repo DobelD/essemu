@@ -9,7 +9,10 @@ class Endpoint {
   SupabaseClient client = Supabase.instance.client;
 
   register(String email, String password) async {
-    final regs = await client.auth.signUp(email: email, password: password);
+    final regs = await client.auth.signUp(
+        email: email,
+        password: password,
+        emailRedirectTo: 'https://essemu-dobeld.vercel.app/verifikasi');
     return regs;
   }
 
@@ -108,7 +111,7 @@ class Endpoint {
           client.from('favorite').stream(primaryKey: ['id']).eq('user_id', id);
       return favorite;
     } catch (e) {
-      print(e);
+      throw '$e';
     }
   }
 
@@ -297,7 +300,6 @@ class Endpoint {
   checkout(List<Map<String, dynamic>> value) async {
     try {
       final add = await client.from('order_item').insert(value);
-      print(add);
       return add;
     } catch (e) {
       throw Exception(e);
@@ -373,7 +375,6 @@ class Endpoint {
             ascending:
                 false) // Mengurutkan berdasarkan created_at secara menurun (terbaru ke terlama)
         .limit(1);
-    print(history);
     return history;
   }
 
@@ -389,7 +390,6 @@ class Endpoint {
   createItemHistory(List<Map<String, dynamic>> value) async {
     try {
       final add = await client.from('history_item').insert(value);
-      print(add);
       return add;
     } catch (e) {
       throw Exception(e);
@@ -460,5 +460,11 @@ class Endpoint {
   updateUser(dynamic value, int id) async {
     final user = await client.from('users').update(value).eq('id', id);
     return user;
+  }
+
+  imageUserUpdate(String name, String path) async {
+    final image = await client.storage.from('users').update('$name', File(path),
+        fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
+    return image;
   }
 }

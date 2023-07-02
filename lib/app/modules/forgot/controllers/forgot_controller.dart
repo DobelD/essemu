@@ -9,16 +9,31 @@ import '../../../themes/typograpy/typo.dart';
 import '../services/user_servvice.dart';
 
 class ForgotController extends GetxController {
-  TextEditingController email = TextEditingController();
+  late TextEditingController email;
   bool isLoading = false;
   SupabaseClient client = Supabase.instance.client;
 
   void forgot() async {
     isLoading = true;
     update();
+    if (email.text.isEmpty) {
+      isLoading = false;
+      update();
+      Get.showSnackbar(GetSnackBar(
+        borderRadius: 8.r,
+        backgroundColor: kWarning1,
+        duration: 2.seconds,
+        margin: DefaultPadding.all,
+        snackPosition: SnackPosition.TOP,
+        messageText: Text('Email harus diisi',
+            style: AppTextTheme.current.bodyTextWhite),
+      ));
+    }
     final user = await UserService().getUser(email.text);
     if (user == true) {
-      await client.auth.resetPasswordForEmail(email.text);
+      await client.auth.resetPasswordForEmail(email.text,
+          redirectTo: 'https://essemu-dobeld.vercel.app/reset');
+      // await client.auth.updateUser(UserAttributes(password: '12345678'));
       isLoading = false;
       update();
       email.clear();
@@ -46,5 +61,11 @@ class ForgotController extends GetxController {
     }
     isLoading = false;
     update();
+  }
+
+  @override
+  void onInit() {
+    email = TextEditingController(text: Get.arguments ?? '');
+    super.onInit();
   }
 }

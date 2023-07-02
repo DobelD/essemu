@@ -33,6 +33,8 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const UPDATE_FEE = _Paths.UPDATE_FEE;
   static const CAMPAIGN = _Paths.CAMPAIGN;
+  static const CHENGE_PASSWORD = _Paths.CHENGE_PASSWORD;
+  static const MENU_ADMIN = _Paths.MENU_ADMIN;
 }
 
 abstract class _Paths {
@@ -67,4 +69,6 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const UPDATE_FEE = '/update-fee';
   static const CAMPAIGN = '/campaign';
+  static const CHENGE_PASSWORD = '/chenge-password';
+  static const MENU_ADMIN = '/menu-admin';
 }

@@ -15,7 +15,6 @@ class EditProfileView extends GetView<EditProfileController> {
   @override
   Widget build(BuildContext context) {
     String role = Get.arguments['role'];
-    print(role);
     return Scaffold(
       backgroundColor: kMainBackground,
       resizeToAvoidBottomInset: true,

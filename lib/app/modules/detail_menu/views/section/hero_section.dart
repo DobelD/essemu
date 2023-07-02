@@ -16,7 +16,6 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(HomeController());
-    print('${c.pubicUrlCategory}${data?.categories?.imageUrl}');
     return SliverToBoxAdapter(
         child: Hero(
       tag: 1,

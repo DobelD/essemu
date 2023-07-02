@@ -1,4 +1,5 @@
 import 'package:essemu/app/modules/detail_menu/service/add_to_cart.dart';
+import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,11 +16,28 @@ class DetailMenuController extends GetxController {
   Menu _menu = Get.arguments['data'];
   List<FavoriteBool> isFavorite = [];
   int idUser = Get.arguments['id_user'];
-
   int counter = 1;
   int price = 0;
+  bool favorite = false;
 
   Endpoint endpoint = Endpoint();
+
+  void chengeFavorite() async {
+    final homeC = Get.put(HomeController());
+    if (favorite) {
+      await endpoint.deleteFavorite(_menu.id ?? 0, idUser);
+      favorite = false;
+      update();
+    } else {
+      addFavorite(idUser, _menu.id ?? 0);
+      favorite = true;
+      update();
+    }
+    getFavorite(idUser);
+    homeC.getMenu(homeC.idSelected);
+    update();
+    print(favorite);
+  }
 
   void incrementCounter(int value) {
     counter++;
@@ -47,9 +65,7 @@ class DetailMenuController extends GetxController {
   }
 
   addCart(int userId, int menuId, int countPrice) async {
-    print(userId);
     List<dynamic> cartItems = await endpoint.checkCart(userId);
-    print(cartItems);
 
     bool isMenuExist = false;
     for (var item in cartItems) {
@@ -60,7 +76,6 @@ class DetailMenuController extends GetxController {
         break;
       }
     }
-    print(isMenuExist);
 
     if (!isMenuExist) {
       // Menu belum ada dalam keranjang, tambahkan menu baru
@@ -90,6 +105,7 @@ class DetailMenuController extends GetxController {
   @override
   void onInit() {
     price = _menu.price!;
+    favorite = Get.arguments['favorite'];
     super.onInit();
   }
 

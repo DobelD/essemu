@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../../data/categories.dart';
-import '../../../../provider/endpoint.dart';
 
 class AppBarSection extends StatelessWidget {
   const AppBarSection({super.key, this.data, required this.fav});
@@ -18,6 +17,8 @@ class AppBarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final ctrlHome = Get.put(HomeController());
     return GetBuilder<DetailMenuController>(builder: (c) {
+      bool isMatch =
+          ctrlHome.isFavorite.any((favorite) => favorite.menuId == data?.id);
       return SliverAppBar(
         backgroundColor: kWhite,
         surfaceTintColor: kWhite,
@@ -39,15 +40,7 @@ class AppBarSection extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: 16.w),
             child: GestureDetector(
-              onTap: () async {
-                print(ctrlHome.idUser);
-                Endpoint endpoint = Endpoint();
-                fav
-                    ? await endpoint.deleteFavorite(
-                        data?.id ?? 0, ctrlHome.idUser)
-                    : c.addFavorite(ctrlHome.idUser, data?.id ?? 0);
-                c.getFavorite(ctrlHome.idUser);
-              },
+              onTap: () => c.chengeFavorite(),
               child: Container(
                 height: 38.w,
                 width: 38.w,
@@ -57,8 +50,9 @@ class AppBarSection extends StatelessWidget {
                     border: Border.all(
                         color: kDividerItemSectionDashboard, width: 2.1)),
                 child: Center(
-                    child: Icon(fav ? IconlyBold.heart : IconlyLight.heart,
-                        color: fav ? kRed : kSoftGrey)),
+                    child: Icon(
+                        c.favorite ? IconlyBold.heart : IconlyLight.heart,
+                        color: c.favorite ? kRed : kSoftGrey)),
               ),
             ),
           )

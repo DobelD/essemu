@@ -11,6 +11,7 @@ class AvatarSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProfileController());
     return SliverToBoxAdapter(
       child: GetBuilder<ProfileController>(builder: (c) {
         return Column(
@@ -22,11 +23,13 @@ class AvatarSection extends StatelessWidget {
                   color: kSoftMain,
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      image: NetworkImage('${c.urlUsers}/${c.user.name}'))),
+                      image: NetworkImage(
+                          '${controller.urlUsers}/${controller.user.name}'),
+                      fit: BoxFit.cover)),
             ),
             SizedBox(height: 12.w),
             Text(
-              '${c.user.name}',
+              '${controller.user.name}',
               style: AppTextTheme.current.title2,
             )
           ],

@@ -7,7 +7,6 @@ class ItemService {
   Future<List<ItemOrder>> getData(int id) async {
     try {
       final response = await endpoint.getItemOrder(id);
-      print(response);
       return response;
     } catch (e) {
       throw "$e";

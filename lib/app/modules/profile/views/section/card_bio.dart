@@ -93,8 +93,11 @@ class CardBioSection extends StatelessWidget {
               ),
               SizedBox(height: 12.w),
               GestureDetector(
-                onTap: () => Get.toNamed(Routes.EDIT_PROFILE,
-                    arguments: {'user': c.user, 'role': 'customer'}),
+                onTap: () => Get.toNamed(Routes.EDIT_PROFILE, arguments: {
+                  'user': c.user,
+                  'role': 'customer',
+                  'gender': c.user.gender
+                }),
                 child: Container(
                   decoration: BoxDecoration(
                       color: kWhite,

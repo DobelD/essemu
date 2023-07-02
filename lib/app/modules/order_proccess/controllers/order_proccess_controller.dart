@@ -81,7 +81,6 @@ class OrderProccessController extends GetxController
     final service = OrderService();
     user = await service.getDatas(id);
     update();
-    print(user);
   }
 
   late TabController controlTabs;

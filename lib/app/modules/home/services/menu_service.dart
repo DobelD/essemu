@@ -42,7 +42,6 @@ class MenuService {
     final response = await storage.list();
     final urls =
         response.map((file) => storage.getPublicUrl(file.name)).toList();
-    print(urls);
     return urls;
   }
 }

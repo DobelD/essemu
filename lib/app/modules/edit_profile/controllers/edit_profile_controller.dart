@@ -4,6 +4,7 @@ import 'package:essemu/app/data/user.dart';
 import 'package:essemu/app/data/user_rest.dart';
 import 'package:essemu/app/modules/edit_profile/services/profile_service.dart';
 import 'package:essemu/app/modules/profile/controllers/profile_controller.dart';
+import 'package:essemu/app/provider/endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,6 @@ import '../../../themes/decoration/app_padding.dart';
 import '../../../themes/typograpy/typo.dart';
 
 class EditProfileController extends GetxController {
-  final ctrl = Get.put(ProfileController());
   String urlUsers =
       'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/users/';
   User user = User();
@@ -26,7 +26,7 @@ class EditProfileController extends GetxController {
   late TextEditingController address;
   late TextEditingController open;
   late TextEditingController close;
-
+  Endpoint endpoint = Endpoint();
   var imagesUser;
   File? userFile;
   Future getImageMenu() async {
@@ -56,10 +56,13 @@ class EditProfileController extends GetxController {
   }
 
   void updates() async {
+    final ctrl = Get.put(ProfileController());
     final service = EditProfileService();
-    final profile = await service.updates(
-        user.id!, name.text, email.text, 'gender', phone.text, address.text);
+    final profile = await service.updates(user.id!, name.text, email.text,
+        Get.arguments['gender'], phone.text, address.text);
+
     if (profile) {
+      await endpoint.imageUserUpdate('${name.text}', userFile!.path);
       ctrl.getUser();
       Get.showSnackbar(GetSnackBar(
         borderRadius: 8.r,

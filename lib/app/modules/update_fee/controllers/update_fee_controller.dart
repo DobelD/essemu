@@ -58,7 +58,6 @@ class UpdateFeeController extends GetxController {
   addCourier() async {
     final service = CourierService();
     final add = await service.addCourier(id, name.text, int.parse(phone.text));
-    print(add);
     if (add) {
       getCaourier();
       Get.back();

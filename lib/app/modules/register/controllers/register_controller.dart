@@ -22,7 +22,6 @@ class RegisterController extends GetxController {
 
   updateGender(String value) {
     selectedGender = value;
-    print(selectedGender);
     update();
   }
 

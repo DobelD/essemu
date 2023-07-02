@@ -20,15 +20,28 @@ class AvatarSection extends StatelessWidget {
           padding: DefaultPadding.all,
           child: Row(
             children: [
-              Container(
-                height: 90.w,
-                width: 90.w,
-                decoration: BoxDecoration(
-                    color: kSoftMain,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: NetworkImage('${c.urlUsers}/${c.user.name}'))),
-              ),
+              c.userFile != null
+                  ? Container(
+                      height: 80.w,
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: kGrey3,
+                          image: DecorationImage(
+                              image: FileImage(c.userFile!),
+                              fit: BoxFit.cover)),
+                    )
+                  : Container(
+                      height: 90.w,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                          color: kSoftMain,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image:
+                                  NetworkImage('${c.urlUsers}/${c.user.name}'),
+                              fit: BoxFit.cover)),
+                    ),
               SizedBox(width: 12.w),
               Column(
                 children: [

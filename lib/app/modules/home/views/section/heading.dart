@@ -16,14 +16,14 @@ class HeadingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // CartService service = CartService();
-    final controller = Get.put(HomeController());
-    return SliverAppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: kWhite,
-      surfaceTintColor: kWhite,
-      pinned: true,
-      title: GetBuilder<HomeController>(builder: (c) {
-        return c.loading
+    // final controller = Get.put(HomeController());
+    return GetBuilder<HomeController>(builder: (c) {
+      return SliverAppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: kWhite,
+        surfaceTintColor: kWhite,
+        pinned: true,
+        title: c.loading
             ? HeadingLoading()
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,17 +55,19 @@ class HeadingSection extends StatelessWidget {
                     ),
                   ),
                 ],
-              );
-      }),
-      actions: [
-        IconButton(
-            onPressed: () => Get.toNamed(Routes.CARTS),
-            icon: SvgPicture.asset(
-              SgAssets.shoppingCart,
-              height: 22.w,
-              width: 22.w,
-            ))
-      ],
-    );
+              ),
+        actions: [
+          c.loading
+              ? SizedBox()
+              : IconButton(
+                  onPressed: () => Get.toNamed(Routes.CARTS),
+                  icon: SvgPicture.asset(
+                    SgAssets.shoppingCart,
+                    height: 22.w,
+                    width: 22.w,
+                  ))
+        ],
+      );
+    });
   }
 }

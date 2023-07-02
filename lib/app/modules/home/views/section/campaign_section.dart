@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
+import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
 import 'package:essemu/app/themes/decoration/app_radius.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class CampaignSection extends StatelessWidget {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
+                            color: kSofterGrey,
                             borderRadius: AppRadius.all,
                             image: DecorationImage(
                                 image: NetworkImage(

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../components/progress/animated_progressbar.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
@@ -51,25 +52,10 @@ class SplashView extends GetView<SplashController> {
                             style: AppTextTheme.current.bodyTextWhite,
                           ),
                           SizedBox(height: 8.w),
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 500),
-                            height: 10.w,
-                            width: 120.w,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            curve: Curves.easeInOut,
-                            alignment: controller.ctrl!.value <= 0.5
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
-                            margin: EdgeInsets.symmetric(
-                              horizontal: controller.ctrl!.value <= 0.5
-                                  ? 0
-                                  : (1 - controller.ctrl!.value) * 140,
-                            ),
-                            child: Container(),
-                          ),
+                          AnimatedProgressBar(
+                              maxValue: 10,
+                              value: 10,
+                              duration: Duration(seconds: 3)),
                           SizedBox(height: 12.w),
                         ],
                       ))

@@ -52,17 +52,12 @@ class StatusSection extends StatelessWidget {
               '${origin.hour.toString().padLeft(2, '0')}:${origin.minute.toString().padLeft(2, '0')}';
           String formattedTimeDelivery =
               '${timesDelivery.hour.toString().padLeft(2, '0')}:${timesDelivery.minute.toString().padLeft(2, '0')}';
-          print(formattedTimeOrigin);
-          print(formattedTimeDelivery);
 
           if (snapshot.hasData) {
             controller.courierName.clear();
             controller.statusName.clear();
             controller.courierName.add(data.courier!.name!);
             controller.statusName.add(status!);
-            print(controller.status);
-            print(controller.courierName);
-            print(controller.statusName);
 
             return Column(
               children: [

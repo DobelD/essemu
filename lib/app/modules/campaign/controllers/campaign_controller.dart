@@ -53,7 +53,6 @@ class CampaignController extends GetxController {
     } else {
       isLoading = false;
       update();
-      print('Gagal');
     }
   }
 

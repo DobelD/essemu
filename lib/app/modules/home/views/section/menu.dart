@@ -70,7 +70,6 @@ class MenuSection extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             color: kSofterGrey,
                                             image: DecorationImage(
-                                                // "${c.publicUrlImages}/${menu.name}.jpg"
                                                 image: NetworkImage(
                                                     "${c.publicUrlImages}/${menu.name}"),
                                                 fit: BoxFit.cover),
@@ -105,7 +104,7 @@ class MenuSection extends StatelessWidget {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  '${menu.price!.toCurrencyFormat()}',
+                                                  '${menu.price?.toCurrencyFormat()}',
                                                   style: AppTextTheme
                                                       .current.title5,
                                                 ),

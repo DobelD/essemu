@@ -2,8 +2,8 @@ import 'package:essemu/app/data/favorite.dart';
 import 'package:essemu/app/modules/favorite/controllers/favorite_controller.dart';
 import 'package:essemu/app/modules/favorite/services/get_favorite.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
-import 'package:essemu/app/provider/endpoint.dart';
 import 'package:essemu/app/themes/decoration/app_padding.dart';
+import 'package:essemu/app/utils/extension/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -101,16 +101,11 @@ class ListFavorite extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Rp. ${data?.menu.price}',
+                                          '${data?.menu.price?.toCurrencyFormat()}',
                                           style: AppTextTheme.current.title5,
                                         ),
                                         GestureDetector(
-                                          onTap: () async {
-                                            Endpoint endpoint = Endpoint();
-                                            await endpoint.deleteFavorite(
-                                                data!.menu.id!,
-                                                controller.idUser);
-                                          },
+                                          onTap: () => c.deleteFavorite(data),
                                           child: Icon(
                                             IconlyBold.heart,
                                             size: 20,

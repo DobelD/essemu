@@ -119,7 +119,6 @@ class CartsController extends GetxController {
     final updateItem = UpdateItemCart();
     final service = CartService();
     await updateItem.incrementItem(id, menuId, count);
-    print(count);
     final data = await service.getData(id);
     setData(data);
   }
@@ -191,7 +190,6 @@ class CartsController extends GetxController {
     final service = UserService();
     user = await service.getData(email);
     update();
-    print(user);
   }
 
   @override

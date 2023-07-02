@@ -18,8 +18,6 @@ class RegistService {
       final response = await endpoint.register(emailC, passwordC);
       final addUser = await endpoint.addUsers(
           payload(nameC, emailC, addressC, imagesUrlC, phoneC, roleC, gender));
-      print(response);
-      print(addUser);
       return true;
     } else {
       return false;

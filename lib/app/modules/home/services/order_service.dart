@@ -29,7 +29,6 @@ class OrderService {
       final response = await endpoint.getOrder(id);
       List<dynamic> data = response;
       final orderData = data.first;
-      print(orderData);
       return Order(
           id: orderData['id'],
           userId: orderData['user_id'],

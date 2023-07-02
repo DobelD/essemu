@@ -17,9 +17,6 @@ class CartsView extends GetView<CartsController> {
   Widget build(BuildContext context) {
     final controller = Get.put(CartsController());
     return GetBuilder<CartsController>(builder: (context) {
-      // print(mappedList);
-      // print(totalFee);
-      // print(total);
       return AppLoadingFull(
         isLoading: controller.isLoading,
         child: Scaffold(

@@ -36,6 +36,12 @@ class CourierSection extends StatelessWidget {
                               return SlidingSheetDialog(
                                 elevation: 8,
                                 cornerRadius: 8.r,
+                                // padding: EdgeInsets.only(
+                                //     bottom: MediaQuery.of(context)
+                                //             .viewInsets
+                                //             .bottom +
+                                //         5),
+                                scrollSpec: ScrollSpec.bouncingScroll(),
                                 snapSpec: const SnapSpec(
                                   snap: true,
                                   snappings: [1.0],

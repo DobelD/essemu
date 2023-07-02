@@ -43,8 +43,6 @@ class InOrderSection extends StatelessWidget {
             }
           }
 
-          print(count);
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }

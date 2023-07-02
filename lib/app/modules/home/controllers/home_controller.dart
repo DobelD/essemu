@@ -94,8 +94,6 @@ class HomeController extends GetxController {
   setMenu(List<Menu> mn) {
     _menu = mn;
     _searchMenu = mn;
-    print(lat);
-    print(long);
     update();
   }
 
@@ -121,7 +119,6 @@ class HomeController extends GetxController {
     final service = UserService();
     user = await service.getData(email);
     update();
-    print(user);
   }
 
   getMenu(int id) async {
@@ -218,7 +215,7 @@ class HomeController extends GetxController {
   }
 
   setDistance(double currentLat, double currentLong) async {
-    restaurantCordinate = await menu.first.restaurant!.coordinate;
+    restaurantCordinate = await menu.first.restaurant?.coordinate;
     List<String> separatedData = restaurantCordinate?.split(", ") ?? [""];
     if (separatedData.length >= 2) {
       lat = double.tryParse(separatedData[0]);
@@ -268,7 +265,6 @@ class HomeController extends GetxController {
     final service = OrderService();
     final data = await service.getDatas(idUser);
     order = data;
-    print(order);
     update();
   }
 
@@ -296,8 +292,6 @@ class HomeController extends GetxController {
     getCampaign();
     getIdUser();
     getUserId();
-    // orders = servie.getDatas(idUser);
-    print(order);
     getCategory();
     getMenu(idSelected);
     getImage();
@@ -305,6 +299,5 @@ class HomeController extends GetxController {
     stopLoading();
     super.onInit();
     checkConnection();
-    print(idUser);
   }
 }

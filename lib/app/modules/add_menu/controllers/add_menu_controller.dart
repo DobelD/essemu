@@ -44,7 +44,6 @@ class AddMenuController extends GetxController {
     final api = CategoryApi();
     final ctg = await api.getCategory();
     setCategory(ctg);
-    print(category);
   }
 
   void changeCategory(String ctg) {
@@ -59,7 +58,6 @@ class AddMenuController extends GetxController {
     List<String> parts = sctg.split(': ');
     List<String> idPart = parts[1].split(',');
     categoryId = int.parse(idPart[0]);
-    print(categoryId);
   }
 
   Future getImageMenu() async {
@@ -110,7 +108,6 @@ class AddMenuController extends GetxController {
     } else {
       isLoading = false;
       update();
-      print('Gagal');
     }
   }
 

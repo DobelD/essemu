@@ -22,7 +22,6 @@ class MainPagesController extends GetxController {
 
   @override
   void onInit() {
-    print(indexTab);
     super.onInit();
   }
 

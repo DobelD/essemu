@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 
 import '../../../data/bool_favorite.dart';
 import '../../../data/categories.dart';
+import '../../../provider/endpoint.dart';
+import '../../home/controllers/home_controller.dart';
 import '../services/favorite_service.dart';
 import '../services/menu_service.dart';
 
 class MenuBycategoryController extends GetxController {
   bool isLoadMenu = false;
+  bool favorite = false;
   bool loading = true;
   TextEditingController searchC = TextEditingController();
   String pubicUrlCategory =
@@ -63,6 +66,25 @@ class MenuBycategoryController extends GetxController {
       isLoadMenu = false;
       update();
     });
+  }
+
+  Endpoint endpoint = Endpoint();
+
+  void chengeFavorite(int? id, int userId) async {
+    final homeC = Get.put(HomeController());
+    if (favorite) {
+      await endpoint.deleteFavorite(id ?? 0, userId);
+      favorite = false;
+      update();
+    } else {
+      addFavorite(userId, id ?? 0);
+      favorite = true;
+      update();
+    }
+    getFavorite(userId);
+    homeC.getMenu(homeC.idSelected);
+    update();
+    print(favorite);
   }
 
   @override

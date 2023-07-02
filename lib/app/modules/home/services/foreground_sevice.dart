@@ -29,7 +29,6 @@ void onStart(ServiceInstance service) async {
     Timer.periodic(20.seconds, (timer) async {
       final controller = Get.put(HomeController());
       controller.getOrder();
-      print("FG SERVICE RUNNING");
       service.invoke('update');
     });
   }

@@ -12,6 +12,8 @@ import '../modules/campaign/bindings/campaign_binding.dart';
 import '../modules/campaign/views/campaign_view.dart';
 import '../modules/carts/bindings/carts_binding.dart';
 import '../modules/carts/views/carts_view.dart';
+import '../modules/chenge_password/bindings/chenge_password_binding.dart';
+import '../modules/chenge_password/views/chenge_password_view.dart';
 import '../modules/comfirm_order/bindings/comfirm_order_binding.dart';
 import '../modules/comfirm_order/views/comfirm_order_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -40,6 +42,8 @@ import '../modules/main_pages/bindings/main_pages_binding.dart';
 import '../modules/main_pages/views/main_pages_view.dart';
 import '../modules/menu/bindings/menu_binding.dart';
 import '../modules/menu/views/menu_view.dart';
+import '../modules/menu_admin/bindings/menu_admin_binding.dart';
+import '../modules/menu_admin/views/menu_admin_view.dart';
 import '../modules/menu_bycategory/bindings/menu_bycategory_binding.dart';
 import '../modules/menu_bycategory/views/menu_bycategory_view.dart';
 import '../modules/ongkir/bindings/ongkir_binding.dart';
@@ -204,6 +208,16 @@ class AppPages {
       name: _Paths.CAMPAIGN,
       page: () => const CampaignView(),
       binding: CampaignBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHENGE_PASSWORD,
+      page: () => const ChengePasswordView(),
+      binding: ChengePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU_ADMIN,
+      page: () => const MenuAdminView(),
+      binding: MenuAdminBinding(),
     ),
   ];
 }
