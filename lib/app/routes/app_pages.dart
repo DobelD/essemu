@@ -24,6 +24,8 @@ import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/edit_delivery_address/bindings/edit_delivery_address_binding.dart';
 import '../modules/edit_delivery_address/views/edit_delivery_address_view.dart';
+import '../modules/edit_menu/bindings/edit_menu_binding.dart';
+import '../modules/edit_menu/views/edit_menu_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
@@ -218,6 +220,11 @@ class AppPages {
       name: _Paths.MENU_ADMIN,
       page: () => const MenuAdminView(),
       binding: MenuAdminBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_MENU,
+      page: () => const EditMenuView(),
+      binding: EditMenuBinding(),
     ),
   ];
 }

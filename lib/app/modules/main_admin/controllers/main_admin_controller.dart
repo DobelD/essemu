@@ -1,9 +1,10 @@
 import 'package:essemu/app/modules/history_resto/views/history_resto_view.dart';
-import 'package:essemu/app/modules/menu/views/menu_view.dart';
 import 'package:essemu/app/modules/order_proccess/views/order_proccess_view.dart';
 import 'package:essemu/app/modules/setting/views/setting_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../menu_admin/views/menu_admin_view.dart';
 
 class MainAdminController extends GetxController {
   var indexTab = Get.arguments ?? 0;
@@ -15,7 +16,7 @@ class MainAdminController extends GetxController {
   List<Widget> pages = [
     OrderProccessView(),
     HistoryRestoView(),
-    MenuView(),
+    MenuAdminView(),
     SettingView()
   ];
 

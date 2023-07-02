@@ -35,6 +35,7 @@ abstract class Routes {
   static const CAMPAIGN = _Paths.CAMPAIGN;
   static const CHENGE_PASSWORD = _Paths.CHENGE_PASSWORD;
   static const MENU_ADMIN = _Paths.MENU_ADMIN;
+  static const EDIT_MENU = _Paths.EDIT_MENU;
 }
 
 abstract class _Paths {
@@ -71,4 +72,5 @@ abstract class _Paths {
   static const CAMPAIGN = '/campaign';
   static const CHENGE_PASSWORD = '/chenge-password';
   static const MENU_ADMIN = '/menu-admin';
+  static const EDIT_MENU = '/edit-menu';
 }

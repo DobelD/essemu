@@ -38,6 +38,7 @@ dependencies:
   animations: 2.0.7
   flutter_keyboard_visibility: 5.4.1
   carousel_slider: 4.2.1
+  floating_action_bubble: 1.1.4
   flutter: 
     sdk: flutter
 

@@ -467,4 +467,9 @@ class Endpoint {
         fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
     return image;
   }
+
+  deleteMenu(int id) async {
+    final item = await client.from('menu').delete().eq('id', id);
+    return item;
+  }
 }

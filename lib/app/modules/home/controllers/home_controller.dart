@@ -35,12 +35,12 @@ class HomeController extends GetxController {
   bool isOnline = false;
   bool loading = true;
   List<Categories> _category = [];
+  List<Categories> get category => _category;
   // ignore: unused_field
   List<Menu> _menu = [];
   List<Menu> _searchMenu = [];
   List<i.ItemOrder> _items = [];
   List<i.ItemOrder> get items => _items;
-  List<Categories> get category => _category;
   List<Menu> get menu => _searchMenu;
   List<Campaign> _campaign = [];
   List<Campaign> get campaign => _campaign;
