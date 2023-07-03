@@ -10,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/utils/initialize/notification_initialize.dart';
 import 'app/utils/initialize/supabase_initialize.dart';
 
 Future<void> main() async {
@@ -20,6 +21,7 @@ Future<void> main() async {
     anonKey: Initial.key,
   );
   await Permission.location.request();
+  NotificationService.initialize();
 
   runApp(
     ScreenUtilInit(

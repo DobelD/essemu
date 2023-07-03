@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:essemu/app/modules/home/controllers/home_controller.dart';
 import 'package:essemu/app/modules/home/services/order_service.dart';
 import 'package:essemu/app/routes/app_pages.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../utils/initialize/notification_initialize.dart';
+
 class FloatingOrder extends StatelessWidget {
   const FloatingOrder({super.key});
 
@@ -19,11 +22,52 @@ class FloatingOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     OrderService serviceOrder = OrderService();
     final controller = Get.put(HomeController());
-    // int userId = controller.idUser;
+    // ValueNotifier<String> currentStatus = ValueNotifier<String>('');
+    String currentStatus = '';
+
+    showNotification(String status) {
+      print(status);
+      if (currentStatus == status) {
+        return; // Jika status sama, keluar dari method
+      }
+      String title = 'Berhasil';
+      String body = '';
+      String summary = 'Pesanan';
+      NotificationLayout notificationLayout = NotificationLayout.Inbox;
+      switch (status) {
+        case 'terima':
+          body = 'Pesanan anda sudah kami terima';
+          break;
+        case 'proses':
+          body = 'Pesanan anda sedang kami proses';
+          break;
+        case 'antar':
+          body = 'Pesanan anda sedang kami antar';
+          break;
+        case 'tolak':
+          body = 'Pesanan anda kami tolak';
+          break;
+        default:
+          break;
+      }
+
+      if (body.isNotEmpty) {
+        NotificationService.createNotification(
+          title: title,
+          body: body,
+          summary: summary,
+          notificationLayout: notificationLayout,
+        );
+      }
+      currentStatus = status;
+    }
+
     return StreamBuilder<Map<String, dynamic>>(
         stream: serviceOrder.getData(controller.idUser),
         builder: (context, snap) {
           // DetailOrderController(status: snap.data?.status);
+          showNotification(snap.data?['status']);
+
           final status = snap.data?['status'] == 'terima'
               ? Status.terima.text
               : snap.data?['status'] == 'proses'

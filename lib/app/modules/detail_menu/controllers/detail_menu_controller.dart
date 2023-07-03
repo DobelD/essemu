@@ -97,7 +97,6 @@ class DetailMenuController extends GetxController {
     temp['menu_id'] = menuId;
     temp['qty'] = counter;
     temp['count_price'] = countPrice;
-
     return temp;
   }
 

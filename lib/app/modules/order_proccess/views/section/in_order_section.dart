@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:essemu/app/components/dialog/app_dialog.dart';
 import 'package:essemu/app/data/orders.dart';
 import 'package:essemu/app/modules/order_proccess/controllers/order_proccess_controller.dart';
@@ -17,6 +18,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 import '../../../../components/bottom_sheet/bottom_sheet.dart';
+import '../../../../utils/initialize/notification_initialize.dart';
 import '../../services/order_services.dart';
 import '../widget/item_order.dart';
 
@@ -26,6 +28,25 @@ class InOrderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OrderService service = OrderService();
+    int currentLenght = 0;
+
+    showNotification(int lenght) {
+      print(lenght);
+      if (currentLenght == lenght) {
+        return; // Jika lenght sama, keluar dari method
+      }
+      String title = 'Order';
+      String body = 'Ada pesanan masuk';
+      String summary = 'Pesanan';
+      NotificationLayout notificationLayout = NotificationLayout.Inbox;
+      NotificationService.createNotification(
+        title: title,
+        body: body,
+        summary: summary,
+        notificationLayout: notificationLayout,
+      );
+      currentLenght = lenght;
+    }
 
     final controller = Get.put(OrderProccessController());
     return Obx(() => StreamBuilder<List<Order>>(
@@ -33,6 +54,7 @@ class InOrderSection extends StatelessWidget {
             ? service.getDataes(controller.idUser)
             : service.getDatae(controller.idUser),
         builder: (_, snapshot) {
+          showNotification(snapshot.data?.length ?? 0);
           List<Order> sortingData = [];
           int count = 0;
 

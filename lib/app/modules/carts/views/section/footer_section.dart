@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../components/dialog/app_dialog.dart';
 import '../../controllers/carts_controller.dart';
 
 class FooterSection extends StatelessWidget {
@@ -19,12 +18,22 @@ class FooterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final ctrlHome = Get.put(HomeController());
     return GetBuilder<CartsController>(builder: (c) {
-      double totalFee = c.deliveryFee * ctrlHome.roundedDistance;
+      double totalFee;
+      if (ctrlHome.roundedDistance > 4.0) {
+        double remainingDistance = ctrlHome.roundedDistance - 4.0;
+        double additionalFee = remainingDistance * 5000;
+        totalFee = additionalFee + (c.deliveryFee * 4.0);
+      } else {
+        totalFee = c.deliveryFee * ctrlHome.roundedDistance;
+      }
+
       int subTotal = 0;
       for (var item in c.cartOrder) {
         subTotal += item.menu.price! * item.qty;
       }
+
       double total = subTotal + totalFee;
+
       return Container(
           height: 200.w,
           width: Get.width,
@@ -97,10 +106,8 @@ class FooterSection extends StatelessWidget {
                     label: c.isOpen ? 'Checkout' : 'Closed',
                     // onPressed: () => c.getOrder(ctrlHome.idUser),
                     onPressed: c.isOpen
-                        ? () => Get.dialog(AppDialog(
-                              onPressed: () => c.checkout(ctrlHome.idUser,
-                                  total.toInt(), totalFee.toInt()),
-                            ))
+                        ? () => c.checkRadius(
+                            ctrlHome.idUser, total.toInt(), totalFee.toInt())
                         : null,
                   ))
             ],

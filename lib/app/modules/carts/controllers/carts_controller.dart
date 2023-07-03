@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../components/dialog/app_dialog.dart';
 import '../../../data/menu_payload.dart';
 import '../../../provider/endpoint.dart';
 import '../../../routes/app_pages.dart';
@@ -134,6 +135,20 @@ class CartsController extends GetxController {
     }
   }
 
+  checkRadius(int id, int totalPrice, int deliveryFee) {
+    print(ctrlHome.roundedDistance);
+    if (ctrlHome.roundedDistance <= 4.0) {
+      Get.dialog(AppDialog(
+        onPressed: () => checkout(ctrlHome.idUser, totalPrice, deliveryFee),
+      ));
+    } else {
+      Get.dialog(AppDialog(
+        isOver: true,
+        onPressed: () => checkout(ctrlHome.idUser, totalPrice, deliveryFee),
+      ));
+    }
+  }
+
   checkout(int id, int totalPrice, int deliveryFee) async {
     List<MenuPayload> mappedList = List<MenuPayload>.generate(listMenu.length,
         (index) => MenuPayload(id: listMenu[index], qty: listQty[index]));
@@ -203,13 +218,13 @@ class CartsController extends GetxController {
     DateTime jamBuka =
         formatJam.parse('$tahunSekarang-$bulanSekarang-$tanggalSekarang 08:00');
     DateTime jamTutup =
-        formatJam.parse('$tahunSekarang-$bulanSekarang-$tanggalSekarang 21:00');
+        formatJam.parse('$tahunSekarang-$bulanSekarang-$tanggalSekarang 01:00');
 
     if (sekarang.isAfter(jamBuka) && sekarang.isBefore(jamTutup)) {
       isOpen = true;
       update();
     } else {
-      isOpen = false;
+      isOpen = true;
       update();
     }
   }

@@ -11,4 +11,5 @@ class LtAssets {
   static const String emptyOrder = 'assets/lottie/empty-order.json';
   static const String deliveryBike = 'assets/lottie/delivery-bike.json';
   static const String cencel = 'assets/lottie/cencel.json';
+  static const String overRadius = 'assets/lottie/over-radius.json';
 }
