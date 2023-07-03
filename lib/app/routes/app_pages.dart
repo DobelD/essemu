@@ -42,8 +42,6 @@ import '../modules/main_admin/bindings/main_admin_binding.dart';
 import '../modules/main_admin/views/main_admin_view.dart';
 import '../modules/main_pages/bindings/main_pages_binding.dart';
 import '../modules/main_pages/views/main_pages_view.dart';
-import '../modules/menu/bindings/menu_binding.dart';
-import '../modules/menu/views/menu_view.dart';
 import '../modules/menu_admin/bindings/menu_admin_binding.dart';
 import '../modules/menu_admin/views/menu_admin_view.dart';
 import '../modules/menu_bycategory/bindings/menu_bycategory_binding.dart';
@@ -115,11 +113,6 @@ class AppPages {
       name: _Paths.MAIN_ADMIN,
       page: () => const MainAdminView(),
       binding: MainAdminBinding(),
-    ),
-    GetPage(
-      name: _Paths.MENU,
-      page: () => const MenuView(),
-      binding: MenuBinding(),
     ),
     GetPage(
       name: _Paths.ADD_MENU,

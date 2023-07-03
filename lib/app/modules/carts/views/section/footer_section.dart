@@ -94,12 +94,14 @@ class FooterSection extends StatelessWidget {
               SizedBox(
                   width: Get.width,
                   child: AppButtonPrimary(
-                    label: 'Checkout',
+                    label: c.isOpen ? 'Checkout' : 'Closed',
                     // onPressed: () => c.getOrder(ctrlHome.idUser),
-                    onPressed: () => Get.dialog(AppDialog(
-                      onPressed: () => c.checkout(
-                          ctrlHome.idUser, total.toInt(), totalFee.toInt()),
-                    )),
+                    onPressed: c.isOpen
+                        ? () => Get.dialog(AppDialog(
+                              onPressed: () => c.checkout(ctrlHome.idUser,
+                                  total.toInt(), totalFee.toInt()),
+                            ))
+                        : null,
                   ))
             ],
           ));

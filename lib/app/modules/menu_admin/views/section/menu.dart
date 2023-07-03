@@ -11,6 +11,7 @@ class MenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(MenuAdminController());
     return GetBuilder<MenuAdminController>(builder: (c) {
       return SliverPadding(

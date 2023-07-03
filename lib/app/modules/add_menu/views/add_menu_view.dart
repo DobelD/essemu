@@ -20,6 +20,7 @@ class AddMenuView extends GetView<AddMenuController> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AddMenuController());
+    String action = Get.arguments['action'];
     return GetBuilder<AddMenuController>(builder: (c) {
       return AppLoading(
         isLoading: c.isLoading,
@@ -29,7 +30,7 @@ class AddMenuView extends GetView<AddMenuController> {
             surfaceTintColor: kWhite,
             centerTitle: true,
             title: Text(
-              'Add Menu',
+              action == 'edit' ? 'Edit Menu' : 'Add Menu',
               style: AppTextTheme.current.appBarTitleDark,
             ),
           ),
@@ -72,7 +73,7 @@ class AddMenuView extends GetView<AddMenuController> {
                             borderRadius: AppRadius.icon)),
                     onPressed: () => controller.addMenu(),
                     child: Text(
-                      'Tambah Menu',
+                      action == 'edit' ? 'Simpan Menu' : 'Tambah Menu',
                       style: AppTextTheme.current.bodyTextWhite,
                     )),
               ),

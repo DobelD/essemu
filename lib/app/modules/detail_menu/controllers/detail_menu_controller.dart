@@ -36,7 +36,6 @@ class DetailMenuController extends GetxController {
     getFavorite(idUser);
     homeC.getMenu(homeC.idSelected);
     update();
-    print(favorite);
   }
 
   void incrementCounter(int value) {

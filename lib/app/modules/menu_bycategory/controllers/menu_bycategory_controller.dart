@@ -84,7 +84,6 @@ class MenuBycategoryController extends GetxController {
     getFavorite(userId);
     homeC.getMenu(homeC.idSelected);
     update();
-    print(favorite);
   }
 
   @override

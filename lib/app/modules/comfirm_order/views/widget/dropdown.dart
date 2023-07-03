@@ -1,4 +1,3 @@
-import 'package:essemu/app/modules/add_menu/controllers/add_menu_controller.dart';
 import 'package:essemu/app/modules/comfirm_order/controllers/comfirm_order_controller.dart';
 import 'package:essemu/app/themes/colors/colors.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +60,7 @@ class DropCourier extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: AppRadius.icon,
                 color: kSoftGrey.withOpacity(0.4)),
-            child: GetBuilder<AddMenuController>(builder: (context) {
+            child: GetBuilder<ComfirmOrderController>(builder: (context) {
               return DropdownButton<String>(
                   value: controller.selectCr,
                   hint: Text(

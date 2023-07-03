@@ -168,10 +168,31 @@ class Endpoint {
     }
   }
 
+  editMenu(Map<String, dynamic> value, int id) async {
+    try {
+      final add = await client.from('menu').update(value).eq('id', id);
+      return add;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   addImagesMenu(String name, String path) async {
     final image = await client.storage.from('orderfood').upload(
         '$name', File(path),
         fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
+    return image;
+  }
+
+  editImagesMenu(String name, String path) async {
+    final image = await client.storage.from('orderfood').update(
+        '$name', File(path),
+        fileOptions: const FileOptions(cacheControl: '3600', upsert: false));
+    return image;
+  }
+
+  deleteImagesMenu(String path) async {
+    final image = await client.storage.from('orderfood').remove([path]);
     return image;
   }
 

@@ -9,12 +9,12 @@ import 'package:essemu/app/themes/typograpy/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../data/menu_payload.dart';
 import '../../../provider/endpoint.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/session/session_manager.dart';
-import '../../home/services/foreground_sevice.dart';
 import '../services/cart_service.dart';
 import '../services/order_service.dart';
 import '../services/update_count_service.dart';
@@ -44,6 +44,7 @@ class CartsController extends GetxController {
   List<int> listQty = [];
   List<int> listMenu = [];
   List<int> durations = [];
+  bool isOpen = true;
 
   double avgDuration = 0.0;
   Endpoint endpoint = Endpoint();
@@ -156,7 +157,6 @@ class CartsController extends GetxController {
     }
     await endpoint.checkout(payloads);
     await endpoint.deleteCart(id);
-    StreamService.init();
     isLoading = false;
     update();
     Get.offNamedUntil(Routes.MAIN_PAGES, (route) => route.isFirst);
@@ -192,9 +192,32 @@ class CartsController extends GetxController {
     update();
   }
 
+  void checkOpen() {
+    DateTime sekarang = DateTime.now();
+
+    int tahunSekarang = sekarang.year;
+    int bulanSekarang = sekarang.month;
+    int tanggalSekarang = sekarang.day;
+
+    DateFormat formatJam = DateFormat('yyyy-MM-dd HH:mm');
+    DateTime jamBuka =
+        formatJam.parse('$tahunSekarang-$bulanSekarang-$tanggalSekarang 08:00');
+    DateTime jamTutup =
+        formatJam.parse('$tahunSekarang-$bulanSekarang-$tanggalSekarang 21:00');
+
+    if (sekarang.isAfter(jamBuka) && sekarang.isBefore(jamTutup)) {
+      isOpen = true;
+      update();
+    } else {
+      isOpen = false;
+      update();
+    }
+  }
+
   @override
   void onInit() {
     getData(ctrlHome.idUser);
+    checkOpen();
     getUsers();
     super.onInit();
   }

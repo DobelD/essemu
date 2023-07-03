@@ -40,4 +40,8 @@ class MenuService {
       return false;
     }
   }
+
+  deletedImage(String path) async {
+    await endpoint.deleteImagesMenu(path);
+  }
 }

@@ -12,7 +12,6 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const HISTORY = _Paths.HISTORY;
   static const MAIN_ADMIN = _Paths.MAIN_ADMIN;
-  static const MENU = _Paths.MENU;
   static const HOMES = _Paths.HOMES;
   static const ADD_MENU = _Paths.ADD_MENU;
   static const ADD_CATEGORY = _Paths.ADD_CATEGORY;
@@ -49,7 +48,6 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const HISTORY = '/history';
   static const MAIN_ADMIN = '/main-admin';
-  static const MENU = '/menu';
   static const HOMES = '/homes';
   static const ADD_MENU = '/add-menu';
   static const ADD_CATEGORY = '/add-category';

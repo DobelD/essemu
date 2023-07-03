@@ -41,5 +41,5 @@ GetSnackBar appSnackBarSuccess(String massage) {
         color: kWhite,
         size: 20,
       ),
-      messageText: Text(massage, style: AppTextTheme.current.bodyText));
+      messageText: Text(massage, style: AppTextTheme.current.bodyTextWhite));
 }

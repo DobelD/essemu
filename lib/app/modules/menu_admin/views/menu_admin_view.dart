@@ -16,27 +16,13 @@ class MenuAdminView extends GetView<MenuAdminController> {
     final controller = Get.put(MenuAdminController());
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          //   onPress: () => controller.animationController.isCompleted
-          //       ? controller.animationController.reverse()
-          //       : controller.animationController.forward(),
-          //   iconColor: kWhite,
-          //   backGroundColor: kBlack,
-          //   animation: controller.animation,
-          //   items: [
-          //     Bubble(
-          //       title: "Add Menu",
-          //       iconColor: Colors.white,
-          //       bubbleColor: Colors.black,
-          //       icon: Icons.add,
-          //       titleStyle: TextStyle(fontSize: 16, color: Colors.white),
-          //       onPress: () => Get.toNamed(Routes.ADD_MENU),
-          //     ),
-          //   ],
+          shape: CircleBorder(),
           child: const Icon(
             Icons.add,
             color: kWhite,
           ),
-          onPressed: () => Get.toNamed(Routes.ADD_MENU),
+          onPressed: () => Get.toNamed(Routes.ADD_MENU,
+              arguments: {'action': 'add', 'menu': 'menu'}),
         ),
         body: RefreshIndicator(
           onRefresh: () async {

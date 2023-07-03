@@ -27,18 +27,12 @@ dependencies:
   animated_text_kit: 4.2.2
   badges: 3.1.1
   intl: 0.18.1
-  supabase: 1.9.0
-  workmanager: 0.5.1
-  cron: 0.5.1
-  flutter_background_service: 2.4.6
-  flutter_background_service_android: 3.0.3
-  flutter_background_service_ios: 2.4.0
   url_launcher: 6.1.11
   dotted_border: 2.0.0+3
   animations: 2.0.7
   flutter_keyboard_visibility: 5.4.1
   carousel_slider: 4.2.1
-  floating_action_bubble: 1.1.4
+  fan_floating_menu: 0.0.1
   flutter: 
     sdk: flutter
 

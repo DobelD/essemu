@@ -12,10 +12,13 @@ import '../services/category_api.dart';
 
 class AddMenuController extends GetxController {
   // Editing Controller
-  TextEditingController namaC = TextEditingController();
-  TextEditingController deskC = TextEditingController();
-  TextEditingController hargaC = TextEditingController();
-  TextEditingController kategoriC = TextEditingController();
+  late TextEditingController namaC;
+  late TextEditingController deskC;
+  late TextEditingController hargaC;
+  late TextEditingController kategoriC;
+  String publicUrlImages =
+      'https://yccxlnodtgrnbcfdjqcg.supabase.co/storage/v1/object/public/orderfood/';
+  Menu dataMenu = Menu();
 
   // Endpoint Url
   Endpoint endpoint = Endpoint();
@@ -93,18 +96,27 @@ class AddMenuController extends GetxController {
     if (namaC.text.isNotEmpty &&
         deskC.text.isNotEmpty &&
         hargaC.text.isNotEmpty &&
-        selectCtg!.isNotEmpty &&
-        menu!.path.isNotEmpty) {
-      await endpoint.addMenu(menuPayload());
-      await endpoint.addImagesMenu('${namaC.text}', menu!.path);
-      namaC.clear();
-      deskC.clear();
-      hargaC.clear();
-      selectCtg = null;
-      menu?.delete();
+        selectCtg!.isNotEmpty) {
+      if (Get.arguments['action'] != 'edit') {
+        await endpoint.addMenu(menuPayload());
+        await endpoint.addImagesMenu('${namaC.text}', menu!.path);
+        namaC.clear();
+        deskC.clear();
+        hargaC.clear();
+        selectCtg = null;
+        menu?.delete();
+      } else {
+        await endpoint.editMenu(menuPayload(), dataMenu.id ?? 0);
+        if (menu != null) {
+          await endpoint.editImagesMenu('${namaC.text}', menu!.path);
+        }
+      }
+
       isLoading = false;
       update();
-      Get.showSnackbar(appSnackBarSuccess('Berhasil menambahkan menu'));
+      Get.showSnackbar(appSnackBarSuccess(Get.arguments['action'] == 'edit'
+          ? 'Berhasil edit menu'
+          : 'Berhasil menambahkan menu'));
     } else {
       isLoading = false;
       update();
@@ -118,18 +130,38 @@ class AddMenuController extends GetxController {
     temp['name'] = namaC.text;
     temp['description'] = deskC.text;
     temp['price'] = hargaC.text;
-    temp['image_url'] = menu!.path;
+    temp['image_url'] = menu?.path ?? '-';
     temp['category_id'] = categoryId;
     temp['restaurant_id'] = 1;
-    temp['favorit'] = false;
     return temp;
+  }
+
+  void addEditor() {
+    if (Get.arguments['action'] == 'edit') {
+      dataMenu = Get.arguments['menu'];
+      selectCtg = dataMenu.categories?.name;
+      categoryId = dataMenu.categories?.id ?? 0;
+      changeCategory(
+          '{id: ${dataMenu.categories?.id}, name: ${dataMenu.categories?.name}}');
+      namaC = TextEditingController(text: dataMenu.name);
+      deskC = TextEditingController(text: dataMenu.description);
+      hargaC = TextEditingController(text: '${dataMenu.price ?? 0}');
+      kategoriC = TextEditingController(text: dataMenu.categories?.name);
+    } else {
+      namaC = TextEditingController(text: '');
+      deskC = TextEditingController(text: '');
+      hargaC = TextEditingController(text: '');
+      kategoriC = TextEditingController(text: '');
+    }
   }
 
   // OnInit
 
   @override
   void onInit() {
+    addEditor();
     getCategory();
+
     super.onInit();
   }
 }

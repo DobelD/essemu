@@ -77,7 +77,7 @@ class DropKategori extends StatelessWidget {
                           )))
                       .toList(),
                   onChanged: (value) {
-                    controller.changeCategory(value!);
+                    controller.changeCategory(value ?? '');
                   });
             })),
       ],

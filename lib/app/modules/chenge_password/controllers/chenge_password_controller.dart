@@ -35,7 +35,6 @@ class ChengePasswordController extends GetxController {
     if (passC.text == comfrPassc.text) {
       final response =
           await client.auth.updateUser(UserAttributes(password: passC.text));
-      print(response);
       isLoading = false;
       update();
       email.clear();

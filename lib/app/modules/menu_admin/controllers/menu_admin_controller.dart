@@ -58,11 +58,12 @@ class MenuAdminController extends GetxController
     setMenu(data);
   }
 
-  void deleteMenu(int id, int idCategory) async {
+  void deleteMenu(int id, int idCategory, String nama) async {
     final service = MenuService();
     final menue = await service.delete(id);
     if (menue) {
       getMenu(idCategory);
+      service.deletedImage(nama);
       Get.showSnackbar(GetSnackBar(
         borderRadius: 8.r,
         backgroundColor: kSuccess1,
